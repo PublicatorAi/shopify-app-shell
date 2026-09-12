@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="shopify-api-key" content="99416c7650844bbef629fc65c5d3b575" />
+<script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+<title>Publicator AI</title>
+<style type="text/css">/*<![CDATA[*/
+:root { --bg:#f6f6f7; --card:#ffffff; --ink:#1a1a1a; --muted:#616161; --line:#e3e3e3;
+  --brand:#008060; --brand-ink:#004c3f; --danger:#d72c0d; --ok:#008060; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif; font-size:14px; }
+#pubai-root { padding:20px; max-width:1040px; margin:0 auto; }
+.pubai-loading { display:flex; align-items:center; gap:10px; color:var(--muted); padding:40px 0; }
+.pubai-spinner { width:18px; height:18px; border:2px solid var(--line); border-top-color:var(--brand);
+  border-radius:50%; animation:spin .8s linear infinite; display:inline-block; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.pubai-topbar,.pubai-brand { font-weight:700; }
+.pubai-brand { font-size:16px; color:var(--brand-ink); }
+.pubai-shell { max-width:520px; margin:0 auto; }
+.pubai-card { background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:20px; margin-top:16px; box-shadow:0 1px 0 rgba(0,0,0,.03); }
+.pubai-card-title { margin:0 0 6px; font-size:18px; }
+.pubai-h1 { font-size:22px; margin:0 0 4px; }
+.pubai-muted { color:var(--muted); margin:4px 0; }
+.pubai-field { margin:14px 0; }
+.pubai-label { display:block; font-weight:600; margin-bottom:6px; }
+.pubai-input { width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px;
+  font-size:14px; background:#fff; }
+.pubai-btn { border:1px solid transparent; border-radius:8px; padding:9px 16px; font-size:14px;
+  font-weight:600; cursor:pointer; margin-top:8px; }
+.pubai-btn-primary { background:var(--brand); color:#fff; }
+.pubai-btn-secondary { background:#fff; border-color:var(--line); color:var(--ink); }
+.pubai-btn-plain { background:transparent; color:var(--muted); }
+.pubai-btn-danger { background:var(--danger); color:#fff; }
+.pubai-btn:disabled { opacity:.6; cursor:default; }
+.pubai-toggle { display:flex; gap:6px; margin:14px 0; }
+.pubai-pill { flex:1; padding:8px; border:1px solid var(--line); background:#fff; border-radius:8px;
+  cursor:pointer; font-weight:600; }
+.pubai-pill.is-active { border-color:var(--brand); color:var(--brand-ink); background:#f0faf6; }
+.pubai-note { background:#f0faf6; border:1px solid #b9e3d3; padding:8px 12px; border-radius:8px; margin:10px 0; }
+.pubai-banner { padding:10px 14px; border-radius:8px; margin:12px 0; }
+.pubai-banner-critical { background:#fff0f0; border:1px solid #f4b6ab; color:#8a1c0a; }
+.pubai-app { display:grid; grid-template-columns:220px 1fr; gap:20px; }
+.pubai-sidebar { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px;
+  height:fit-content; position:sticky; top:20px; }
+.pubai-chip { display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; margin:8px 0; }
+.pubai-chip-ok { background:#e3f5ee; color:var(--brand-ink); }
+.pubai-nav { display:flex; flex-direction:column; gap:2px; margin-top:8px; }
+.pubai-tab { text-align:left; padding:9px 12px; border:none; background:transparent; border-radius:8px;
+  cursor:pointer; font-size:14px; color:var(--ink); }
+.pubai-tab.is-active { background:#f0faf6; color:var(--brand-ink); font-weight:600; }
+.pubai-version { color:var(--muted); font-size:12px; margin-top:16px; }
+.pubai-stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px; }
+.pubai-stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+.pubai-stat-num { display:block; font-size:20px; font-weight:700; }
+.pubai-stat-label { color:var(--muted); font-size:13px; }
+.pubai-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0;
+  border-bottom:1px solid var(--line); gap:12px; }
+.pubai-row:last-child { border-bottom:none; }
+.pubai-code { font-family:ui-monospace,monospace; background:#f6f6f7; padding:2px 8px; border-radius:6px; }
+.pubai-actions { display:flex; align-items:center; gap:12px; margin-top:12px; flex-wrap:wrap; }
+.pubai-inline-note { color:var(--muted); font-size:13px; }
+.pubai-danger { border-color:#f4b6ab; }
+@media (max-width:760px) { .pubai-app { grid-template-columns:1fr; } .pubai-stat-grid { grid-template-columns:repeat(2,1fr); } }
+/*]]>*/</style>
+</head>
+<body>
+<div id="pubai-root"></div>
+<script>/*<![CDATA[*/window.__PUBAI__={"apiKey":"99416c7650844bbef629fc65c5d3b575","appBase":"https://wfjirakgiglsowunllsq.supabase.co/functions/v1"};/*]]>*/</script>
+<script>/*<![CDATA[*/(function clientApp() {
+  const CFG = window.__PUBAI__;
+  const $ = (sel, root = document)=>root.querySelector(sel);
+  const el = (tag, props = {}, children = [])=>{
+    const node = document.createElement(tag);
+    Object.assign(node, props);
+    if (props.class) node.className = props.class;
+    for (const c of children){
+      node.append(typeof c === "string" ? document.createTextNode(c) : c);
+    }
+    return node;
+  };
+  const state = {
+    status: null,
+    session: null,
+    projects: [],
+    settings: {},
+    blogs: [],
+    activeTab: "overview",
+    method: "email"
+  };
+  async function token() {
+    if (window.shopify && typeof shopify.idToken === "function") {
+      return await shopify.idToken();
+    }
+    throw new Error("App Bridge not ready.");
+  }
+  async function api(path, body = {}) {
+    const t = await token();
+    const resp = await fetch(`${CFG.appBase}/${path}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${t}`
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await resp.json().catch(()=>({}));
+    if (!resp.ok || data.success === false) {
+      throw new Error(data.error || `Request failed (${resp.status}).`);
+    }
+    return data;
+  }
+  function toast(msg, isError = false) {
+    if (window.shopify && shopify.toast) {
+      shopify.toast.show(msg, isError ? {
+        isError: true
+      } : {});
+    }
+  }
+  // --- Rendering -------------------------------------------------------------
+  const root = ()=>$("#pubai-root");
+  function setRoot(node) {
+    const r = root();
+    r.innerHTML = "";
+    r.append(node);
+  }
+  function spinner(text = "Loading…") {
+    return el("div", {
+      class: "pubai-loading"
+    }, [
+      el("span", {
+        class: "pubai-spinner"
+      }),
+      text
+    ]);
+  }
+  function banner(msg, kind = "critical") {
+    return el("div", {
+      class: `pubai-banner pubai-banner-${kind}`
+    }, [
+      msg
+    ]);
+  }
+  // --- Disconnected (connect) view ------------------------------------------
+  function renderConnect() {
+    const wrap = el("div", {
+      class: "pubai-shell"
+    });
+    wrap.append(header(false));
+    const card = el("div", {
+      class: "pubai-card"
+    });
+    card.append(el("h2", {
+      class: "pubai-card-title"
+    }, [
+      "Connect your store to Publicator AI"
+    ]));
+    card.append(el("p", {
+      class: "pubai-muted"
+    }, [
+      "Sign in with your Publicator AI email and password, or paste an API key from your dashboard."
+    ]));
+    // Method toggle.
+    const toggle = el("div", {
+      class: "pubai-toggle"
+    });
+    const emailPill = el("button", {
+      class: "pubai-pill" + (state.method === "email" ? " is-active" : ""),
+      type: "button"
+    }, [
+      "Email + password"
+    ]);
+    const keyPill = el("button", {
+      class: "pubai-pill" + (state.method === "apikey" ? " is-active" : ""),
+      type: "button"
+    }, [
+      "API key"
+    ]);
+    emailPill.onclick = ()=>{
+      state.method = "email";
+      renderConnect();
+    };
+    keyPill.onclick = ()=>{
+      state.method = "apikey";
+      renderConnect();
+    };
+    toggle.append(emailPill, keyPill);
+    card.append(toggle);
+    const errBox = el("div", {});
+    card.append(errBox);
+    const showErr = (m)=>{
+      errBox.innerHTML = "";
+      errBox.append(banner(m));
+    };
+    if (state.method === "email") {
+      if (!state.session) {
+        const email = el("input", {
+          class: "pubai-input",
+          type: "email",
+          placeholder: "you@example.com"
+        });
+        const pass = el("input", {
+          class: "pubai-input",
+          type: "password",
+          placeholder: "••••••••"
+        });
+        const btn = el("button", {
+          class: "pubai-btn pubai-btn-primary",
+          type: "button"
+        }, [
+          "Sign in"
+        ]);
+        btn.onclick = async ()=>{
+          btn.disabled = true;
+          btn.textContent = "Signing in…";
+          try {
+            const res = await api("shopify-login", {
+              email: email.value,
+              password: pass.value
+            });
+            state.session = res;
+            const p = await api("shopify-projects", {
+              access_token: res.access_token,
+              user_id: res.user_id
+            });
+            state.projects = p.projects || [];
+            renderConnect();
+          } catch (e) {
+            showErr(e.message);
+            btn.disabled = false;
+            btn.textContent = "Sign in";
+          }
+        };
+        card.append(field("Email address", email), field("Password", pass), btn);
+      } else {
+        card.append(el("div", {
+          class: "pubai-note"
+        }, [
+          `Signed in as ${state.session.email}`
+        ]));
+        const select = el("select", {
+          class: "pubai-input"
+        });
+        select.append(el("option", {
+          value: ""
+        }, [
+          "— Select a project —"
+        ]));
+        for (const pr of state.projects){
+          select.append(el("option", {
+            value: pr.id
+          }, [
+            pr.domain || pr.name || pr.id
+          ]));
+        }
+        const btn = el("button", {
+          class: "pubai-btn pubai-btn-primary",
+          type: "button"
+        }, [
+          "Connect"
+        ]);
+        btn.onclick = async ()=>{
+          if (!select.value) {
+            showErr("Please select a project.");
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = "Connecting…";
+          try {
+            await api("shopify-connect", {
+              access_token: state.session.access_token,
+              project_id: select.value
+            });
+            toast("Connected to Publicator AI");
+            await load();
+          } catch (e) {
+            showErr(e.message);
+            btn.disabled = false;
+            btn.textContent = "Connect";
+          }
+        };
+        const back = el("button", {
+          class: "pubai-btn pubai-btn-plain",
+          type: "button"
+        }, [
+          "← Back"
+        ]);
+        back.onclick = ()=>{
+          state.session = null;
+          renderConnect();
+        };
+        card.append(field("Select a project", select), btn, back);
+      }
+    } else {
+      const key = el("input", {
+        class: "pubai-input",
+        type: "text",
+        placeholder: "sk_…"
+      });
+      const btn = el("button", {
+        class: "pubai-btn pubai-btn-primary",
+        type: "button"
+      }, [
+        "Connect"
+      ]);
+      btn.onclick = async ()=>{
+        btn.disabled = true;
+        btn.textContent = "Connecting…";
+        try {
+          await api("shopify-connect-key", {
+            publicator_key: key.value.trim()
+          });
+          toast("Connected to Publicator AI");
+          await load();
+        } catch (e) {
+          showErr(e.message);
+          btn.disabled = false;
+          btn.textContent = "Connect";
+        }
+      };
+      card.append(field("API key", key), btn);
+    }
+    wrap.append(card);
+    setRoot(wrap);
+  }
+  function field(label, input) {
+    return el("div", {
+      class: "pubai-field"
+    }, [
+      el("label", {
+        class: "pubai-label"
+      }, [
+        label
+      ]),
+      input
+    ]);
+  }
+  // --- Connected app ---------------------------------------------------------
+  const TABS = [
+    {
+      id: "overview",
+      label: "Overview"
+    },
+    {
+      id: "connection",
+      label: "Connection"
+    },
+    {
+      id: "products",
+      label: "Products"
+    },
+    {
+      id: "taxonomies",
+      label: "Collections & tags"
+    },
+    {
+      id: "appearance",
+      label: "Appearance"
+    },
+    {
+      id: "settings",
+      label: "Settings"
+    }
+  ];
+  function renderApp() {
+    const wrap = el("div", {
+      class: "pubai-app"
+    });
+    const side = el("aside", {
+      class: "pubai-sidebar"
+    });
+    side.append(el("div", {
+      class: "pubai-brand"
+    }, [
+      "Publicator AI"
+    ]));
+    side.append(el("span", {
+      class: "pubai-chip pubai-chip-ok"
+    }, [
+      "Connected"
+    ]));
+    const nav = el("nav", {
+      class: "pubai-nav"
+    });
+    for (const t of TABS){
+      const b = el("button", {
+        class: "pubai-tab" + (state.activeTab === t.id ? " is-active" : ""),
+        type: "button"
+      }, [
+        t.label
+      ]);
+      b.onclick = ()=>{
+        state.activeTab = t.id;
+        renderApp();
+      };
+      nav.append(b);
+    }
+    side.append(nav);
+    side.append(el("div", {
+      class: "pubai-version"
+    }, [
+      "v1.0.0"
+    ]));
+    wrap.append(side);
+    const main = el("main", {
+      class: "pubai-main"
+    });
+    main.append(panelFor(state.activeTab));
+    wrap.append(main);
+    setRoot(wrap);
+  }
+  function panelFor(tab) {
+    switch(tab){
+      case "overview":
+        return overviewPanel();
+      case "connection":
+        return connectionPanel();
+      case "products":
+        return productsPanel();
+      case "taxonomies":
+        return taxonomiesPanel();
+      case "appearance":
+        return appearancePanel();
+      case "settings":
+        return settingsPanel();
+      default:
+        return overviewPanel();
+    }
+  }
+  function pageHead(title, subtitle) {
+    return el("div", {}, [
+      el("h1", {
+        class: "pubai-h1"
+      }, [
+        title
+      ]),
+      el("p", {
+        class: "pubai-muted"
+      }, [
+        subtitle
+      ])
+    ]);
+  }
+  function stat(num, label) {
+    return el("div", {
+      class: "pubai-stat"
+    }, [
+      el("span", {
+        class: "pubai-stat-num"
+      }, [
+        String(num)
+      ]),
+      el("span", {
+        class: "pubai-stat-label"
+      }, [
+        label
+      ])
+    ]);
+  }
+  function fmtDate(v) {
+    if (!v) return "—";
+    try {
+      return new Date(v).toLocaleString();
+    } catch  {
+      return String(v);
+    }
+  }
+  function overviewPanel() {
+    const s = state.status;
+    const p = el("section", {}, [
+      pageHead("Overview", "Live snapshot of your Publicator AI connection.")
+    ]);
+    const grid = el("div", {
+      class: "pubai-stat-grid"
+    }, [
+      stat(s.products_synced ?? 0, "Products synced"),
+      stat(s.default_blog_id ? "Yes" : "Auto", "Default blog"),
+      stat(fmtDate(s.last_feed_sync_at), "Last feed sync"),
+      stat(fmtDate(s.connected_at), "Connected")
+    ]);
+    p.append(grid);
+    const meta = el("div", {
+      class: "pubai-card"
+    }, [
+      row("Store", s.shop),
+      row("Project", s.project_domain || "—")
+    ]);
+    p.append(meta);
+    return p;
+  }
+  function row(label, value) {
+    return el("div", {
+      class: "pubai-row"
+    }, [
+      el("span", {
+        class: "pubai-muted"
+      }, [
+        label
+      ]),
+      el("strong", {}, [
+        value
+      ])
+    ]);
+  }
+  function connectionPanel() {
+    const s = state.status;
+    const p = el("section", {}, [
+      pageHead("Connection", "Connection details and a one-click test.")
+    ]);
+    const card = el("div", {
+      class: "pubai-card"
+    });
+    const keyRow = el("div", {
+      class: "pubai-row"
+    }, [
+      el("span", {
+        class: "pubai-muted"
+      }, [
+        "Project API key"
+      ]),
+      el("code", {
+        class: "pubai-code"
+      }, [
+        s.publicator_key_masked || "—"
+      ])
+    ]);
+    card.append(keyRow);
+    card.append(row("Store", s.shop));
+    card.append(row("Connected on", fmtDate(s.connected_at)));
+    const testBtn = el("button", {
+      class: "pubai-btn pubai-btn-secondary",
+      type: "button"
+    }, [
+      "Test connection"
+    ]);
+    const testOut = el("span", {
+      class: "pubai-inline-note"
+    });
+    testBtn.onclick = async ()=>{
+      testBtn.disabled = true;
+      testOut.textContent = "Testing…";
+      try {
+        const r = await api("shopify-test", {});
+        testOut.textContent = `OK — ${r.shop_name}`;
+      } catch (e) {
+        testOut.textContent = e.message;
+      }
+      testBtn.disabled = false;
+    };
+    card.append(el("div", {
+      class: "pubai-actions"
+    }, [
+      testBtn,
+      testOut
+    ]));
+    p.append(card);
+    return p;
+  }
+  function productsPanel() {
+    const s = state.status;
+    const p = el("section", {}, [
+      pageHead("Products", "Sync your Shopify catalog into Publicator AI.")
+    ]);
+    const card = el("div", {
+      class: "pubai-card"
+    });
+    card.append(el("p", {
+      class: "pubai-muted"
+    }, [
+      "Publicator AI writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store."
+    ]));
+    card.append(row("Products synced", String(s.products_synced ?? 0)));
+    card.append(row("Last sync", fmtDate(s.last_feed_sync_at)));
+    const btn = el("button", {
+      class: "pubai-btn pubai-btn-primary",
+      type: "button"
+    }, [
+      "Sync products now"
+    ]);
+    const out = el("span", {
+      class: "pubai-inline-note"
+    });
+    btn.onclick = async ()=>{
+      btn.disabled = true;
+      out.textContent = "Starting sync…";
+      try {
+        const r = await api("shopify-products-sync", {});
+        out.textContent = r.bulk_operation_id ? "Sync started. Products will appear shortly." : "Sync requested.";
+        toast("Product sync started");
+      } catch (e) {
+        out.textContent = e.message;
+      }
+      btn.disabled = false;
+    };
+    card.append(el("div", {
+      class: "pubai-actions"
+    }, [
+      btn,
+      out
+    ]));
+    p.append(card);
+    return p;
+  }
+  function taxonomiesPanel() {
+    const p = el("section", {}, [
+      pageHead("Collections & tags", "Keep Publicator AI in sync with your store's collections.")
+    ]);
+    const card = el("div", {
+      class: "pubai-card"
+    });
+    card.append(el("p", {
+      class: "pubai-muted"
+    }, [
+      "Push your Shopify blogs, collections and product types to Publicator AI so the AI only uses taxonomies that really exist."
+    ]));
+    const btn = el("button", {
+      class: "pubai-btn pubai-btn-primary",
+      type: "button"
+    }, [
+      "Sync collections & tags"
+    ]);
+    const out = el("span", {
+      class: "pubai-inline-note"
+    });
+    btn.onclick = async ()=>{
+      btn.disabled = true;
+      out.textContent = "Syncing…";
+      try {
+        const r = await api("shopify-taxonomies-sync", {});
+        out.textContent = `Synced ${r.counts.collections} collections, ${r.counts.blogs} blogs, ${r.counts.product_types} product types.`;
+        toast("Taxonomies synced");
+      } catch (e) {
+        out.textContent = e.message;
+      }
+      btn.disabled = false;
+    };
+    card.append(el("div", {
+      class: "pubai-actions"
+    }, [
+      btn,
+      out
+    ]));
+    p.append(card);
+    return p;
+  }
+  function appearancePanel() {
+    const p = el("section", {}, [
+      pageHead("Appearance", "Where content goes and how it looks.")
+    ]);
+    const card = el("div", {
+      class: "pubai-card"
+    });
+    const blogSel = el("select", {
+      class: "pubai-input"
+    });
+    blogSel.append(el("option", {
+      value: ""
+    }, [
+      "Auto (first blog)"
+    ]));
+    for (const b of state.blogs){
+      const opt = el("option", {
+        value: b.id
+      }, [
+        b.title
+      ]);
+      if (state.settings.default_blog_id === b.id) opt.selected = true;
+      blogSel.append(opt);
+    }
+    card.append(field("Default blog for articles", blogSel));
+    const primary = el("input", {
+      class: "pubai-input",
+      type: "text",
+      placeholder: "#00D170",
+      value: state.settings.primary_color || ""
+    });
+    card.append(field("Primary colour (for CTAs)", primary));
+    const btn = el("button", {
+      class: "pubai-btn pubai-btn-primary",
+      type: "button"
+    }, [
+      "Save appearance"
+    ]);
+    const out = el("span", {
+      class: "pubai-inline-note"
+    });
+    btn.onclick = async ()=>{
+      btn.disabled = true;
+      out.textContent = "Saving…";
+      try {
+        const r = await api("shopify-brand", {
+          default_blog_id: blogSel.value,
+          primary_color: primary.value
+        });
+        state.settings = r.settings || state.settings;
+        out.textContent = "Saved.";
+        toast("Appearance saved");
+      } catch (e) {
+        out.textContent = e.message;
+      }
+      btn.disabled = false;
+    };
+    card.append(el("div", {
+      class: "pubai-actions"
+    }, [
+      btn,
+      out
+    ]));
+    p.append(card);
+    return p;
+  }
+  function settingsPanel() {
+    const p = el("section", {}, [
+      pageHead("Settings", "Preferences and disconnection.")
+    ]);
+    const langCard = el("div", {
+      class: "pubai-card"
+    });
+    const langSel = el("select", {
+      class: "pubai-input"
+    });
+    const langs = [
+      [
+        "hu_HU",
+        "Magyar"
+      ],
+      [
+        "en_US",
+        "English"
+      ],
+      [
+        "de_DE",
+        "Deutsch"
+      ],
+      [
+        "es_ES",
+        "Español"
+      ],
+      [
+        "it_IT",
+        "Italiano"
+      ],
+      [
+        "sk_SK",
+        "Slovenčina"
+      ]
+    ];
+    for (const [v, l] of langs){
+      const opt = el("option", {
+        value: v
+      }, [
+        l
+      ]);
+      if ((state.settings.language || "hu_HU") === v) opt.selected = true;
+      langSel.append(opt);
+    }
+    langSel.onchange = async ()=>{
+      try {
+        await api("shopify-brand", {
+          language: langSel.value
+        });
+        state.settings.language = langSel.value;
+        toast("Language saved");
+      } catch (e) {
+        toast(e.message, true);
+      }
+    };
+    langCard.append(field("Interface / content language", langSel));
+    p.append(langCard);
+    const danger = el("div", {
+      class: "pubai-card pubai-danger"
+    });
+    danger.append(el("div", {
+      class: "pubai-label"
+    }, [
+      "Disconnect from Publicator AI"
+    ]));
+    danger.append(el("p", {
+      class: "pubai-muted"
+    }, [
+      "Content already published stays in your store. You can reconnect anytime."
+    ]));
+    const dbtn = el("button", {
+      class: "pubai-btn pubai-btn-danger",
+      type: "button"
+    }, [
+      "Disconnect"
+    ]);
+    dbtn.onclick = async ()=>{
+      dbtn.disabled = true;
+      try {
+        await api("shopify-disconnect", {});
+        toast("Disconnected");
+        await load();
+      } catch (e) {
+        toast(e.message, true);
+        dbtn.disabled = false;
+      }
+    };
+    danger.append(dbtn);
+    p.append(danger);
+    return p;
+  }
+  function header(_connected) {
+    return el("div", {
+      class: "pubai-topbar"
+    }, [
+      el("div", {
+        class: "pubai-brand"
+      }, [
+        "Publicator AI"
+      ])
+    ]);
+  }
+  // --- Boot ------------------------------------------------------------------
+  async function load() {
+    setRoot(spinner());
+    try {
+      const s = await api("shopify-status", {});
+      state.status = s;
+      if (s.connected) {
+        try {
+          const b = await api("shopify-brand", {});
+          state.settings = b.settings || {};
+          state.blogs = b.blogs || [];
+        } catch  {}
+        renderApp();
+      } else {
+        state.session = null;
+        renderConnect();
+      }
+    } catch (e) {
+      setRoot(banner("Could not load the app: " + e.message));
+    }
+  }
+  // Wait for App Bridge to be ready, then boot. Give up after ~6s with a clear
+  // message (e.g. the page was opened outside the Shopify admin).
+  let bootAttempts = 0;
+  function boot() {
+    if (window.shopify && typeof shopify.idToken === "function") {
+      load();
+    } else if (bootAttempts++ < 60) {
+      setTimeout(boot, 100);
+    } else {
+      setRoot(banner("This app must be opened from inside your Shopify admin. Please open it from Apps in your store."));
+    }
+  }
+  boot();
+})();/*]]>*/</script>
+</body>
+</html>
