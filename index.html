@@ -6,82 +6,264 @@
 <meta name="shopify-api-key" content="99416c7650844bbef629fc65c5d3b575" />
 <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
 <title>Publicator AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" />
 <style type="text/css">/*<![CDATA[*/
-:root { --bg:#f6f6f7; --card:#ffffff; --ink:#1a1a1a; --muted:#616161; --line:#e3e3e3;
-  --brand:#008060; --brand-ink:#004c3f; --danger:#d72c0d; --ok:#008060; }
-* { box-sizing: border-box; }
-body { margin:0; background:var(--bg); color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif; font-size:14px; }
-#pubai-root { padding:20px; max-width:1040px; margin:0 auto; }
-.pubai-loading { display:flex; align-items:center; gap:10px; color:var(--muted); padding:40px 0; }
-.pubai-spinner { width:18px; height:18px; border:2px solid var(--line); border-top-color:var(--brand);
-  border-radius:50%; animation:spin .8s linear infinite; display:inline-block; }
-@keyframes spin { to { transform:rotate(360deg); } }
-.pubai-topbar,.pubai-brand { font-weight:700; }
-.pubai-brand { font-size:16px; color:var(--brand-ink); }
-.pubai-shell { max-width:520px; margin:0 auto; }
-.pubai-card { background:var(--card); border:1px solid var(--line); border-radius:12px;
-  padding:20px; margin-top:16px; box-shadow:0 1px 0 rgba(0,0,0,.03); }
-.pubai-card-title { margin:0 0 6px; font-size:18px; }
-.pubai-h1 { font-size:22px; margin:0 0 4px; }
-.pubai-muted { color:var(--muted); margin:4px 0; }
-.pubai-field { margin:14px 0; }
-.pubai-label { display:block; font-weight:600; margin-bottom:6px; }
-.pubai-input { width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px;
-  font-size:14px; background:#fff; }
-.pubai-btn { border:1px solid transparent; border-radius:8px; padding:9px 16px; font-size:14px;
-  font-weight:600; cursor:pointer; margin-top:8px; }
-.pubai-btn-primary { background:var(--brand); color:#fff; }
-.pubai-btn-secondary { background:#fff; border-color:var(--line); color:var(--ink); }
-.pubai-btn-plain { background:transparent; color:var(--muted); }
-.pubai-btn-danger { background:var(--danger); color:#fff; }
-.pubai-btn:disabled { opacity:.6; cursor:default; }
-.pubai-toggle { display:flex; gap:6px; margin:14px 0; }
-.pubai-pill { flex:1; padding:8px; border:1px solid var(--line); background:#fff; border-radius:8px;
-  cursor:pointer; font-weight:600; }
-.pubai-pill.is-active { border-color:var(--brand); color:var(--brand-ink); background:#f0faf6; }
-.pubai-note { background:#f0faf6; border:1px solid #b9e3d3; padding:8px 12px; border-radius:8px; margin:10px 0; }
-.pubai-banner { padding:10px 14px; border-radius:8px; margin:12px 0; }
-.pubai-banner-critical { background:#fff0f0; border:1px solid #f4b6ab; color:#8a1c0a; }
-.pubai-app { display:grid; grid-template-columns:220px 1fr; gap:20px; }
-.pubai-sidebar { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px;
-  height:fit-content; position:sticky; top:20px; }
-.pubai-chip { display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; margin:8px 0; }
-.pubai-chip-ok { background:#e3f5ee; color:var(--brand-ink); }
-.pubai-nav { display:flex; flex-direction:column; gap:2px; margin-top:8px; }
-.pubai-tab { text-align:left; padding:9px 12px; border:none; background:transparent; border-radius:8px;
-  cursor:pointer; font-size:14px; color:var(--ink); }
-.pubai-tab.is-active { background:#f0faf6; color:var(--brand-ink); font-weight:600; }
-.pubai-version { color:var(--muted); font-size:12px; margin-top:16px; }
-.pubai-stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px; }
-.pubai-stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
-.pubai-stat-num { display:block; font-size:20px; font-weight:700; }
-.pubai-stat-label { color:var(--muted); font-size:13px; }
-.pubai-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0;
-  border-bottom:1px solid var(--line); gap:12px; }
-.pubai-row:last-child { border-bottom:none; }
-.pubai-code { font-family:ui-monospace,monospace; background:#f6f6f7; padding:2px 8px; border-radius:6px; }
-.pubai-actions { display:flex; align-items:center; gap:12px; margin-top:12px; flex-wrap:wrap; }
-.pubai-inline-note { color:var(--muted); font-size:13px; }
-.pubai-danger { border-color:#f4b6ab; }
-@media (max-width:760px) { .pubai-app { grid-template-columns:1fr; } .pubai-stat-grid { grid-template-columns:repeat(2,1fr); } }
+:root {
+  --pub-brand:#2563eb; --pub-ink:#000000; --pub-ink-2:#374151; --pub-muted:#6b7280;
+  --pub-faint:#9ca3af; --pub-line:#e5e7eb; --pub-line-2:#f3f4f6; --pub-soft:#f9fafb;
+  --pub-avatar:#111111;
+  --pub-emerald-50:#ecfdf5; --pub-emerald-200:#a7f3d0; --pub-emerald-400:#34d399;
+  --pub-emerald-500:#10b981; --pub-emerald-600:#059669; --pub-emerald-700:#047857;
+  --pub-amber-50:#fffbeb; --pub-amber-200:#fde68a; --pub-amber-400:#fbbf24;
+  --pub-amber-500:#f59e0b; --pub-amber-600:#d97706; --pub-amber-700:#b45309; --pub-amber-800:#92400e;
+  --pub-blue-50:#eff6ff; --pub-blue-100:#dbeafe; --pub-blue-600:#2563eb; --pub-blue-700:#1d4ed8;
+  --pub-violet-50:#f5f3ff; --pub-violet-600:#7c3aed;
+  --pub-red-50:#fef2f2; --pub-red-200:#fecaca; --pub-red-600:#dc2626; --pub-red-700:#b91c1c;
+  --pub-shadow:0 10px 30px -10px rgba(0,0,0,.05);
+  --pub-shadow-md:0 8px 24px -4px rgba(0,0,0,.06);
+  --pub-shadow-lg:0 20px 50px -10px rgba(0,0,0,.12);
+  --pub-r-sm:8px; --pub-r-md:12px; --pub-r-lg:16px; --pub-r-full:9999px;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; }
+#pub-root { padding:20px 16px 40px; }
+.pub-lucide { flex-shrink:0; }
+
+/* ===== App shell (connected) ===== */
+.pub-app { display:flex; max-width:1100px; min-height:560px; margin:0 auto;
+  background:#fff; border:1px solid var(--pub-line); border-radius:18px;
+  box-shadow:var(--pub-shadow); overflow:hidden; }
+.pub-sidebar { width:256px; flex-shrink:0; background:#fff; border-right:1px solid var(--pub-line);
+  display:flex; flex-direction:column; padding:20px 14px; }
+.pub-sidebar-head { padding:4px 6px 16px; border-bottom:1px solid var(--pub-line-2); margin-bottom:14px; }
+.pub-logo-img { height:28px; width:auto; display:block; margin-bottom:14px; }
+.pub-conn-chip { display:inline-flex; align-items:center; gap:6px; padding:4px 10px;
+  border-radius:var(--pub-r-full); font-size:11px; font-weight:600; line-height:1; }
+.pub-conn-chip.connected { background:var(--pub-emerald-50); border:1px solid var(--pub-emerald-200); color:var(--pub-emerald-700); }
+.pub-conn-chip.disconnected { background:var(--pub-amber-50); border:1px solid var(--pub-amber-200); color:var(--pub-amber-700); }
+.pub-tabs { display:flex; flex-direction:column; gap:2px; flex:1; }
+.pub-tab { display:flex; align-items:center; gap:11px; width:100%; text-align:left; cursor:pointer;
+  background:transparent; border:none; padding:10px 12px; border-radius:var(--pub-r-md);
+  font-size:14px; font-weight:500; color:var(--pub-ink-2); font-family:inherit;
+  transition:background .15s, color .15s; }
+.pub-tab .pub-nav-ic { color:var(--pub-faint); transition:color .15s; }
+.pub-tab:hover { background:var(--pub-soft); color:var(--pub-ink); }
+.pub-tab:hover .pub-nav-ic { color:var(--pub-ink-2); }
+.pub-tab.is-active { background:var(--pub-ink); color:#fff; font-weight:600; }
+.pub-tab.is-active .pub-nav-ic { color:#fff; }
+.pub-sidebar-foot { padding-top:12px; border-top:1px solid var(--pub-line-2); margin-top:8px;
+  display:flex; flex-direction:column; gap:8px; }
+.pub-account { display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--pub-line);
+  border-radius:var(--pub-r-md); padding:10px 12px; box-shadow:var(--pub-shadow-md);
+  text-decoration:none; color:inherit; transition:border-color .15s; }
+.pub-account:hover { border-color:#d1d5db; }
+.pub-avatar { width:34px; height:34px; border-radius:10px; flex-shrink:0; background:var(--pub-avatar);
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; text-transform:uppercase; }
+.pub-account-info { display:flex; flex-direction:column; min-width:0; flex:1; }
+.pub-account-name { font-size:13px; font-weight:600; color:var(--pub-ink); white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis; max-width:150px; font-family:'Space Grotesk',sans-serif; }
+.pub-account-status { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--pub-muted); }
+.pub-acct-dot { width:6px; height:6px; border-radius:50%; background:var(--pub-faint); flex-shrink:0; }
+.pub-acct-dot.active { background:var(--pub-emerald-500); }
+.pub-account-chevron { color:var(--pub-faint); margin-left:auto; flex-shrink:0; }
+.pub-version { font-size:10px; color:var(--pub-faint); text-align:center; padding-top:2px; }
+
+.pub-main { flex:1; min-width:0; padding:28px 32px; background:#fff; }
+.pub-tab-panel { animation:pub-slide-up .22s cubic-bezier(.22,.61,.36,1); }
+@keyframes pub-slide-up { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.pub-page-title { font-family:'Space Grotesk',-apple-system,sans-serif; font-size:24px; font-weight:700;
+  color:var(--pub-ink); margin:0 0 6px; letter-spacing:-0.01em; }
+.pub-page-subtitle { font-size:14px; color:var(--pub-muted); margin:0 0 22px; }
+
+/* ===== Disconnected shell ===== */
+.pub-shell { max-width:560px; margin:0 auto; }
+.pub-shell-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.pub-shell-head .pub-logo-img { margin-bottom:0; }
+
+/* ===== Cards ===== */
+.pub-card { background:#fff; border:1px solid var(--pub-line); border-radius:var(--pub-r-lg);
+  padding:24px; margin-bottom:16px; box-shadow:var(--pub-shadow); transition:border-color .2s; }
+.pub-card:hover { border-color:#d1d5db; }
+.pub-card-no-hover:hover { border-color:var(--pub-line); }
+.pub-hint { font-size:14px; color:var(--pub-muted); margin:0 0 16px; line-height:1.55; }
+
+/* ===== Overview KPI grid ===== */
+.pub-loading { display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:40px 4px; color:var(--pub-muted); font-size:14px; }
+.pub-stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+.pub-stat { background:#fff; border:1px solid var(--pub-line); border-radius:var(--pub-r-lg);
+  padding:20px; box-shadow:var(--pub-shadow); display:flex; flex-direction:column; gap:10px;
+  transition:border-color .2s; }
+.pub-stat:hover { border-color:#d1d5db; }
+.pub-stat-icon { width:40px; height:40px; border-radius:var(--pub-r-md);
+  display:flex; align-items:center; justify-content:center; }
+.pub-stat-icon-blue { background:var(--pub-blue-50); color:var(--pub-blue-600); }
+.pub-stat-icon-emerald { background:var(--pub-emerald-50); color:var(--pub-emerald-600); }
+.pub-stat-icon-amber { background:var(--pub-amber-50); color:var(--pub-amber-600); }
+.pub-stat-icon-violet { background:var(--pub-violet-50); color:var(--pub-violet-600); }
+.pub-stat-num { display:block; font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700;
+  color:var(--pub-ink); line-height:1.15; letter-spacing:-0.02em; word-break:break-word; }
+.pub-stat-label { display:block; font-size:13px; color:var(--pub-muted); }
+.pub-ov-meta { display:flex; flex-direction:column; gap:8px; }
+.pub-ov-meta-item { display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--pub-soft); border:1px solid var(--pub-line-2); border-radius:var(--pub-r-md); padding:12px 16px; }
+.pub-ov-meta-item span { font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--pub-faint); font-weight:600; }
+.pub-ov-meta-item strong { font-size:14px; color:var(--pub-ink); font-weight:500;
+  word-break:break-all; text-align:right; }
+
+/* ===== Connection info ===== */
+.pub-info-grid { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+.pub-info-item { background:var(--pub-soft); border:1px solid var(--pub-line-2);
+  border-radius:var(--pub-r-md); padding:12px 16px; }
+.pub-info-item label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--pub-faint); margin-bottom:4px; font-weight:600; }
+.pub-info-item span { font-size:14px; color:var(--pub-ink); font-weight:500; }
+.pub-key { display:inline-flex; align-items:center; gap:6px; }
+.pub-key code { background:#fff; border:1px solid var(--pub-line); padding:2px 8px;
+  border-radius:var(--pub-r-sm); font-size:13px; color:var(--pub-brand);
+  font-family:'SF Mono',Menlo,Monaco,monospace; }
+
+/* ===== Buttons ===== */
+.pub-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.pub-sync-wrap { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.pub-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 18px;
+  border-radius:var(--pub-r-md); font-size:14px; font-weight:500; cursor:pointer;
+  border:1px solid transparent; line-height:1; font-family:inherit; text-decoration:none;
+  transition:background .15s, border-color .15s, color .15s, box-shadow .15s, opacity .15s; }
+.pub-btn:disabled { opacity:.55; cursor:not-allowed; }
+.pub-btn-primary { background:var(--pub-ink); color:#fff; }
+.pub-btn-primary:hover:not(:disabled) { background:#1f2937; box-shadow:0 4px 14px -4px rgba(0,0,0,.3); }
+.pub-btn-secondary { background:#fff; color:var(--pub-ink); border-color:var(--pub-line); }
+.pub-btn-secondary:hover:not(:disabled) { background:var(--pub-soft); border-color:#d1d5db; }
+.pub-btn-danger { background:var(--pub-amber-50); color:var(--pub-amber-800); border-color:var(--pub-amber-200); }
+.pub-btn-danger:hover:not(:disabled) { background:var(--pub-amber-200); border-color:var(--pub-amber-400); }
+.pub-btn-ghost { background:none; color:var(--pub-muted); border-color:transparent; }
+.pub-btn-ghost:hover:not(:disabled) { color:var(--pub-ink); background:var(--pub-soft); }
+.pub-inline-note { color:var(--pub-muted); font-size:13px; }
+
+.pub-spinner { width:14px; height:14px; border:2px solid rgba(255,255,255,.35); border-top-color:#fff;
+  border-radius:50%; animation:pub-spin .6s linear infinite; flex-shrink:0; display:inline-block; }
+.pub-spinner.dark { border-color:rgba(0,0,0,.12); border-top-color:var(--pub-ink); }
+@keyframes pub-spin { to { transform:rotate(360deg); } }
+
+/* ===== Forms ===== */
+.pub-field { margin-bottom:14px; }
+.pub-field label { display:block; font-size:13px; font-weight:500; color:var(--pub-ink-2); margin-bottom:6px; }
+.pub-field input, .pub-field select { width:100%; padding:10px 12px; border:1px solid #d1d5db;
+  border-radius:var(--pub-r-md); font-size:14px; box-sizing:border-box; background:#fff; font-family:inherit;
+  transition:border-color .15s, box-shadow .15s; }
+.pub-field input:focus, .pub-field select:focus, .pub-language-control select:focus {
+  outline:none; border-color:var(--pub-ink); box-shadow:0 0 0 3px rgba(0,0,0,.08); }
+.pub-color-field { display:flex; align-items:center; gap:8px; }
+.pub-color-field input[type="color"] { width:38px; height:38px; padding:0; border:1px solid #d1d5db;
+  border-radius:var(--pub-r-md); background:none; cursor:pointer; flex-shrink:0; }
+.pub-color-field input[type="text"] { flex:1; }
+.pub-logged-as { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--pub-emerald-700);
+  background:var(--pub-emerald-50); border:1px solid var(--pub-emerald-200); border-radius:var(--pub-r-md);
+  padding:10px 14px; margin-bottom:16px; }
+
+/* ===== Notices ===== */
+.pub-notice { padding:12px 16px; border-radius:var(--pub-r-md); font-size:13px; margin-top:12px;
+  display:flex; align-items:flex-start; gap:10px; }
+.pub-notice-error { background:var(--pub-red-50); border:1px solid var(--pub-red-200); color:var(--pub-red-700); }
+.pub-notice-success { background:var(--pub-emerald-50); border:1px solid var(--pub-emerald-200); color:var(--pub-emerald-700); }
+
+/* ===== Install steps + method toggle (disconnected) ===== */
+.pub-install-steps { background:var(--pub-blue-50); border:1px solid var(--pub-blue-100);
+  border-radius:var(--pub-r-md); padding:14px 16px; margin-bottom:20px;
+  display:flex; flex-direction:column; gap:9px; }
+.pub-install-step { display:flex; align-items:center; gap:11px; font-size:13px; color:#1e3a8a; }
+.pub-step-num { width:24px; height:24px; border-radius:50%; background:var(--pub-brand); color:#fff;
+  font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pub-method-toggle { display:inline-flex; background:var(--pub-line-2); border:1px solid var(--pub-line);
+  border-radius:var(--pub-r-full); padding:4px; gap:4px; margin-bottom:18px; }
+.pub-method-pill { background:transparent; border:none; cursor:pointer; padding:8px 18px;
+  border-radius:var(--pub-r-full); font-size:13px; font-weight:500; color:var(--pub-muted);
+  font-family:inherit; transition:all .15s; }
+.pub-method-pill:hover { color:var(--pub-ink); }
+.pub-method-pill.is-active { background:var(--pub-ink); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.1); }
+
+/* ===== Settings rows ===== */
+.pub-language-row, .pub-danger-row { display:flex; align-items:flex-start; gap:16px; }
+.pub-language-text, .pub-danger-text { flex:1; min-width:0; }
+.pub-language-label, .pub-danger-label { font-size:14px; font-weight:600; color:var(--pub-ink);
+  margin-bottom:4px; font-family:'Space Grotesk',sans-serif; }
+.pub-language-desc, .pub-danger-desc { font-size:13px; color:var(--pub-muted); margin:0; line-height:1.5; }
+.pub-language-control { flex-shrink:0; }
+.pub-language-control select { padding:9px 12px; border:1px solid #d1d5db; border-radius:var(--pub-r-md);
+  font-size:14px; background:#fff; cursor:pointer; min-width:160px; font-family:inherit; }
+.pub-danger-card { border-color:#fde0e0; }
+.pub-danger-row .pub-btn { flex-shrink:0; }
+
+/* ===== Responsive ===== */
+@media (max-width:900px) {
+  .pub-app { flex-direction:column; }
+  .pub-sidebar { width:auto; border-right:none; border-bottom:1px solid var(--pub-line); padding:16px; }
+  .pub-tabs { flex-direction:row; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; }
+  .pub-tabs::-webkit-scrollbar { display:none; }
+  .pub-tab { white-space:nowrap; flex-shrink:0; }
+  .pub-sidebar-foot { display:none; }
+  .pub-stat-grid { grid-template-columns:repeat(2,1fr); }
+  .pub-main { padding:22px 18px; }
+}
+@media (max-width:560px) {
+  .pub-stat-grid { grid-template-columns:repeat(2,1fr); }
+  .pub-language-row, .pub-danger-row { flex-direction:column; }
+}
 /*]]>*/</style>
 </head>
 <body>
-<div id="pubai-root"></div>
+<div id="pub-root"></div>
 <script>/*<![CDATA[*/window.__PUBAI__={"apiKey":"99416c7650844bbef629fc65c5d3b575","appBase":"https://wfjirakgiglsowunllsq.supabase.co/functions/v1"};/*]]>*/</script>
 <script>/*<![CDATA[*/(function clientApp() {
   const CFG = window.__PUBAI__;
+  const LOGO = "https://shopify.publicator.ai/logo.png";
+  const WEBAPP_URL = "https://publicator.ai/app/dashboard";
   const $ = (sel, root = document)=>root.querySelector(sel);
   const el = (tag, props = {}, children = [])=>{
     const node = document.createElement(tag);
-    Object.assign(node, props);
-    if (props.class) node.className = props.class;
+    for(const k in props){
+      if (k === "class") node.className = props[k];
+      else if (k === "html") node.innerHTML = props[k];
+      else node[k] = props[k];
+    }
     for (const c of children){
+      if (c == null) continue;
       node.append(typeof c === "string" ? document.createTextNode(c) : c);
     }
     return node;
   };
+  // --- Lucide icons (stroke 2, matching the WordPress plugin) ----------------
+  const ICONS = {
+    "layout-dashboard": '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+    "link-2": '<path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/>',
+    "package": '<path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.29 7 12 12l8.71-5"/><path d="M12 22V12"/>',
+    "tags": '<path d="M9 5H2v7l6.29 6.29c.94.94 2.48.94 3.42 0l3.58-3.58c.94-.94.94-2.48 0-3.42L9 5Z"/><path d="M6 9.01V9"/><path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L17 19"/>',
+    "palette": '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+    "settings": '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+    "check-circle-2": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>',
+    "alert-triangle": '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/>',
+    "refresh-cw": '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>',
+    "shield-check": '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+    "external-link": '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/>',
+    "copy": '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+    "log-out": '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
+    "calendar": '<rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>',
+    "file-text": '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/>',
+    "globe": '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+    "save": '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>',
+    "chevron-down": '<path d="m6 9 6 6 6-6"/>'
+  };
+  function icon(name, size = 18, cls = "") {
+    const span = el("span");
+    span.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="pub-lucide${cls ? " " + cls : ""}" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" ` + `stroke="currentColor" stroke-width="2" stroke-linecap="round" ` + `stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ""}</svg>`;
+    return span.firstChild;
+  }
   const state = {
     status: null,
     session: null,
@@ -120,61 +302,147 @@ body { margin:0; background:var(--bg); color:var(--ink);
       } : {});
     }
   }
-  // --- Rendering -------------------------------------------------------------
-  const root = ()=>$("#pubai-root");
+  // --- Shared building blocks ------------------------------------------------
+  const root = ()=>$("#pub-root");
   function setRoot(node) {
     const r = root();
     r.innerHTML = "";
     r.append(node);
   }
-  function spinner(text = "Loading…") {
-    return el("div", {
-      class: "pubai-loading"
+  function logo() {
+    return el("img", {
+      class: "pub-logo-img",
+      src: LOGO,
+      alt: "Publicator AI"
+    });
+  }
+  function chip(connected) {
+    return el("span", {
+      class: "pub-conn-chip " + (connected ? "connected" : "disconnected")
     }, [
-      el("span", {
-        class: "pubai-spinner"
-      }),
-      text
+      icon(connected ? "check-circle-2" : "alert-triangle", 12),
+      el("span", {}, [
+        connected ? "Connected" : "Not connected"
+      ])
     ]);
   }
-  function banner(msg, kind = "critical") {
+  function spinner(dark = true) {
+    return el("span", {
+      class: "pub-spinner" + (dark ? " dark" : "")
+    });
+  }
+  function loadingBlock(text) {
     return el("div", {
-      class: `pubai-banner pubai-banner-${kind}`
+      class: "pub-loading"
     }, [
-      msg
+      spinner(true),
+      el("span", {}, [
+        text
+      ])
     ]);
+  }
+  function notice(msg, kind = "error") {
+    return el("div", {
+      class: `pub-notice pub-notice-${kind}`
+    }, [
+      icon(kind === "error" ? "alert-triangle" : "check-circle-2", 16),
+      el("span", {}, [
+        msg
+      ])
+    ]);
+  }
+  function field(labelText, input) {
+    return el("div", {
+      class: "pub-field"
+    }, [
+      el("label", {}, [
+        labelText
+      ]),
+      input
+    ]);
+  }
+  function pageHead(title, subtitle) {
+    return el("div", {}, [
+      el("h1", {
+        class: "pub-page-title"
+      }, [
+        title
+      ]),
+      el("p", {
+        class: "pub-page-subtitle"
+      }, [
+        subtitle
+      ])
+    ]);
+  }
+  function btn(label, variant, iconName, onclick) {
+    const b = el("button", {
+      class: `pub-btn pub-btn-${variant}`,
+      type: "button"
+    });
+    if (iconName) b.append(icon(iconName, 14));
+    b.append(document.createTextNode(label));
+    b.onclick = onclick;
+    return b;
+  }
+  function fmtDate(v) {
+    if (!v) return "—";
+    try {
+      return new Date(v).toLocaleString();
+    } catch  {
+      return String(v);
+    }
   }
   // --- Disconnected (connect) view ------------------------------------------
   function renderConnect() {
-    const wrap = el("div", {
-      class: "pubai-shell"
+    const shell = el("div", {
+      class: "pub-shell"
     });
-    wrap.append(header(false));
+    shell.append(el("div", {
+      class: "pub-shell-head"
+    }, [
+      logo(),
+      chip(false)
+    ]));
     const card = el("div", {
-      class: "pubai-card"
+      class: "pub-card pub-card-no-hover"
     });
-    card.append(el("h2", {
-      class: "pubai-card-title"
-    }, [
-      "Connect your store to Publicator AI"
-    ]));
-    card.append(el("p", {
-      class: "pubai-muted"
-    }, [
-      "Sign in with your Publicator AI email and password, or paste an API key from your dashboard."
-    ]));
+    // Install steps.
+    const steps = el("div", {
+      class: "pub-install-steps"
+    });
+    const stepTexts = [
+      "Choose a connection method: sign in with your Publicator AI email and password, or paste an API key from your Publicator AI dashboard.",
+      "Fill in the form for the chosen method.",
+      "Click the Connect button."
+    ];
+    stepTexts.forEach((t, i)=>{
+      steps.append(el("div", {
+        class: "pub-install-step"
+      }, [
+        el("span", {
+          class: "pub-step-num"
+        }, [
+          String(i + 1)
+        ]),
+        el("span", {}, [
+          t
+        ])
+      ]));
+    });
+    card.append(steps);
     // Method toggle.
     const toggle = el("div", {
-      class: "pubai-toggle"
+      class: "pub-method-toggle"
     });
     const emailPill = el("button", {
-      class: "pubai-pill" + (state.method === "email" ? " is-active" : ""),
+      class: "pub-method-pill" + (state.method === "email" ? " is-active" : ""),
       type: "button"
     }, [
       "Email + password"
     ]);
     const keyPill = el("button", {
-      class: "pubai-pill" + (state.method === "apikey" ? " is-active" : ""),
+      class: "pub-method-pill" + (state.method === "apikey" ? " is-active" : ""),
       type: "button"
     }, [
       "API key"
@@ -190,32 +458,24 @@ body { margin:0; background:var(--bg); color:var(--ink);
     toggle.append(emailPill, keyPill);
     card.append(toggle);
     const errBox = el("div", {});
-    card.append(errBox);
     const showErr = (m)=>{
       errBox.innerHTML = "";
-      errBox.append(banner(m));
+      errBox.append(notice(m));
     };
     if (state.method === "email") {
       if (!state.session) {
         const email = el("input", {
-          class: "pubai-input",
           type: "email",
-          placeholder: "you@example.com"
+          placeholder: "you@example.com",
+          autocomplete: "email"
         });
         const pass = el("input", {
-          class: "pubai-input",
           type: "password",
-          placeholder: "••••••••"
+          placeholder: "••••••••",
+          autocomplete: "current-password"
         });
-        const btn = el("button", {
-          class: "pubai-btn pubai-btn-primary",
-          type: "button"
-        }, [
-          "Sign in"
-        ]);
-        btn.onclick = async ()=>{
-          btn.disabled = true;
-          btn.textContent = "Signing in…";
+        const signIn = btn("Sign in", "primary", null, async ()=>{
+          signIn.disabled = true;
           try {
             const res = await api("shopify-login", {
               email: email.value,
@@ -230,20 +490,23 @@ body { margin:0; background:var(--bg); color:var(--ink);
             renderConnect();
           } catch (e) {
             showErr(e.message);
-            btn.disabled = false;
-            btn.textContent = "Sign in";
+            signIn.disabled = false;
           }
-        };
-        card.append(field("Email address", email), field("Password", pass), btn);
+        });
+        card.append(field("Email address", email), field("Password", pass), signIn, errBox);
       } else {
         card.append(el("div", {
-          class: "pubai-note"
+          class: "pub-logged-as"
         }, [
-          `Signed in as ${state.session.email}`
+          icon("check-circle-2", 14),
+          el("span", {}, [
+            "Signed in as: "
+          ]),
+          el("strong", {}, [
+            state.session.email || ""
+          ])
         ]));
-        const select = el("select", {
-          class: "pubai-input"
-        });
+        const select = el("select", {});
         select.append(el("option", {
           value: ""
         }, [
@@ -256,19 +519,12 @@ body { margin:0; background:var(--bg); color:var(--ink);
             pr.domain || pr.name || pr.id
           ]));
         }
-        const btn = el("button", {
-          class: "pubai-btn pubai-btn-primary",
-          type: "button"
-        }, [
-          "Connect"
-        ]);
-        btn.onclick = async ()=>{
+        const connect = btn("Connect", "primary", null, async ()=>{
           if (!select.value) {
             showErr("Please select a project.");
             return;
           }
-          btn.disabled = true;
-          btn.textContent = "Connecting…";
+          connect.disabled = true;
           try {
             await api("shopify-connect", {
               access_token: state.session.access_token,
@@ -278,37 +534,24 @@ body { margin:0; background:var(--bg); color:var(--ink);
             await load();
           } catch (e) {
             showErr(e.message);
-            btn.disabled = false;
-            btn.textContent = "Connect";
+            connect.disabled = false;
           }
-        };
-        const back = el("button", {
-          class: "pubai-btn pubai-btn-plain",
-          type: "button"
-        }, [
-          "← Back"
-        ]);
-        back.onclick = ()=>{
+        });
+        const back = btn("← Back", "ghost", null, ()=>{
           state.session = null;
           renderConnect();
-        };
-        card.append(field("Select a project", select), btn, back);
+        });
+        card.append(field("Select a project", select), connect, back, errBox);
       }
     } else {
       const key = el("input", {
-        class: "pubai-input",
         type: "text",
-        placeholder: "sk_…"
+        placeholder: "sk_…",
+        autocomplete: "off",
+        spellcheck: false
       });
-      const btn = el("button", {
-        class: "pubai-btn pubai-btn-primary",
-        type: "button"
-      }, [
-        "Connect"
-      ]);
-      btn.onclick = async ()=>{
-        btn.disabled = true;
-        btn.textContent = "Connecting…";
+      const connect = btn("Connect", "primary", null, async ()=>{
+        connect.disabled = true;
         try {
           await api("shopify-connect-key", {
             publicator_key: key.value.trim()
@@ -317,80 +560,73 @@ body { margin:0; background:var(--bg); color:var(--ink);
           await load();
         } catch (e) {
           showErr(e.message);
-          btn.disabled = false;
-          btn.textContent = "Connect";
+          connect.disabled = false;
         }
-      };
-      card.append(field("API key", key), btn);
+      });
+      card.append(field("API key", key), connect, errBox);
     }
-    wrap.append(card);
-    setRoot(wrap);
-  }
-  function field(label, input) {
-    return el("div", {
-      class: "pubai-field"
-    }, [
-      el("label", {
-        class: "pubai-label"
-      }, [
-        label
-      ]),
-      input
-    ]);
+    shell.append(card);
+    setRoot(shell);
   }
   // --- Connected app ---------------------------------------------------------
   const TABS = [
     {
       id: "overview",
-      label: "Overview"
+      label: "Overview",
+      icon: "layout-dashboard"
     },
     {
       id: "connection",
-      label: "Connection"
+      label: "Connection",
+      icon: "link-2"
     },
     {
       id: "products",
-      label: "Products"
+      label: "Products",
+      icon: "package"
     },
     {
       id: "taxonomies",
-      label: "Collections & tags"
+      label: "Collections & tags",
+      icon: "tags"
     },
     {
       id: "appearance",
-      label: "Appearance"
+      label: "Appearance",
+      icon: "palette"
     },
     {
       id: "settings",
-      label: "Settings"
+      label: "Settings",
+      icon: "settings"
     }
   ];
   function renderApp() {
-    const wrap = el("div", {
-      class: "pubai-app"
+    const app = el("div", {
+      class: "pub-app"
     });
+    // Sidebar.
     const side = el("aside", {
-      class: "pubai-sidebar"
+      class: "pub-sidebar"
     });
     side.append(el("div", {
-      class: "pubai-brand"
+      class: "pub-sidebar-head"
     }, [
-      "Publicator AI"
-    ]));
-    side.append(el("span", {
-      class: "pubai-chip pubai-chip-ok"
-    }, [
-      "Connected"
+      logo(),
+      chip(true)
     ]));
     const nav = el("nav", {
-      class: "pubai-nav"
+      class: "pub-tabs"
     });
     for (const t of TABS){
       const b = el("button", {
-        class: "pubai-tab" + (state.activeTab === t.id ? " is-active" : ""),
+        class: "pub-tab" + (state.activeTab === t.id ? " is-active" : ""),
         type: "button"
       }, [
-        t.label
+        icon(t.icon, 18, "pub-nav-ic"),
+        el("span", {}, [
+          t.label
+        ])
       ]);
       b.onclick = ()=>{
         state.activeTab = t.id;
@@ -399,18 +635,63 @@ body { margin:0; background:var(--bg); color:var(--ink);
       nav.append(b);
     }
     side.append(nav);
-    side.append(el("div", {
-      class: "pubai-version"
+    const s = state.status || {};
+    const projName = s.project_domain || "Publicator AI";
+    const initial = (projName.trim()[0] || "P").toUpperCase();
+    const account = el("a", {
+      class: "pub-account",
+      href: WEBAPP_URL,
+      target: "_blank",
+      rel: "noopener"
     }, [
-      "v1.0.0"
+      el("span", {
+        class: "pub-avatar"
+      }, [
+        initial
+      ]),
+      el("span", {
+        class: "pub-account-info"
+      }, [
+        el("span", {
+          class: "pub-account-name"
+        }, [
+          projName
+        ]),
+        el("span", {
+          class: "pub-account-status"
+        }, [
+          el("span", {
+            class: "pub-acct-dot active"
+          }),
+          el("span", {}, [
+            "Connected"
+          ])
+        ])
+      ]),
+      el("span", {
+        class: "pub-account-chevron"
+      }, [
+        icon("external-link", 14)
+      ])
+    ]);
+    side.append(el("div", {
+      class: "pub-sidebar-foot"
+    }, [
+      account,
+      el("span", {
+        class: "pub-version"
+      }, [
+        "v1.0.0"
+      ])
     ]));
-    wrap.append(side);
+    app.append(side);
+    // Main.
     const main = el("main", {
-      class: "pubai-main"
+      class: "pub-main"
     });
     main.append(panelFor(state.activeTab));
-    wrap.append(main);
-    setRoot(wrap);
+    app.append(main);
+    setRoot(app);
   }
   function panelFor(tab) {
     switch(tab){
@@ -430,74 +711,32 @@ body { margin:0; background:var(--bg); color:var(--ink);
         return overviewPanel();
     }
   }
-  function pageHead(title, subtitle) {
-    return el("div", {}, [
-      el("h1", {
-        class: "pubai-h1"
-      }, [
-        title
-      ]),
-      el("p", {
-        class: "pubai-muted"
-      }, [
-        subtitle
-      ])
-    ]);
-  }
-  function stat(num, label) {
+  function stat(iconName, color, num, label) {
     return el("div", {
-      class: "pubai-stat"
+      class: "pub-stat"
     }, [
+      el("div", {
+        class: `pub-stat-icon pub-stat-icon-${color}`
+      }, [
+        icon(iconName, 20)
+      ]),
       el("span", {
-        class: "pubai-stat-num"
+        class: "pub-stat-num"
       }, [
         String(num)
       ]),
       el("span", {
-        class: "pubai-stat-label"
+        class: "pub-stat-label"
       }, [
         label
       ])
     ]);
   }
-  function fmtDate(v) {
-    if (!v) return "—";
-    try {
-      return new Date(v).toLocaleString();
-    } catch  {
-      return String(v);
-    }
-  }
-  function overviewPanel() {
-    const s = state.status;
-    const p = el("section", {}, [
-      pageHead("Overview", "Live snapshot of your Publicator AI connection.")
-    ]);
-    const grid = el("div", {
-      class: "pubai-stat-grid"
-    }, [
-      stat(s.products_synced ?? 0, "Products synced"),
-      stat(s.default_blog_id ? "Yes" : "Auto", "Default blog"),
-      stat(fmtDate(s.last_feed_sync_at), "Last feed sync"),
-      stat(fmtDate(s.connected_at), "Connected")
-    ]);
-    p.append(grid);
-    const meta = el("div", {
-      class: "pubai-card"
-    }, [
-      row("Store", s.shop),
-      row("Project", s.project_domain || "—")
-    ]);
-    p.append(meta);
-    return p;
-  }
-  function row(label, value) {
+  function metaItem(label, value) {
     return el("div", {
-      class: "pubai-row"
+      class: "pub-ov-meta-item"
     }, [
-      el("span", {
-        class: "pubai-muted"
-      }, [
+      el("span", {}, [
         label
       ]),
       el("strong", {}, [
@@ -505,86 +744,118 @@ body { margin:0; background:var(--bg); color:var(--ink);
       ])
     ]);
   }
-  function connectionPanel() {
-    const s = state.status;
-    const p = el("section", {}, [
-      pageHead("Connection", "Connection details and a one-click test.")
-    ]);
-    const card = el("div", {
-      class: "pubai-card"
-    });
-    const keyRow = el("div", {
-      class: "pubai-row"
+  function infoItem(label, valueNode) {
+    return el("div", {
+      class: "pub-info-item"
     }, [
-      el("span", {
-        class: "pubai-muted"
-      }, [
-        "Project API key"
+      el("label", {}, [
+        label
       ]),
-      el("code", {
-        class: "pubai-code"
-      }, [
+      typeof valueNode === "string" ? el("span", {}, [
+        valueNode
+      ]) : valueNode
+    ]);
+  }
+  function overviewPanel() {
+    const s = state.status || {};
+    const p = el("section", {
+      class: "pub-tab-panel is-active"
+    }, [
+      pageHead("Overview", "Live snapshot of your Publicator AI connection.")
+    ]);
+    p.append(el("div", {
+      class: "pub-stat-grid"
+    }, [
+      stat("package", "blue", s.products_synced ?? 0, "Products synced"),
+      stat("file-text", "amber", s.default_blog_id ? "Set" : "Auto", "Default blog"),
+      stat("calendar", "emerald", fmtDate(s.last_feed_sync_at), "Last feed sync"),
+      stat("check-circle-2", "violet", fmtDate(s.connected_at), "Connected")
+    ]));
+    p.append(el("div", {
+      class: "pub-ov-meta"
+    }, [
+      metaItem("Store", s.shop || "—"),
+      metaItem("Project", s.project_domain || "—")
+    ]));
+    return p;
+  }
+  function connectionPanel() {
+    const s = state.status || {};
+    const card = el("div", {
+      class: "pub-card pub-card-no-hover"
+    });
+    const keyVal = el("span", {
+      class: "pub-key"
+    }, [
+      el("code", {}, [
         s.publicator_key_masked || "—"
       ])
     ]);
-    card.append(keyRow);
-    card.append(row("Store", s.shop));
-    card.append(row("Connected on", fmtDate(s.connected_at)));
-    const testBtn = el("button", {
-      class: "pubai-btn pubai-btn-secondary",
-      type: "button"
+    card.append(el("div", {
+      class: "pub-info-grid"
     }, [
-      "Test connection"
-    ]);
-    const testOut = el("span", {
-      class: "pubai-inline-note"
+      infoItem("Project API key", keyVal),
+      infoItem("Store", s.shop || "—"),
+      infoItem("Connected on", fmtDate(s.connected_at))
+    ]));
+    const out = el("span", {
+      class: "pub-inline-note"
     });
-    testBtn.onclick = async ()=>{
+    const testBtn = btn("Test connection", "secondary", "shield-check", async ()=>{
       testBtn.disabled = true;
-      testOut.textContent = "Testing…";
+      out.textContent = "Testing…";
       try {
         const r = await api("shopify-test", {});
-        testOut.textContent = `OK — ${r.shop_name}`;
+        out.textContent = `OK — ${r.shop_name || s.shop}`;
       } catch (e) {
-        testOut.textContent = e.message;
+        out.textContent = e.message;
       }
       testBtn.disabled = false;
-    };
+    });
+    const openBtn = el("a", {
+      class: "pub-btn pub-btn-ghost",
+      href: WEBAPP_URL,
+      target: "_blank",
+      rel: "noopener"
+    }, [
+      icon("external-link", 14),
+      document.createTextNode("Open Publicator AI")
+    ]);
     card.append(el("div", {
-      class: "pubai-actions"
+      class: "pub-actions"
     }, [
       testBtn,
-      testOut
+      openBtn,
+      out
     ]));
-    p.append(card);
-    return p;
+    return el("section", {
+      class: "pub-tab-panel is-active"
+    }, [
+      pageHead("Connection", "Connection details and a one-click test."),
+      card
+    ]);
   }
   function productsPanel() {
-    const s = state.status;
-    const p = el("section", {}, [
-      pageHead("Products", "Sync your Shopify catalog into Publicator AI.")
-    ]);
+    const s = state.status || {};
     const card = el("div", {
-      class: "pubai-card"
+      class: "pub-card pub-card-no-hover"
     });
     card.append(el("p", {
-      class: "pubai-muted"
+      class: "pub-hint"
     }, [
       "Publicator AI writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store."
     ]));
-    card.append(row("Products synced", String(s.products_synced ?? 0)));
-    card.append(row("Last sync", fmtDate(s.last_feed_sync_at)));
-    const btn = el("button", {
-      class: "pubai-btn pubai-btn-primary",
-      type: "button"
+    card.append(el("div", {
+      class: "pub-info-grid"
     }, [
-      "Sync products now"
-    ]);
+      infoItem("Products synced", String(s.products_synced ?? 0)),
+      infoItem("Last sync", fmtDate(s.last_feed_sync_at))
+    ]));
     const out = el("span", {
-      class: "pubai-inline-note"
+      class: "pub-inline-note"
     });
-    btn.onclick = async ()=>{
-      btn.disabled = true;
+    const syncBtn = btn("Sync products now", "primary", "refresh-cw", async ()=>{
+      syncBtn.disabled = true;
       out.textContent = "Starting sync…";
       try {
         const r = await api("shopify-products-sync", {});
@@ -593,69 +864,69 @@ body { margin:0; background:var(--bg); color:var(--ink);
       } catch (e) {
         out.textContent = e.message;
       }
-      btn.disabled = false;
-    };
+      syncBtn.disabled = false;
+    });
     card.append(el("div", {
-      class: "pubai-actions"
+      class: "pub-sync-wrap"
     }, [
-      btn,
+      syncBtn,
       out
     ]));
-    p.append(card);
-    return p;
+    return el("section", {
+      class: "pub-tab-panel is-active"
+    }, [
+      pageHead("Products", "Sync your Shopify catalog into Publicator AI."),
+      card
+    ]);
   }
   function taxonomiesPanel() {
-    const p = el("section", {}, [
-      pageHead("Collections & tags", "Keep Publicator AI in sync with your store's collections.")
-    ]);
     const card = el("div", {
-      class: "pubai-card"
+      class: "pub-card pub-card-no-hover"
     });
     card.append(el("p", {
-      class: "pubai-muted"
+      class: "pub-hint"
     }, [
       "Push your Shopify blogs, collections and product types to Publicator AI so the AI only uses taxonomies that really exist."
     ]));
-    const btn = el("button", {
-      class: "pubai-btn pubai-btn-primary",
-      type: "button"
-    }, [
-      "Sync collections & tags"
-    ]);
     const out = el("span", {
-      class: "pubai-inline-note"
+      class: "pub-inline-note"
     });
-    btn.onclick = async ()=>{
-      btn.disabled = true;
+    const syncBtn = btn("Sync collections & tags", "primary", "refresh-cw", async ()=>{
+      syncBtn.disabled = true;
       out.textContent = "Syncing…";
       try {
         const r = await api("shopify-taxonomies-sync", {});
-        out.textContent = `Synced ${r.counts.collections} collections, ${r.counts.blogs} blogs, ${r.counts.product_types} product types.`;
+        const c = r.counts || {};
+        out.textContent = `Synced ${c.collections ?? 0} collections, ${c.blogs ?? 0} blogs, ${c.product_types ?? 0} product types.`;
         toast("Taxonomies synced");
       } catch (e) {
         out.textContent = e.message;
       }
-      btn.disabled = false;
-    };
+      syncBtn.disabled = false;
+    });
     card.append(el("div", {
-      class: "pubai-actions"
+      class: "pub-sync-wrap"
     }, [
-      btn,
+      syncBtn,
       out
     ]));
-    p.append(card);
-    return p;
+    return el("section", {
+      class: "pub-tab-panel is-active"
+    }, [
+      pageHead("Collections & tags", "Keep Publicator AI in sync with your store's collections."),
+      card
+    ]);
   }
   function appearancePanel() {
-    const p = el("section", {}, [
-      pageHead("Appearance", "Where content goes and how it looks.")
-    ]);
     const card = el("div", {
-      class: "pubai-card"
+      class: "pub-card pub-card-no-hover"
     });
-    const blogSel = el("select", {
-      class: "pubai-input"
-    });
+    card.append(el("p", {
+      class: "pub-hint"
+    }, [
+      "Where content goes and how it looks — pick the default blog for articles and the primary colour used in call-to-action buttons."
+    ]));
+    const blogSel = el("select", {});
     blogSel.append(el("option", {
       value: ""
     }, [
@@ -671,29 +942,38 @@ body { margin:0; background:var(--bg); color:var(--ink);
       blogSel.append(opt);
     }
     card.append(field("Default blog for articles", blogSel));
-    const primary = el("input", {
-      class: "pubai-input",
+    const colorText = el("input", {
       type: "text",
       placeholder: "#00D170",
-      value: state.settings.primary_color || ""
+      value: state.settings.primary_color || "",
+      autocomplete: "off",
+      spellcheck: false,
+      maxlength: 7
     });
-    card.append(field("Primary colour (for CTAs)", primary));
-    const btn = el("button", {
-      class: "pubai-btn pubai-btn-primary",
-      type: "button"
+    const colorPick = el("input", {
+      type: "color",
+      value: /^#[0-9a-f]{6}$/i.test(state.settings.primary_color || "") ? state.settings.primary_color : "#00D170"
+    });
+    colorPick.oninput = ()=>{
+      colorText.value = colorPick.value;
+    };
+    const colorField = el("span", {
+      class: "pub-color-field"
     }, [
-      "Save appearance"
+      colorPick,
+      colorText
     ]);
+    card.append(field("Primary colour (for CTAs)", colorField));
     const out = el("span", {
-      class: "pubai-inline-note"
+      class: "pub-inline-note"
     });
-    btn.onclick = async ()=>{
-      btn.disabled = true;
+    const saveBtn = btn("Save appearance", "primary", "save", async ()=>{
+      saveBtn.disabled = true;
       out.textContent = "Saving…";
       try {
         const r = await api("shopify-brand", {
           default_blog_id: blogSel.value,
-          primary_color: primary.value
+          primary_color: colorText.value
         });
         state.settings = r.settings || state.settings;
         out.textContent = "Saved.";
@@ -701,27 +981,32 @@ body { margin:0; background:var(--bg); color:var(--ink);
       } catch (e) {
         out.textContent = e.message;
       }
-      btn.disabled = false;
-    };
+      saveBtn.disabled = false;
+    });
     card.append(el("div", {
-      class: "pubai-actions"
+      class: "pub-actions"
     }, [
-      btn,
+      saveBtn,
       out
     ]));
-    p.append(card);
-    return p;
+    return el("section", {
+      class: "pub-tab-panel is-active"
+    }, [
+      pageHead("Appearance", "Where content goes and how it looks."),
+      card
+    ]);
   }
   function settingsPanel() {
-    const p = el("section", {}, [
+    const section = el("section", {
+      class: "pub-tab-panel is-active"
+    }, [
       pageHead("Settings", "Preferences and disconnection.")
     ]);
+    // Language.
     const langCard = el("div", {
-      class: "pubai-card"
+      class: "pub-card pub-card-no-hover"
     });
-    const langSel = el("select", {
-      class: "pubai-input"
-    });
+    const langSel = el("select", {});
     const langs = [
       [
         "hu_HU",
@@ -768,56 +1053,70 @@ body { margin:0; background:var(--bg); color:var(--ink);
         toast(e.message, true);
       }
     };
-    langCard.append(field("Interface / content language", langSel));
-    p.append(langCard);
+    langCard.append(el("div", {
+      class: "pub-language-row"
+    }, [
+      el("div", {
+        class: "pub-language-text"
+      }, [
+        el("div", {
+          class: "pub-language-label"
+        }, [
+          "Interface / content language"
+        ]),
+        el("p", {
+          class: "pub-language-desc"
+        }, [
+          "Choose the language Publicator AI uses for this store's content."
+        ])
+      ]),
+      el("div", {
+        class: "pub-language-control"
+      }, [
+        langSel
+      ])
+    ]));
+    section.append(langCard);
+    // Danger.
     const danger = el("div", {
-      class: "pubai-card pubai-danger"
+      class: "pub-card pub-card-no-hover pub-danger-card"
     });
-    danger.append(el("div", {
-      class: "pubai-label"
-    }, [
-      "Disconnect from Publicator AI"
-    ]));
-    danger.append(el("p", {
-      class: "pubai-muted"
-    }, [
-      "Content already published stays in your store. You can reconnect anytime."
-    ]));
-    const dbtn = el("button", {
-      class: "pubai-btn pubai-btn-danger",
-      type: "button"
-    }, [
-      "Disconnect"
-    ]);
-    dbtn.onclick = async ()=>{
-      dbtn.disabled = true;
+    const disc = btn("Disconnect", "danger", "log-out", async ()=>{
+      disc.disabled = true;
       try {
         await api("shopify-disconnect", {});
         toast("Disconnected");
         await load();
       } catch (e) {
         toast(e.message, true);
-        dbtn.disabled = false;
+        disc.disabled = false;
       }
-    };
-    danger.append(dbtn);
-    p.append(danger);
-    return p;
-  }
-  function header(_connected) {
-    return el("div", {
-      class: "pubai-topbar"
+    });
+    danger.append(el("div", {
+      class: "pub-danger-row"
     }, [
       el("div", {
-        class: "pubai-brand"
+        class: "pub-danger-text"
       }, [
-        "Publicator AI"
-      ])
-    ]);
+        el("div", {
+          class: "pub-danger-label"
+        }, [
+          "Disconnect from Publicator AI"
+        ]),
+        el("p", {
+          class: "pub-danger-desc"
+        }, [
+          "Content already published stays in your store. You can reconnect anytime."
+        ])
+      ]),
+      disc
+    ]));
+    section.append(danger);
+    return section;
   }
   // --- Boot ------------------------------------------------------------------
   async function load() {
-    setRoot(spinner());
+    setRoot(loadingBlock("Loading live data…"));
     try {
       const s = await api("shopify-status", {});
       state.status = s;
@@ -833,7 +1132,7 @@ body { margin:0; background:var(--bg); color:var(--ink);
         renderConnect();
       }
     } catch (e) {
-      setRoot(banner("Could not load the app: " + e.message));
+      setRoot(notice("Could not load the app: " + e.message));
     }
   }
   // Wait for App Bridge to be ready, then boot. Give up after ~6s with a clear
@@ -845,7 +1144,7 @@ body { margin:0; background:var(--bg); color:var(--ink);
     } else if (bootAttempts++ < 60) {
       setTimeout(boot, 100);
     } else {
-      setRoot(banner("This app must be opened from inside your Shopify admin. Please open it from Apps in your store."));
+      setRoot(notice("This app must be opened from inside your Shopify admin. Please open it from Apps in your store."));
     }
   }
   boot();
