@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="shopify-api-key" content="99416c7650844bbef629fc65c5d3b575" />
 <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
-<title>Publicator AI</title>
+<title>Publicator Webshop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" />
@@ -39,7 +39,12 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 .pub-sidebar { width:256px; flex-shrink:0; background:#fff; border-right:1px solid var(--pub-line);
   display:flex; flex-direction:column; padding:20px 14px; }
 .pub-sidebar-head { padding:4px 6px 16px; border-bottom:1px solid var(--pub-line-2); margin-bottom:14px; }
-.pub-logo-img { height:28px; width:auto; display:block; margin-bottom:14px; }
+.pub-wordmark { display:inline-flex; align-items:center; gap:9px; font-family:'Space Grotesk',sans-serif; }
+.pub-sidebar-head .pub-wordmark { margin-bottom:14px; }
+.pub-wordmark-mark { height:26px; width:26px; display:block; flex-shrink:0; }
+.pub-wordmark-name { font-size:15px; font-weight:700; letter-spacing:.01em; color:var(--pub-ink);
+  line-height:1; display:inline-flex; gap:.32em; }
+.pub-wordmark-accent { color:var(--pub-brand); }
 .pub-conn-chip { display:inline-flex; align-items:center; gap:6px; padding:4px 10px;
   border-radius:var(--pub-r-full); font-size:11px; font-weight:600; line-height:1; }
 .pub-conn-chip.connected { background:var(--pub-emerald-50); border:1px solid var(--pub-emerald-200); color:var(--pub-emerald-700); }
@@ -82,7 +87,6 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 /* ===== Disconnected shell ===== */
 .pub-shell { max-width:560px; margin:0 auto; }
 .pub-shell-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-.pub-shell-head .pub-logo-img { margin-bottom:0; }
 
 /* ===== Cards ===== */
 .pub-card { background:#fff; border:1px solid var(--pub-line); border-radius:var(--pub-r-lg);
@@ -163,6 +167,30 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 .pub-color-field input[type="color"] { width:38px; height:38px; padding:0; border:1px solid #d1d5db;
   border-radius:var(--pub-r-md); background:none; cursor:pointer; flex-shrink:0; }
 .pub-color-field input[type="text"] { flex:1; }
+
+/* ===== Custom dropdown (Inter + plugin design, replaces native select) ===== */
+.pub-select { position:relative; width:100%; }
+.pub-select-btn { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
+  padding:10px 12px; border:1px solid #d1d5db; border-radius:var(--pub-r-md); font-size:14px;
+  background:#fff; color:var(--pub-ink); cursor:pointer; font-family:inherit; text-align:left;
+  transition:border-color .15s, box-shadow .15s; }
+.pub-select-btn:hover { border-color:#9ca3af; }
+.pub-select.is-open .pub-select-btn { outline:none; border-color:var(--pub-ink); box-shadow:0 0 0 3px rgba(0,0,0,.08); }
+.pub-select-value { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pub-select-chev { color:var(--pub-faint); flex-shrink:0; transition:transform .18s; }
+.pub-select.is-open .pub-select-chev { transform:rotate(180deg); }
+.pub-select-list { position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:60;
+  background:#fff; border:1px solid var(--pub-line); border-radius:var(--pub-r-md);
+  box-shadow:var(--pub-shadow-lg); padding:4px; display:none; max-height:264px; overflow:auto;
+  animation:pub-fade .12s ease; }
+.pub-select.is-open .pub-select-list { display:block; }
+.pub-select-option { display:block; width:100%; text-align:left; padding:9px 10px; border:none;
+  background:none; border-radius:var(--pub-r-sm); cursor:pointer; font-size:14px; font-family:inherit;
+  color:var(--pub-ink-2); transition:background .12s, color .12s; }
+.pub-select-option:hover { background:var(--pub-soft); color:var(--pub-ink); }
+.pub-select-option.is-selected { background:var(--pub-soft); color:var(--pub-ink); font-weight:600; }
+@keyframes pub-fade { from { opacity:0; } to { opacity:1; } }
+
 .pub-logged-as { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--pub-emerald-700);
   background:var(--pub-emerald-50); border:1px solid var(--pub-emerald-200); border-radius:var(--pub-r-md);
   padding:10px 14px; margin-bottom:16px; }
@@ -195,8 +223,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   margin-bottom:4px; font-family:'Space Grotesk',sans-serif; }
 .pub-language-desc, .pub-danger-desc { font-size:13px; color:var(--pub-muted); margin:0; line-height:1.5; }
 .pub-language-control { flex-shrink:0; }
-.pub-language-control select { padding:9px 12px; border:1px solid #d1d5db; border-radius:var(--pub-r-md);
-  font-size:14px; background:#fff; cursor:pointer; min-width:160px; font-family:inherit; }
+.pub-language-control .pub-select { width:200px; }
 .pub-danger-card { border-color:#fde0e0; }
 .pub-danger-row .pub-btn { flex-shrink:0; }
 
@@ -222,7 +249,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 <script>/*<![CDATA[*/window.__PUBAI__={"apiKey":"99416c7650844bbef629fc65c5d3b575","appBase":"https://wfjirakgiglsowunllsq.supabase.co/functions/v1"};/*]]>*/</script>
 <script>/*<![CDATA[*/(function clientApp() {
   const CFG = window.__PUBAI__;
-  const LOGO = "https://shopify.publicator.ai/logo.png";
+  const MARK = "https://shopify.publicator.ai/mark.png";
   const WEBAPP_URL = "https://publicator.ai/app/dashboard";
   const $ = (sel, root = document)=>root.querySelector(sel);
   const el = (tag, props = {}, children = [])=>{
@@ -309,12 +336,94 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     r.innerHTML = "";
     r.append(node);
   }
+  // Brand wordmark: the Publicator star mark + "Publicator Webshop" (the
+  // Shopify product name), styled to echo the Publicator brand logo with the
+  // Webshop accent in place of the original suffix.
   function logo() {
-    return el("img", {
-      class: "pub-logo-img",
-      src: LOGO,
-      alt: "Publicator AI"
+    return el("span", {
+      class: "pub-wordmark"
+    }, [
+      el("img", {
+        class: "pub-wordmark-mark",
+        src: MARK,
+        alt: ""
+      }),
+      el("span", {
+        class: "pub-wordmark-name"
+      }, [
+        el("span", {}, [
+          "PUBLICATOR"
+        ]),
+        el("span", {
+          class: "pub-wordmark-accent"
+        }, [
+          "WEBSHOP"
+        ])
+      ])
+    ]);
+  }
+  // --- Custom dropdown (matches the WordPress plugin's font + design) ---------
+  // Native <select> option lists are OS-rendered and ignore the page font, so a
+  // custom control is used to keep the Inter typeface and the plugin's styling.
+  function customSelect(options, initial, onChange) {
+    const node = el("div", {
+      class: "pub-select"
     });
+    node.pubValue = initial;
+    const labelEl = el("span", {
+      class: "pub-select-value"
+    });
+    const setLabel = (v)=>{
+      const o = options.find((x)=>x.value === v);
+      labelEl.textContent = o ? o.label : "";
+    };
+    setLabel(initial);
+    const trigger = el("button", {
+      class: "pub-select-btn",
+      type: "button"
+    }, [
+      labelEl,
+      icon("chevron-down", 16, "pub-select-chev")
+    ]);
+    const list = el("div", {
+      class: "pub-select-list",
+      role: "listbox"
+    });
+    const rebuild = ()=>{
+      list.innerHTML = "";
+      for (const o of options){
+        const item = el("button", {
+          class: "pub-select-option" + (o.value === node.pubValue ? " is-selected" : ""),
+          type: "button"
+        }, [
+          o.label
+        ]);
+        item.onclick = ()=>{
+          node.pubValue = o.value;
+          setLabel(o.value);
+          close();
+          if (onChange) onChange(o.value);
+        };
+        list.append(item);
+      }
+    };
+    const outside = (e)=>{
+      if (!node.contains(e.target)) close();
+    };
+    const open = ()=>{
+      rebuild();
+      node.classList.add("is-open");
+      setTimeout(()=>document.addEventListener("click", outside), 0);
+    };
+    const close = ()=>{
+      node.classList.remove("is-open");
+      document.removeEventListener("click", outside);
+    };
+    trigger.onclick = ()=>{
+      node.classList.contains("is-open") ? close() : open();
+    };
+    node.append(trigger, list);
+    return node;
   }
   function chip(connected) {
     return el("span", {
@@ -412,7 +521,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       class: "pub-install-steps"
     });
     const stepTexts = [
-      "Choose a connection method: sign in with your Publicator AI email and password, or paste an API key from your Publicator AI dashboard.",
+      "Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.",
       "Fill in the form for the chosen method.",
       "Click the Connect button."
     ];
@@ -506,21 +615,21 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
             state.session.email || ""
           ])
         ]));
-        const select = el("select", {});
-        select.append(el("option", {
-          value: ""
-        }, [
-          "— Select a project —"
-        ]));
+        const projOpts = [
+          {
+            value: "",
+            label: "— Select a project —"
+          }
+        ];
         for (const pr of state.projects){
-          select.append(el("option", {
-            value: pr.id
-          }, [
-            pr.domain || pr.name || pr.id
-          ]));
+          projOpts.push({
+            value: pr.id,
+            label: pr.domain || pr.name || pr.id
+          });
         }
+        const select = customSelect(projOpts, "");
         const connect = btn("Connect", "primary", null, async ()=>{
-          if (!select.value) {
+          if (!select.pubValue) {
             showErr("Please select a project.");
             return;
           }
@@ -528,9 +637,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           try {
             await api("shopify-connect", {
               access_token: state.session.access_token,
-              project_id: select.value
+              project_id: select.pubValue
             });
-            toast("Connected to Publicator AI");
+            toast("Connected to Publicator Webshop");
             await load();
           } catch (e) {
             showErr(e.message);
@@ -556,7 +665,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           await api("shopify-connect-key", {
             publicator_key: key.value.trim()
           });
-          toast("Connected to Publicator AI");
+          toast("Connected to Publicator Webshop");
           await load();
         } catch (e) {
           showErr(e.message);
@@ -636,7 +745,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     }
     side.append(nav);
     const s = state.status || {};
-    const projName = s.project_domain || "Publicator AI";
+    const projName = s.project_domain || "Publicator Webshop";
     const initial = (projName.trim()[0] || "P").toUpperCase();
     const account = el("a", {
       class: "pub-account",
@@ -761,7 +870,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const p = el("section", {
       class: "pub-tab-panel is-active"
     }, [
-      pageHead("Overview", "Live snapshot of your Publicator AI connection.")
+      pageHead("Overview", "Live snapshot of your Publicator Webshop connection.")
     ]);
     p.append(el("div", {
       class: "pub-stat-grid"
@@ -819,7 +928,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       rel: "noopener"
     }, [
       icon("external-link", 14),
-      document.createTextNode("Open Publicator AI")
+      document.createTextNode("Open Publicator Webshop")
     ]);
     card.append(el("div", {
       class: "pub-actions"
@@ -843,7 +952,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     card.append(el("p", {
       class: "pub-hint"
     }, [
-      "Publicator AI writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store."
+      "Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store."
     ]));
     card.append(el("div", {
       class: "pub-info-grid"
@@ -875,7 +984,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     return el("section", {
       class: "pub-tab-panel is-active"
     }, [
-      pageHead("Products", "Sync your Shopify catalog into Publicator AI."),
+      pageHead("Products", "Sync your Shopify catalog into Publicator Webshop."),
       card
     ]);
   }
@@ -886,7 +995,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     card.append(el("p", {
       class: "pub-hint"
     }, [
-      "Push your Shopify blogs, collections and product types to Publicator AI so the AI only uses taxonomies that really exist."
+      "Push your Shopify blogs, collections and product types to Publicator Webshop so it only uses taxonomies that really exist."
     ]));
     const out = el("span", {
       class: "pub-inline-note"
@@ -913,7 +1022,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     return el("section", {
       class: "pub-tab-panel is-active"
     }, [
-      pageHead("Collections & tags", "Keep Publicator AI in sync with your store's collections."),
+      pageHead("Collections & tags", "Keep Publicator Webshop in sync with your store's collections."),
       card
     ]);
   }
@@ -926,21 +1035,19 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     }, [
       "Where content goes and how it looks — pick the default blog for articles and the primary colour used in call-to-action buttons."
     ]));
-    const blogSel = el("select", {});
-    blogSel.append(el("option", {
-      value: ""
-    }, [
-      "Auto (first blog)"
-    ]));
+    const blogOpts = [
+      {
+        value: "",
+        label: "Auto (first blog)"
+      }
+    ];
     for (const b of state.blogs){
-      const opt = el("option", {
-        value: b.id
-      }, [
-        b.title
-      ]);
-      if (state.settings.default_blog_id === b.id) opt.selected = true;
-      blogSel.append(opt);
+      blogOpts.push({
+        value: b.id,
+        label: b.title
+      });
     }
+    const blogSel = customSelect(blogOpts, state.settings.default_blog_id || "");
     card.append(field("Default blog for articles", blogSel));
     const colorText = el("input", {
       type: "text",
@@ -972,7 +1079,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       out.textContent = "Saving…";
       try {
         const r = await api("shopify-brand", {
-          default_blog_id: blogSel.value,
+          default_blog_id: blogSel.pubValue,
           primary_color: colorText.value
         });
         state.settings = r.settings || state.settings;
@@ -1006,53 +1113,43 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const langCard = el("div", {
       class: "pub-card pub-card-no-hover"
     });
-    const langSel = el("select", {});
-    const langs = [
-      [
-        "hu_HU",
-        "Magyar"
-      ],
-      [
-        "en_US",
-        "English"
-      ],
-      [
-        "de_DE",
-        "Deutsch"
-      ],
-      [
-        "es_ES",
-        "Español"
-      ],
-      [
-        "it_IT",
-        "Italiano"
-      ],
-      [
-        "sk_SK",
-        "Slovenčina"
-      ]
+    const langOpts = [
+      {
+        value: "hu_HU",
+        label: "Magyar"
+      },
+      {
+        value: "en_US",
+        label: "English"
+      },
+      {
+        value: "de_DE",
+        label: "Deutsch"
+      },
+      {
+        value: "es_ES",
+        label: "Español"
+      },
+      {
+        value: "it_IT",
+        label: "Italiano"
+      },
+      {
+        value: "sk_SK",
+        label: "Slovenčina"
+      }
     ];
-    for (const [v, l] of langs){
-      const opt = el("option", {
-        value: v
-      }, [
-        l
-      ]);
-      if ((state.settings.language || "hu_HU") === v) opt.selected = true;
-      langSel.append(opt);
-    }
-    langSel.onchange = async ()=>{
+    const langSel = customSelect(langOpts, state.settings.language || "hu_HU", async (v)=>{
       try {
         await api("shopify-brand", {
-          language: langSel.value
+          language: v
         });
-        state.settings.language = langSel.value;
+        state.settings.language = v;
         toast("Language saved");
       } catch (e) {
         toast(e.message, true);
       }
-    };
+    });
     langCard.append(el("div", {
       class: "pub-language-row"
     }, [
@@ -1067,7 +1164,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         el("p", {
           class: "pub-language-desc"
         }, [
-          "Choose the language Publicator AI uses for this store's content."
+          "Choose the language Publicator Webshop uses for this store's content."
         ])
       ]),
       el("div", {
@@ -1101,7 +1198,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         el("div", {
           class: "pub-danger-label"
         }, [
-          "Disconnect from Publicator AI"
+          "Disconnect from Publicator Webshop"
         ]),
         el("p", {
           class: "pub-danger-desc"
