@@ -57,10 +57,12 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 .pub-tab.is-active .pub-nav-ic { color:#fff; }
 .pub-sidebar-foot { padding-top:12px; border-top:1px solid var(--pub-line-2); margin-top:8px;
   display:flex; flex-direction:column; gap:8px; }
-.pub-account { display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--pub-line);
-  border-radius:var(--pub-r-md); padding:10px 12px; box-shadow:var(--pub-shadow-md);
-  text-decoration:none; color:inherit; transition:border-color .15s; }
-.pub-account:hover { border-color:#d1d5db; }
+.pub-account { position:relative; }
+.pub-account-toggle { display:flex; align-items:center; gap:10px; width:100%; background:#fff;
+  border:1px solid var(--pub-line); border-radius:var(--pub-r-md); padding:10px 12px;
+  box-shadow:var(--pub-shadow-md); cursor:pointer; font-family:inherit; text-align:left; color:inherit;
+  transition:border-color .15s; }
+.pub-account-toggle:hover { border-color:#d1d5db; }
 .pub-avatar { width:34px; height:34px; border-radius:10px; flex-shrink:0; background:var(--pub-avatar);
   color:#fff; display:flex; align-items:center; justify-content:center;
   font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; text-transform:uppercase; }
@@ -70,7 +72,20 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 .pub-account-status { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--pub-muted); }
 .pub-acct-dot { width:6px; height:6px; border-radius:50%; background:var(--pub-faint); flex-shrink:0; }
 .pub-acct-dot.active { background:var(--pub-emerald-500); }
-.pub-account-chevron { color:var(--pub-faint); margin-left:auto; flex-shrink:0; }
+.pub-account-chevron { color:var(--pub-faint); margin-left:auto; flex-shrink:0; transition:transform .2s; }
+.pub-account.is-open .pub-account-chevron { transform:rotate(180deg); }
+.pub-account-menu { position:absolute; bottom:calc(100% + 6px); left:0; right:0; background:#fff;
+  border:1px solid var(--pub-line); border-radius:var(--pub-r-md); box-shadow:var(--pub-shadow-lg);
+  padding:4px; z-index:70; display:none; animation:pub-fade .14s ease; }
+.pub-account.is-open .pub-account-menu { display:block; }
+.pub-account-menu a, .pub-account-menu button { display:flex; align-items:center; gap:9px; width:100%;
+  text-align:left; padding:9px 10px; background:none; border:none; cursor:pointer;
+  border-radius:var(--pub-r-sm); font-size:13px; color:var(--pub-ink-2); text-decoration:none;
+  font-family:inherit; transition:background .12s, color .12s; }
+.pub-account-menu a:hover, .pub-account-menu button:hover { background:var(--pub-soft); color:var(--pub-ink); }
+.pub-account-menu .pub-menu-sep { height:1px; background:var(--pub-line-2); margin:4px 2px; padding:0; }
+.pub-account-menu .pub-menu-danger { color:var(--pub-amber-700); }
+.pub-account-menu .pub-menu-danger:hover { background:var(--pub-amber-50); color:var(--pub-amber-800); }
 .pub-version { font-size:10px; color:var(--pub-faint); text-align:center; padding-top:2px; }
 
 .pub-main { flex:1; min-width:0; padding:28px 32px; background:#fff; }
@@ -723,14 +738,37 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       nav.append(b);
     }
     side.append(nav);
+    side.append(el("div", {
+      class: "pub-sidebar-foot"
+    }, [
+      accountCard(),
+      el("span", {
+        class: "pub-version"
+      }, [
+        "v1.0.0"
+      ])
+    ]));
+    app.append(side);
+    // Main.
+    const main = el("main", {
+      class: "pub-main"
+    });
+    main.append(panelFor(state.activeTab));
+    app.append(main);
+    setRoot(app);
+  }
+  // Sidebar account card — an openable menu (mirrors the WordPress plugin):
+  // open in Publicator, jump to Settings, and disconnect.
+  function accountCard() {
     const s = state.status || {};
     const projName = s.project_domain || "Publicator Webshop";
     const initial = (projName.trim()[0] || "P").toUpperCase();
-    const account = el("a", {
-      class: "pub-account",
-      href: WEBAPP_URL,
-      target: "_blank",
-      rel: "noopener"
+    const account = el("div", {
+      class: "pub-account"
+    });
+    const toggle = el("button", {
+      class: "pub-account-toggle",
+      type: "button"
     }, [
       el("span", {
         class: "pub-avatar"
@@ -759,27 +797,75 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       el("span", {
         class: "pub-account-chevron"
       }, [
-        icon("external-link", 14)
+        icon("chevron-down", 14)
       ])
     ]);
-    side.append(el("div", {
-      class: "pub-sidebar-foot"
-    }, [
-      account,
-      el("span", {
-        class: "pub-version"
-      }, [
-        "v1.0.0"
-      ])
-    ]));
-    app.append(side);
-    // Main.
-    const main = el("main", {
-      class: "pub-main"
+    const menu = el("div", {
+      class: "pub-account-menu",
+      role: "menu"
     });
-    main.append(panelFor(state.activeTab));
-    app.append(main);
-    setRoot(app);
+    const close = ()=>{
+      account.classList.remove("is-open");
+      document.removeEventListener("click", outside);
+    };
+    const outside = (e)=>{
+      if (!account.contains(e.target)) close();
+    };
+    const open = ()=>{
+      account.classList.add("is-open");
+      setTimeout(()=>document.addEventListener("click", outside), 0);
+    };
+    const openLink = el("a", {
+      href: WEBAPP_URL,
+      target: "_blank",
+      rel: "noopener"
+    }, [
+      icon("external-link", 14),
+      el("span", {}, [
+        "Open in Publicator Webshop"
+      ])
+    ]);
+    openLink.onclick = ()=>close();
+    const settingsBtn = el("button", {
+      type: "button"
+    }, [
+      icon("settings", 14),
+      el("span", {}, [
+        "Settings"
+      ])
+    ]);
+    settingsBtn.onclick = ()=>{
+      close();
+      state.activeTab = "settings";
+      renderApp();
+    };
+    const discBtn = el("button", {
+      type: "button",
+      class: "pub-menu-danger"
+    }, [
+      icon("log-out", 14),
+      el("span", {}, [
+        "Disconnect"
+      ])
+    ]);
+    discBtn.onclick = async ()=>{
+      close();
+      try {
+        await api("shopify-disconnect", {});
+        toast("Disconnected");
+        await load();
+      } catch (e) {
+        toast(e.message, true);
+      }
+    };
+    menu.append(openLink, settingsBtn, el("div", {
+      class: "pub-menu-sep"
+    }), discBtn);
+    toggle.onclick = ()=>{
+      account.classList.contains("is-open") ? close() : open();
+    };
+    account.append(toggle, menu);
+    return account;
   }
   function panelFor(tab) {
     switch(tab){
