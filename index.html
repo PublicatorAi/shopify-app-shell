@@ -1321,8 +1321,19 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   }
   // Wait for App Bridge to be ready, then boot. Give up after ~6s with a clear
   // message (e.g. the page was opened outside the Shopify admin).
+  function topLevel() {
+    try { return window.top === window.self; } catch { return false; }
+  }
+  function shopParam() {
+    return new URLSearchParams(location.search).get("shop") || "";
+  }
   let bootAttempts = 0;
   function boot() {
+    const shop = shopParam();
+    if (shop && topLevel()) {
+      location.href = `${CFG.appBase}/shopify-oauth-install?shop=${encodeURIComponent(shop)}`;
+      return;
+    }
     if (window.shopify && typeof shopify.idToken === "function") {
       load();
     } else if (bootAttempts++ < 60) {
