@@ -235,6 +235,8 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 .pub-language-desc, .pub-danger-desc { font-size:13px; color:var(--pub-muted); margin:0; line-height:1.5; }
 .pub-language-control { flex-shrink:0; }
 .pub-language-control .pub-select { width:200px; }
+.pub-connect-lang { display:flex; justify-content:flex-end; margin-bottom:14px; }
+.pub-connect-lang .pub-select { width:150px; }
 .pub-danger-card { border-color:#fde0e0; }
 .pub-danger-row .pub-btn { flex-shrink:0; }
 
@@ -520,6 +522,29 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     }, [
       logo(),
       chip(false)
+    ]));
+    // Language selector — lets merchants pick the interface language before
+    // connecting. Saved locally; after connecting, Settings controls it.
+    const connectLangOpts = [
+      { value: "hu_HU", label: "Magyar" },
+      { value: "en_US", label: "English" },
+      { value: "de_DE", label: "Deutsch" },
+      { value: "es_ES", label: "Español" },
+      { value: "it_IT", label: "Italiano" },
+      { value: "sk_SK", label: "Slovenčina" }
+    ];
+    let connectLang = state.settings.language || "en_US";
+    try { connectLang = state.settings.language || localStorage.getItem("pub_lang") || "en_US"; } catch (e) {}
+    state.settings.language = connectLang;
+    const connectLangSel = customSelect(connectLangOpts, connectLang, (v)=>{
+      state.settings.language = v;
+      try { localStorage.setItem("pub_lang", v); } catch (e) {}
+      renderConnect();
+    });
+    shell.append(el("div", {
+      class: "pub-connect-lang"
+    }, [
+      connectLangSel
     ]));
     const card = el("div", {
       class: "pub-card pub-card-no-hover"
