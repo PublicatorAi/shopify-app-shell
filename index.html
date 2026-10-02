@@ -510,8 +510,18 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   }
   function fmtDate(v) {
     if (!v) return "—";
+    // Format dates in the store's chosen UI language (e.g. "Oct 2, 2026, 9:26 AM"
+    // for English), not the viewer's browser locale, so the UI reads consistently.
+    const lang = state && state.settings && state.settings.language || "en_US";
+    const locale = lang.replace("_", "-");
     try {
-      return new Date(v).toLocaleString();
+      return new Date(v).toLocaleString(locale, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
     } catch  {
       return String(v);
     }
