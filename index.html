@@ -1406,12 +1406,16 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       const s = await api("shopify-status", {});
       state.status = s;
       if (s.connected) {
-        try {
-          const b = await api("shopify-brand", {});
+        // Paint the app immediately from the status snapshot, then load the
+        // blog list + saved settings in the background and re-render when they
+        // arrive (renderApp keeps the active tab, so this never disrupts the
+        // user). This avoids blocking the first paint on an extra round trip.
+        renderApp();
+        api("shopify-brand", {}).then((b)=>{
           state.settings = b.settings || {};
           state.blogs = b.blogs || [];
-        } catch  {}
-        renderApp();
+          renderApp();
+        }).catch(()=>{});
       } else {
         state.session = null;
         renderConnect();
