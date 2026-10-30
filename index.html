@@ -589,6 +589,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     ];
     const connectLangSel = customSelect(connectLangOpts, state.settings.language, (v)=>{
       state.settings.language = v;
+      state.langPicked = true; // explicitly chosen → saved to the store on connect
       rememberLang(v);
       renderConnect();
     });
@@ -1508,6 +1509,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   }
   // --- Boot ------------------------------------------------------------------
   async function load() {
+    // Every load (open, after connect/disconnect) syncs the plan afresh — a
+    // cached result from before a reconnect would hide the new project's state.
+    billingCache = null;
     setRoot(loadingBlock("Loading live data…"));
     try {
       const s = await api("shopify-status", {});
@@ -1529,12 +1533,16 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           if (state.settings.language) {
             rememberLang(state.settings.language);
           } else if (chosen) {
-            // First open after connecting: keep the language picked on the
-            // connect screen and store it with the shop's settings.
+            // No saved language for this store: keep showing the current one,
+            // and store it only if the merchant explicitly picked it on the
+            // connect screen (the browser's remembered language may come from
+            // another store opened in the same browser).
             state.settings.language = chosen;
-            api("shopify-brand", {
-              language: chosen
-            }).catch(()=>{});
+            if (state.langPicked) {
+              api("shopify-brand", {
+                language: chosen
+              }).catch(()=>{});
+            }
           }
           renderApp();
         }).catch(()=>{});
