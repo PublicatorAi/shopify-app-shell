@@ -107,7 +107,29 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 .pub-hint { font-size:14px; color:var(--pub-muted); margin:0 0 16px; line-height:1.55; }
 .pub-signup { margin:18px 0 0; padding-top:14px; border-top:1px solid var(--pub-line-2);
   font-size:13px; color:var(--pub-muted); text-align:center; }
-.pub-signup-link { color:var(--pub-ink); font-weight:600; text-decoration:underline; }
+.pub-signup-link { color:var(--pub-ink); font-weight:600; text-decoration:underline;
+  background:none; border:0; padding:0; font:inherit; cursor:pointer; }
+.pub-signup-head { display:flex; align-items:center; gap:8px; margin:0 0 8px; color:var(--pub-ink); }
+.pub-signup-title { font-family:'Space Grotesk',-apple-system,sans-serif; font-size:18px; font-weight:700;
+  margin:0; color:var(--pub-ink); }
+.pub-legal { font-size:12px; color:var(--pub-muted); margin:4px 0 14px; line-height:1.5; }
+.pub-legal a { color:var(--pub-ink); text-decoration:underline; }
+.pub-plan-banner { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 20px; }
+.pub-plan-banner .pub-notice { flex:1; min-width:240px; margin:0; }
+.pub-card-title { font-family:'Space Grotesk',-apple-system,sans-serif; font-size:16px; font-weight:700;
+  margin:0 0 12px; color:var(--pub-ink); }
+.pub-recent { margin-top:24px; }
+.pub-recent-empty { margin:0; }
+.pub-recent-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.pub-recent-item { display:flex; align-items:center; gap:12px; padding:10px 12px;
+  border:1px solid var(--pub-line-2); border-radius:var(--pub-r-md); background:var(--pub-soft); }
+.pub-recent-ic { display:flex; color:var(--pub-muted); }
+.pub-recent-main { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+.pub-recent-main strong { font-size:14px; font-weight:600; color:var(--pub-ink);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pub-recent-meta { font-size:12px; color:var(--pub-muted); }
+.pub-recent-links { display:flex; gap:12px; flex-shrink:0; }
+.pub-recent-links a { font-size:13px; color:var(--pub-ink); font-weight:500; text-decoration:underline; }
 
 /* ===== Overview KPI grid ===== */
 .pub-loading { display:flex; align-items:center; justify-content:center; gap:10px;
@@ -218,6 +240,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   display:flex; align-items:flex-start; gap:10px; }
 .pub-notice-error { background:var(--pub-red-50); border:1px solid var(--pub-red-200); color:var(--pub-red-700); }
 .pub-notice-success { background:var(--pub-emerald-50); border:1px solid var(--pub-emerald-200); color:var(--pub-emerald-700); }
+.pub-notice-info { background:var(--pub-blue-50); border:1px solid var(--pub-blue-100); color:var(--pub-blue-700); }
 
 /* ===== Install steps + method toggle (disconnected) ===== */
 .pub-install-steps { background:var(--pub-blue-50); border:1px solid var(--pub-blue-100);
@@ -266,14 +289,14 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
 </head>
 <body>
 <div id="pub-root"></div>
-<script>/*<![CDATA[*/window.__PUBAI__={"apiKey":"99416c7650844bbef629fc65c5d3b575","appBase":"https://wfjirakgiglsowunllsq.supabase.co/functions/v1","i18n":{"hu_HU":{"Overview":"Áttekintés","Connection":"Kapcsolat","Products":"Termékek","Collections & tags":"Kollekciók és címkék","Settings":"Beállítások","Connected":"Csatlakoztatva","Not connected":"Nincs csatlakoztatva","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Válassz csatlakozási módot: jelentkezz be a Publicator Webshop e-mail-címeddel és jelszavaddal, vagy illessz be egy API kulcsot a Publicator Webshop felületéről.","Fill in the form for the chosen method.":"Töltsd ki a választott mód űrlapját.","Click the Connect button.":"Kattints a Csatlakoztatás gombra.","Email + password":"E-mail + jelszó","API key":"API kulcs","Email address":"E-mail-cím","Password":"Jelszó","Sign in":"Bejelentkezés","Signed in as:":"Bejelentkezve:","Select a project":"Válassz projektet","— Select a project —":"— Válassz projektet —","Connect":"Csatlakoztatás","← Back":"← Vissza","Please select a project.":"Kérlek válassz projektet.","Live snapshot of your Publicator Webshop connection.":"A Publicator Webshop kapcsolat élő pillanatképe.","Products synced":"Szinkronizált termékek","Default blog":"Alapértelmezett blog","Last feed sync":"Utolsó termékszinkron","Set":"Beállítva","Auto":"Auto","Store":"Áruház","Project":"Projekt","Connection details and a one-click test.":"Kapcsolat részletei és egy gombnyomásos teszt.","Project API key":"Projekt API kulcs","Connected on":"Csatlakoztatva","Test connection":"Kapcsolat tesztelése","Testing…":"Tesztelés…","Open Publicator Webshop":"Publicator Webshop megnyitása","Sync your Shopify catalog into Publicator Webshop.":"Szinkronizáld a Shopify katalógusod a Publicator Webshopba.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"A Publicator Webshop a katalógusodból írja a termékleírásokat. Szinkronizáld a termékeket, hogy a rendszer tudja, mi van az áruházadban.","Last sync":"Utolsó szinkron","Sync products now":"Termékek szinkronizálása","Starting sync…":"Szinkron indítása…","Sync started. Products will appear shortly.":"Szinkron elindult. A termékek hamarosan megjelennek.","Sync requested.":"Szinkron kérve.","Product sync started":"Termékszinkron elindult","Default blog for articles":"Cikkek alapértelmezett blogja","Auto (first blog)":"Automatikus (első blog)","Saving…":"Mentés…","Saved.":"Elmentve.","Preferences and disconnection.":"Beállítások és a kapcsolat bontása.","Language saved":"Nyelv elmentve","Disconnect from Publicator Webshop":"Kapcsolat bontása a Publicator Webshoppal","Content already published stays in your store. You can reconnect anytime.":"A már publikált tartalom az áruházadban marad. Bármikor újracsatlakozhatsz.","Disconnect":"Kapcsolat bontása","Disconnected":"Kapcsolat bontva","Open in Publicator Webshop":"Megnyitás a Publicator Webshopban","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Ezt az appot a Shopify adminból kell megnyitni. Nyisd meg az áruházad Alkalmazások menüjéből.","Could not load the app:":"Az app betöltése sikertelen:","Loading live data…":"Élő adatok betöltése…","Connected to Publicator Webshop":"Csatlakoztatva a Publicator Webshophoz","OK — {shop}":"Rendben — {shop}","Collections":"Kollekciók","Blogs":"Blogok","Product types":"Terméktípusok","Plan":"Csomag","Your subscription, billed securely through Shopify.":"Az előfizetésed, biztonságosan a Shopifyon keresztül számlázva.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"A Publicator Webshop csomagodat biztonságosan a Shopify számlázza. Válaszd ki vagy kezeld a Shopify számlázási oldalán.","Loading plan…":"Csomag betöltése…","Current plan":"Jelenlegi csomag","Status":"Állapot","Renews":"Megújul","Active":"Aktív","Paused (payment issue)":"Szüneteltetve (fizetési probléma)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Még nincs aktív csomag. Válassz csomagot, hogy elkezdhesd a SEO-tartalom publikálását az áruházadba.","Manage plan":"Csomag kezelése","Choose a plan":"Válassz csomagot","Cancel":"Mégse","Choose the blog where new articles are published.":"Válaszd ki, melyik blogba kerüljenek az új cikkek.","Choose the language of this app's interface.":"Válaszd ki az app felületének nyelvét.","Collections: {c} · Blogs: {b} · Product types: {p}":"Kollekciók: {c} · Blogok: {b} · Terméktípusok: {p}","Confirm disconnect":"Bontás megerősítése","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Bontod az áruház kapcsolatát a Publicator Webshoppal? A Shopify-csomagod ezzel nem szűnik meg — előbb a Csomag fülön kezeld vagy mondd le.","Interface language":"Felület nyelve","Load collections & tags":"Kollekciók és címkék betöltése","Loading…":"Betöltés…","Publishing":"Publikálás","Request failed ({status}).":"A kérés sikertelen ({status}).","Save":"Mentés","See which blogs, collections and product types Publicator Webshop finds in your store.":"Nézd meg, milyen blogokat, kollekciókat és terméktípusokat talál a Publicator Webshop az áruházadban.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Ez a Shopify-csomag Publicator Webshop projektekre érvényes, de a csatlakoztatott projekt egy másik Publicator termék. Írj nekünk: info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Ezt a projektet már a Publicator számlázza, ezért a Shopify-csomag nem érvényesül rajta. A számlázás átállításához írj nekünk: info@publicator.ai.","Where new articles are published.":"Hová kerülnek az új cikkek.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"A csomagod a Shopifyban aktív, de még nem sikerült érvényesíteni a Publicator projekteden. Tölts újra egy perc múlva, vagy írj az info@publicator.ai címre.","Your store's blogs, collections and product types.":"Az áruházad blogjai, kollekciói és terméktípusai.","API key is required.":"Az API kulcs megadása kötelező.","Billing is temporarily unavailable. Please try again later.":"A számlázás átmenetileg nem érhető el. Próbáld újra később.","Connect a Publicator project first.":"Előbb csatlakoztass egy Publicator projektet.","Email and password are required.":"Az e-mail-cím és a jelszó megadása kötelező.","Failed to fetch your projects.":"Nem sikerült lekérni a projektjeidet.","Invalid API key format.":"Érvénytelen API kulcs formátum.","Invalid API key.":"Érvénytelen API kulcs.","Invalid email or password.":"Hibás e-mail-cím vagy jelszó.","Invalid or expired session.":"Érvénytelen vagy lejárt munkamenet. Jelentkezz be újra.","Missing account session or project.":"Hiányzik a bejelentkezés vagy a projekt.","Missing account session.":"Hiányzik a bejelentkezés.","Project not found.":"A projekt nem található.","Session token expired.":"A munkamenet lejárt. Töltsd újra az oldalt.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"Az áruház Shopify-hozzáférése lejárt. A megújításhoz nyisd meg a Publicator Webshopot a Shopify adminban.","Sign-in failed. Please try again.":"A bejelentkezés sikertelen. Próbáld újra.","This project does not belong to your account.":"Ez a projekt nem a fiókodhoz tartozik.","This store is not set up yet. Reload the app and try again.":"Az áruház még nincs előkészítve. Töltsd újra az appot, és próbáld újra.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Ez egy fejlesztői bolt ingyenes teszt-előfizetése, ezért nem aktivál csomagot a Publicator projekteden. Ha tesztprojektre van szükséged, írj az info@publicator.ai címre.","No Publicator Webshop account yet?":"Még nincs Publicator Webshop fiókod?","Create your account":"Fiók létrehozása"},"de_DE":{"Overview":"Übersicht","Connection":"Verbindung","Products":"Produkte","Collections & tags":"Kollektionen & Tags","Settings":"Einstellungen","Connected":"Verbunden","Not connected":"Nicht verbunden","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Wähle eine Verbindungsmethode: Melde dich mit deiner Publicator Webshop E-Mail und deinem Passwort an oder füge einen API-Schlüssel aus deinem Publicator Webshop Dashboard ein.","Fill in the form for the chosen method.":"Fülle das Formular für die gewählte Methode aus.","Click the Connect button.":"Klicke auf die Schaltfläche Verbinden.","Email + password":"E-Mail + Passwort","API key":"API-Schlüssel","Email address":"E-Mail-Adresse","Password":"Passwort","Sign in":"Anmelden","Signed in as:":"Angemeldet als:","Select a project":"Projekt auswählen","— Select a project —":"— Projekt auswählen —","Connect":"Verbinden","← Back":"← Zurück","Please select a project.":"Bitte wähle ein Projekt aus.","Live snapshot of your Publicator Webshop connection.":"Live-Momentaufnahme deiner Publicator Webshop Verbindung.","Products synced":"Synchronisierte Produkte","Default blog":"Standard-Blog","Last feed sync":"Letzter Feed-Sync","Set":"Gesetzt","Auto":"Auto","Store":"Shop","Project":"Projekt","Connection details and a one-click test.":"Verbindungsdetails und ein Ein-Klick-Test.","Project API key":"Projekt-API-Schlüssel","Connected on":"Verbunden am","Test connection":"Verbindung testen","Testing…":"Test läuft…","Open Publicator Webshop":"Publicator Webshop öffnen","Sync your Shopify catalog into Publicator Webshop.":"Synchronisiere deinen Shopify-Katalog mit Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop erstellt Produktbeschreibungen aus deinem Katalog. Synchronisiere deine Produkte, damit das System weiß, was es in deinem Shop gibt.","Last sync":"Letzter Sync","Sync products now":"Produkte jetzt synchronisieren","Starting sync…":"Sync wird gestartet…","Sync started. Products will appear shortly.":"Sync gestartet. Die Produkte erscheinen in Kürze.","Sync requested.":"Sync angefordert.","Product sync started":"Produkt-Sync gestartet","Default blog for articles":"Standard-Blog für Artikel","Auto (first blog)":"Automatisch (erster Blog)","Saving…":"Wird gespeichert…","Saved.":"Gespeichert.","Preferences and disconnection.":"Einstellungen und Trennung.","Language saved":"Sprache gespeichert","Disconnect from Publicator Webshop":"Verbindung zu Publicator Webshop trennen","Content already published stays in your store. You can reconnect anytime.":"Bereits veröffentlichte Inhalte bleiben in deinem Shop. Du kannst dich jederzeit wieder verbinden.","Disconnect":"Verbindung trennen","Disconnected":"Verbindung getrennt","Open in Publicator Webshop":"In Publicator Webshop öffnen","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Diese App muss aus dem Shopify-Admin geöffnet werden. Bitte öffne sie über „Apps“ in deinem Shop.","Could not load the app:":"App konnte nicht geladen werden:","Loading live data…":"Live-Daten werden geladen…","Connected to Publicator Webshop":"Mit Publicator Webshop verbunden","OK — {shop}":"OK — {shop}","Collections":"Kollektionen","Blogs":"Blogs","Product types":"Produkttypen","Plan":"Tarif","Your subscription, billed securely through Shopify.":"Dein Abo, sicher über Shopify abgerechnet.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Dein Publicator Webshop Tarif wird sicher über Shopify abgerechnet. Wähle oder verwalte ihn auf der Shopify-Abrechnungsseite.","Loading plan…":"Tarif wird geladen…","Current plan":"Aktueller Tarif","Status":"Status","Renews":"Verlängert sich","Active":"Aktiv","Paused (payment issue)":"Pausiert (Zahlungsproblem)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Noch kein aktiver Tarif. Wähle einen Tarif, um SEO-Inhalte in deinem Shop zu veröffentlichen.","Manage plan":"Tarif verwalten","Choose a plan":"Tarif wählen","Cancel":"Abbrechen","Choose the blog where new articles are published.":"Wähle den Blog, in dem neue Artikel veröffentlicht werden.","Choose the language of this app's interface.":"Wähle die Sprache der App-Oberfläche.","Collections: {c} · Blogs: {b} · Product types: {p}":"Kollektionen: {c} · Blogs: {b} · Produkttypen: {p}","Confirm disconnect":"Trennen bestätigen","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Diesen Shop von Publicator Webshop trennen? Dein Shopify-Tarif wird dadurch nicht gekündigt — verwalte oder kündige ihn zuerst im Tab „Tarif“.","Interface language":"Sprache der Oberfläche","Load collections & tags":"Kollektionen & Tags laden","Loading…":"Wird geladen…","Publishing":"Veröffentlichung","Request failed ({status}).":"Anfrage fehlgeschlagen ({status}).","Save":"Speichern","See which blogs, collections and product types Publicator Webshop finds in your store.":"Sieh dir an, welche Blogs, Kollektionen und Produkttypen Publicator Webshop in deinem Shop findet.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Dieser Shopify-Tarif gilt für Publicator Webshop Projekte, das verbundene Projekt ist jedoch ein anderes Publicator Produkt. Kontaktiere info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Dieses Projekt wird bereits über Publicator abgerechnet, daher wird der Shopify-Tarif nicht angewendet. Kontaktiere info@publicator.ai, um die Abrechnung umzustellen.","Where new articles are published.":"Wo neue Artikel veröffentlicht werden.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Dein Tarif ist in Shopify aktiv, konnte aber noch nicht auf dein Publicator Projekt angewendet werden. Lade die Seite in einer Minute neu oder schreib an info@publicator.ai.","Your store's blogs, collections and product types.":"Die Blogs, Kollektionen und Produkttypen deines Shops.","API key is required.":"Der API-Schlüssel ist erforderlich.","Billing is temporarily unavailable. Please try again later.":"Die Abrechnung ist vorübergehend nicht verfügbar. Bitte versuche es später erneut.","Connect a Publicator project first.":"Verbinde zuerst ein Publicator Projekt.","Email and password are required.":"E-Mail-Adresse und Passwort sind erforderlich.","Failed to fetch your projects.":"Deine Projekte konnten nicht geladen werden.","Invalid API key format.":"Ungültiges API-Schlüssel-Format.","Invalid API key.":"Ungültiger API-Schlüssel.","Invalid email or password.":"E-Mail-Adresse oder Passwort ist falsch.","Invalid or expired session.":"Ungültige oder abgelaufene Sitzung. Bitte melde dich erneut an.","Missing account session or project.":"Anmeldung oder Projekt fehlt.","Missing account session.":"Anmeldung fehlt.","Project not found.":"Projekt nicht gefunden.","Session token expired.":"Die Sitzung ist abgelaufen. Bitte lade die Seite neu.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"Der Shopify-Zugriff für diesen Shop ist abgelaufen. Öffne Publicator Webshop im Shopify-Admin, um ihn zu erneuern.","Sign-in failed. Please try again.":"Anmeldung fehlgeschlagen. Bitte versuche es erneut.","This project does not belong to your account.":"Dieses Projekt gehört nicht zu deinem Konto.","This store is not set up yet. Reload the app and try again.":"Dieser Shop ist noch nicht eingerichtet. Lade die App neu und versuche es erneut.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Dies ist ein kostenloses Test-Abo eines Entwicklungsshops und aktiviert daher keinen Tarif für dein Publicator Projekt. Schreib an info@publicator.ai, wenn du ein Testprojekt brauchst.","No Publicator Webshop account yet?":"Noch kein Publicator Webshop Konto?","Create your account":"Konto erstellen"},"es_ES":{"Overview":"Resumen","Connection":"Conexión","Products":"Productos","Collections & tags":"Colecciones y etiquetas","Settings":"Ajustes","Connected":"Conectado","Not connected":"No conectado","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Elige un método de conexión: inicia sesión con tu correo y contraseña de Publicator Webshop, o pega una clave de API desde tu panel de Publicator Webshop.","Fill in the form for the chosen method.":"Rellena el formulario del método elegido.","Click the Connect button.":"Haz clic en el botón Conectar.","Email + password":"Correo + contraseña","API key":"Clave de API","Email address":"Dirección de correo","Password":"Contraseña","Sign in":"Iniciar sesión","Signed in as:":"Sesión iniciada como:","Select a project":"Selecciona un proyecto","— Select a project —":"— Selecciona un proyecto —","Connect":"Conectar","← Back":"← Atrás","Please select a project.":"Selecciona un proyecto.","Live snapshot of your Publicator Webshop connection.":"Instantánea en vivo de tu conexión con Publicator Webshop.","Products synced":"Productos sincronizados","Default blog":"Blog predeterminado","Last feed sync":"Última sinc. de feed","Set":"Definido","Auto":"Auto","Store":"Tienda","Project":"Proyecto","Connection details and a one-click test.":"Detalles de la conexión y una prueba con un clic.","Project API key":"Clave de API del proyecto","Connected on":"Conectado el","Test connection":"Probar conexión","Testing…":"Probando…","Open Publicator Webshop":"Abrir Publicator Webshop","Sync your Shopify catalog into Publicator Webshop.":"Sincroniza tu catálogo de Shopify con Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop redacta las descripciones de productos a partir de tu catálogo. Sincroniza tus productos para que el sistema sepa qué hay en tu tienda.","Last sync":"Última sincronización","Sync products now":"Sincronizar productos ahora","Starting sync…":"Iniciando sincronización…","Sync started. Products will appear shortly.":"Sincronización iniciada. Los productos aparecerán pronto.","Sync requested.":"Sincronización solicitada.","Product sync started":"Sincronización de productos iniciada","Default blog for articles":"Blog predeterminado para artículos","Auto (first blog)":"Automático (primer blog)","Saving…":"Guardando…","Saved.":"Guardado.","Preferences and disconnection.":"Preferencias y desconexión.","Language saved":"Idioma guardado","Disconnect from Publicator Webshop":"Desconectar de Publicator Webshop","Content already published stays in your store. You can reconnect anytime.":"El contenido ya publicado permanece en tu tienda. Puedes volver a conectarte cuando quieras.","Disconnect":"Desconectar","Disconnected":"Desconectado","Open in Publicator Webshop":"Abrir en Publicator Webshop","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Esta aplicación debe abrirse desde el panel de Shopify. Ábrela desde «Aplicaciones» en tu tienda.","Could not load the app:":"No se pudo cargar la aplicación:","Loading live data…":"Cargando datos en vivo…","Connected to Publicator Webshop":"Conectado a Publicator Webshop","OK — {shop}":"OK — {shop}","Collections":"Colecciones","Blogs":"Blogs","Product types":"Tipos de producto","Plan":"Plan","Your subscription, billed securely through Shopify.":"Tu suscripción, facturada de forma segura a través de Shopify.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Tu plan de Publicator Webshop se factura de forma segura a través de Shopify. Elígelo o gestiónalo en la página de facturación de Shopify.","Loading plan…":"Cargando plan…","Current plan":"Plan actual","Status":"Estado","Renews":"Se renueva","Active":"Activo","Paused (payment issue)":"En pausa (problema de pago)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Aún no tienes un plan activo. Elige un plan para empezar a publicar contenido SEO en tu tienda.","Manage plan":"Gestionar plan","Choose a plan":"Elegir un plan","Cancel":"Cancelar","Choose the blog where new articles are published.":"Elige el blog donde se publican los artículos nuevos.","Choose the language of this app's interface.":"Elige el idioma de la interfaz de la app.","Collections: {c} · Blogs: {b} · Product types: {p}":"Colecciones: {c} · Blogs: {b} · Tipos de producto: {p}","Confirm disconnect":"Confirmar desconexión","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"¿Desconectar esta tienda de Publicator Webshop? Tu plan de Shopify no se cancela: gestiónalo o cancélalo primero en la pestaña «Plan».","Interface language":"Idioma de la interfaz","Load collections & tags":"Cargar colecciones y etiquetas","Loading…":"Cargando…","Publishing":"Publicación","Request failed ({status}).":"La solicitud falló ({status}).","Save":"Guardar","See which blogs, collections and product types Publicator Webshop finds in your store.":"Mira qué blogs, colecciones y tipos de producto encuentra Publicator Webshop en tu tienda.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Este plan de Shopify es para proyectos de Publicator Webshop, pero el proyecto conectado es otro producto de Publicator. Escribe a info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Este proyecto ya se factura a través de Publicator, por lo que el plan de Shopify no se aplica. Escribe a info@publicator.ai para cambiar la facturación.","Where new articles are published.":"Dónde se publican los artículos nuevos.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Tu plan está activo en Shopify, pero aún no hemos podido aplicarlo a tu proyecto de Publicator. Vuelve a cargar en un minuto o escribe a info@publicator.ai.","Your store's blogs, collections and product types.":"Los blogs, colecciones y tipos de producto de tu tienda.","API key is required.":"La clave de API es obligatoria.","Billing is temporarily unavailable. Please try again later.":"La facturación no está disponible temporalmente. Inténtalo más tarde.","Connect a Publicator project first.":"Primero conecta un proyecto de Publicator.","Email and password are required.":"El correo electrónico y la contraseña son obligatorios.","Failed to fetch your projects.":"No se pudieron cargar tus proyectos.","Invalid API key format.":"Formato de clave de API no válido.","Invalid API key.":"Clave de API no válida.","Invalid email or password.":"Correo electrónico o contraseña incorrectos.","Invalid or expired session.":"Sesión no válida o caducada. Vuelve a iniciar sesión.","Missing account session or project.":"Falta la sesión o el proyecto.","Missing account session.":"Falta la sesión.","Project not found.":"Proyecto no encontrado.","Session token expired.":"La sesión ha caducado. Vuelve a cargar la página.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"El acceso de Shopify para esta tienda ha caducado. Abre Publicator Webshop en el panel de Shopify para renovarlo.","Sign-in failed. Please try again.":"No se pudo iniciar sesión. Inténtalo de nuevo.","This project does not belong to your account.":"Este proyecto no pertenece a tu cuenta.","This store is not set up yet. Reload the app and try again.":"Esta tienda aún no está configurada. Vuelve a cargar la app e inténtalo de nuevo.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Es una suscripción de prueba gratuita de una tienda de desarrollo, por lo que no activa ningún plan en tu proyecto de Publicator. Escribe a info@publicator.ai si necesitas un proyecto de prueba.","No Publicator Webshop account yet?":"¿Aún no tienes cuenta de Publicator Webshop?","Create your account":"Crear tu cuenta"},"it_IT":{"Overview":"Panoramica","Connection":"Connessione","Products":"Prodotti","Collections & tags":"Collezioni e tag","Settings":"Impostazioni","Connected":"Connesso","Not connected":"Non connesso","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Scegli un metodo di connessione: accedi con la tua email e password di Publicator Webshop, oppure incolla una chiave API dal tuo pannello Publicator Webshop.","Fill in the form for the chosen method.":"Compila il modulo del metodo scelto.","Click the Connect button.":"Clicca sul pulsante Connetti.","Email + password":"Email + password","API key":"Chiave API","Email address":"Indirizzo email","Password":"Password","Sign in":"Accedi","Signed in as:":"Accesso come:","Select a project":"Seleziona un progetto","— Select a project —":"— Seleziona un progetto —","Connect":"Connetti","← Back":"← Indietro","Please select a project.":"Seleziona un progetto.","Live snapshot of your Publicator Webshop connection.":"Istantanea in tempo reale della tua connessione Publicator Webshop.","Products synced":"Prodotti sincronizzati","Default blog":"Blog predefinito","Last feed sync":"Ultima sync feed","Set":"Impostato","Auto":"Auto","Store":"Negozio","Project":"Progetto","Connection details and a one-click test.":"Dettagli della connessione e un test con un clic.","Project API key":"Chiave API del progetto","Connected on":"Connesso il","Test connection":"Testa connessione","Testing…":"Test in corso…","Open Publicator Webshop":"Apri Publicator Webshop","Sync your Shopify catalog into Publicator Webshop.":"Sincronizza il tuo catalogo Shopify con Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop scrive le descrizioni dei prodotti dal tuo catalogo. Sincronizza i tuoi prodotti così il sistema sa cosa c'è nel tuo negozio.","Last sync":"Ultima sincronizzazione","Sync products now":"Sincronizza i prodotti ora","Starting sync…":"Avvio sincronizzazione…","Sync started. Products will appear shortly.":"Sincronizzazione avviata. I prodotti appariranno a breve.","Sync requested.":"Sincronizzazione richiesta.","Product sync started":"Sincronizzazione prodotti avviata","Default blog for articles":"Blog predefinito per gli articoli","Auto (first blog)":"Automatico (primo blog)","Saving…":"Salvataggio…","Saved.":"Salvato.","Preferences and disconnection.":"Preferenze e disconnessione.","Language saved":"Lingua salvata","Disconnect from Publicator Webshop":"Disconnetti da Publicator Webshop","Content already published stays in your store. You can reconnect anytime.":"I contenuti già pubblicati restano nel tuo negozio. Puoi riconnetterti in qualsiasi momento.","Disconnect":"Disconnetti","Disconnected":"Disconnesso","Open in Publicator Webshop":"Apri in Publicator Webshop","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Questa app deve essere aperta dall'admin di Shopify. Aprila da «App» nel tuo negozio.","Could not load the app:":"Impossibile caricare l'app:","Loading live data…":"Caricamento dati in tempo reale…","Connected to Publicator Webshop":"Connesso a Publicator Webshop","OK — {shop}":"OK — {shop}","Collections":"Collezioni","Blogs":"Blog","Product types":"Tipi di prodotto","Plan":"Piano","Your subscription, billed securely through Shopify.":"Il tuo abbonamento, fatturato in modo sicuro tramite Shopify.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Il tuo piano Publicator Webshop è fatturato in modo sicuro tramite Shopify. Scegli o gestiscilo nella pagina di fatturazione di Shopify.","Loading plan…":"Caricamento piano…","Current plan":"Piano attuale","Status":"Stato","Renews":"Si rinnova","Active":"Attivo","Paused (payment issue)":"In pausa (problema di pagamento)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Nessun piano attivo. Scegli un piano per iniziare a pubblicare contenuti SEO nel tuo negozio.","Manage plan":"Gestisci piano","Choose a plan":"Scegli un piano","Cancel":"Annulla","Choose the blog where new articles are published.":"Scegli il blog in cui vengono pubblicati i nuovi articoli.","Choose the language of this app's interface.":"Scegli la lingua dell'interfaccia dell'app.","Collections: {c} · Blogs: {b} · Product types: {p}":"Collezioni: {c} · Blog: {b} · Tipi di prodotto: {p}","Confirm disconnect":"Conferma disconnessione","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Disconnettere questo negozio da Publicator Webshop? Il tuo piano Shopify non viene annullato: gestiscilo o annullalo prima nella scheda «Piano».","Interface language":"Lingua dell'interfaccia","Load collections & tags":"Carica collezioni e tag","Loading…":"Caricamento…","Publishing":"Pubblicazione","Request failed ({status}).":"Richiesta non riuscita ({status}).","Save":"Salva","See which blogs, collections and product types Publicator Webshop finds in your store.":"Scopri quali blog, collezioni e tipi di prodotto Publicator Webshop trova nel tuo negozio.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Questo piano Shopify vale per i progetti Publicator Webshop, ma il progetto collegato è un altro prodotto Publicator. Scrivi a info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Questo progetto è già fatturato tramite Publicator, quindi il piano Shopify non viene applicato. Scrivi a info@publicator.ai per cambiare la fatturazione.","Where new articles are published.":"Dove vengono pubblicati i nuovi articoli.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Il tuo piano è attivo su Shopify, ma non siamo ancora riusciti ad applicarlo al tuo progetto Publicator. Ricarica tra un minuto o scrivi a info@publicator.ai.","Your store's blogs, collections and product types.":"I blog, le collezioni e i tipi di prodotto del tuo negozio.","API key is required.":"La chiave API è obbligatoria.","Billing is temporarily unavailable. Please try again later.":"La fatturazione è temporaneamente non disponibile. Riprova più tardi.","Connect a Publicator project first.":"Collega prima un progetto Publicator.","Email and password are required.":"Email e password sono obbligatorie.","Failed to fetch your projects.":"Impossibile caricare i tuoi progetti.","Invalid API key format.":"Formato della chiave API non valido.","Invalid API key.":"Chiave API non valida.","Invalid email or password.":"Email o password non validi.","Invalid or expired session.":"Sessione non valida o scaduta. Accedi di nuovo.","Missing account session or project.":"Manca la sessione o il progetto.","Missing account session.":"Manca la sessione.","Project not found.":"Progetto non trovato.","Session token expired.":"La sessione è scaduta. Ricarica la pagina.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"L'accesso Shopify per questo negozio è scaduto. Apri Publicator Webshop nell'admin di Shopify per rinnovarlo.","Sign-in failed. Please try again.":"Accesso non riuscito. Riprova.","This project does not belong to your account.":"Questo progetto non appartiene al tuo account.","This store is not set up yet. Reload the app and try again.":"Questo negozio non è ancora configurato. Ricarica l'app e riprova.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Questo è un abbonamento di prova gratuito di un negozio di sviluppo, quindi non attiva alcun piano sul tuo progetto Publicator. Scrivi a info@publicator.ai se ti serve un progetto di prova.","No Publicator Webshop account yet?":"Non hai ancora un account Publicator Webshop?","Create your account":"Crea il tuo account"},"sk_SK":{"Overview":"Prehľad","Connection":"Pripojenie","Products":"Produkty","Collections & tags":"Kolekcie a značky","Settings":"Nastavenia","Connected":"Pripojené","Not connected":"Nepripojené","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Vyber spôsob pripojenia: prihlás sa e-mailom a heslom Publicator Webshop, alebo vlož API kľúč z panela Publicator Webshop.","Fill in the form for the chosen method.":"Vyplň formulár vybraného spôsobu.","Click the Connect button.":"Klikni na tlačidlo Pripojiť.","Email + password":"E-mail + heslo","API key":"API kľúč","Email address":"E-mailová adresa","Password":"Heslo","Sign in":"Prihlásiť sa","Signed in as:":"Prihlásený ako:","Select a project":"Vyber projekt","— Select a project —":"— Vyber projekt —","Connect":"Pripojiť","← Back":"← Späť","Please select a project.":"Vyber projekt, prosím.","Live snapshot of your Publicator Webshop connection.":"Živý prehľad tvojho pripojenia Publicator Webshop.","Products synced":"Synchronizované produkty","Default blog":"Predvolený blog","Last feed sync":"Posledná sync. feedu","Set":"Nastavené","Auto":"Auto","Store":"Obchod","Project":"Projekt","Connection details and a one-click test.":"Detaily pripojenia a test jedným klikom.","Project API key":"API kľúč projektu","Connected on":"Pripojené dňa","Test connection":"Otestovať pripojenie","Testing…":"Testuje sa…","Open Publicator Webshop":"Otvoriť Publicator Webshop","Sync your Shopify catalog into Publicator Webshop.":"Synchronizuj svoj Shopify katalóg do Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop píše popisy produktov z tvojho katalógu. Synchronizuj produkty, aby systém vedel, čo je v tvojom obchode.","Last sync":"Posledná synchronizácia","Sync products now":"Synchronizovať produkty","Starting sync…":"Spúšťa sa synchronizácia…","Sync started. Products will appear shortly.":"Synchronizácia sa spustila. Produkty sa čoskoro zobrazia.","Sync requested.":"Synchronizácia vyžiadaná.","Product sync started":"Synchronizácia produktov spustená","Default blog for articles":"Predvolený blog pre články","Auto (first blog)":"Automaticky (prvý blog)","Saving…":"Ukladá sa…","Saved.":"Uložené.","Preferences and disconnection.":"Predvoľby a odpojenie.","Language saved":"Jazyk uložený","Disconnect from Publicator Webshop":"Odpojiť od Publicator Webshop","Content already published stays in your store. You can reconnect anytime.":"Už publikovaný obsah zostáva v tvojom obchode. Kedykoľvek sa môžeš znova pripojiť.","Disconnect":"Odpojiť","Disconnected":"Odpojené","Open in Publicator Webshop":"Otvoriť v Publicator Webshop","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Túto aplikáciu treba otvoriť v Shopify admine. Otvor ju cez „Aplikácie“ v svojom obchode.","Could not load the app:":"Aplikáciu sa nepodarilo načítať:","Loading live data…":"Načítavajú sa živé údaje…","Connected to Publicator Webshop":"Pripojené k Publicator Webshop","OK — {shop}":"OK — {shop}","Collections":"Kolekcie","Blogs":"Blogy","Product types":"Typy produktov","Plan":"Plán","Your subscription, billed securely through Shopify.":"Tvoje predplatné, bezpečne fakturované cez Shopify.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Tvoj plán Publicator Webshop je bezpečne fakturovaný cez Shopify. Vyber alebo spravuj ho na fakturačnej stránke Shopify.","Loading plan…":"Načítava sa plán…","Current plan":"Aktuálny plán","Status":"Stav","Renews":"Obnoví sa","Active":"Aktívny","Paused (payment issue)":"Pozastavené (problém s platbou)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Zatiaľ žiadny aktívny plán. Vyber plán a začni publikovať SEO obsah do svojho obchodu.","Manage plan":"Spravovať plán","Choose a plan":"Vybrať plán","Cancel":"Zrušiť","Choose the blog where new articles are published.":"Vyber blog, do ktorého sa budú publikovať nové články.","Choose the language of this app's interface.":"Vyber jazyk rozhrania aplikácie.","Collections: {c} · Blogs: {b} · Product types: {p}":"Kolekcie: {c} · Blogy: {b} · Typy produktov: {p}","Confirm disconnect":"Potvrdiť odpojenie","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Odpojiť tento obchod od Publicator Webshop? Tvoj plán v Shopify sa tým nezruší — najprv ho spravuj alebo zruš na karte „Plán“.","Interface language":"Jazyk rozhrania","Load collections & tags":"Načítať kolekcie a štítky","Loading…":"Načítava sa…","Publishing":"Publikovanie","Request failed ({status}).":"Požiadavka zlyhala ({status}).","Save":"Uložiť","See which blogs, collections and product types Publicator Webshop finds in your store.":"Pozri sa, aké blogy, kolekcie a typy produktov nájde Publicator Webshop v tvojom obchode.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Tento plán v Shopify platí pre projekty Publicator Webshop, ale pripojený projekt je iný produkt Publicator. Napíš na info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Tento projekt sa už fakturuje cez Publicator, preto sa plán v Shopify neuplatní. Pre zmenu fakturácie napíš na info@publicator.ai.","Where new articles are published.":"Kam sa publikujú nové články.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Tvoj plán je v Shopify aktívny, ale zatiaľ sa ho nepodarilo uplatniť na tvoj projekt Publicator. Obnov stránku o minútu alebo napíš na info@publicator.ai.","Your store's blogs, collections and product types.":"Blogy, kolekcie a typy produktov tvojho obchodu.","API key is required.":"API kľúč je povinný.","Billing is temporarily unavailable. Please try again later.":"Fakturácia je dočasne nedostupná. Skús to neskôr.","Connect a Publicator project first.":"Najprv pripoj projekt Publicator.","Email and password are required.":"E-mail a heslo sú povinné.","Failed to fetch your projects.":"Nepodarilo sa načítať tvoje projekty.","Invalid API key format.":"Neplatný formát API kľúča.","Invalid API key.":"Neplatný API kľúč.","Invalid email or password.":"Nesprávny e-mail alebo heslo.","Invalid or expired session.":"Neplatná alebo vypršaná relácia. Prihlás sa znova.","Missing account session or project.":"Chýba prihlásenie alebo projekt.","Missing account session.":"Chýba prihlásenie.","Project not found.":"Projekt sa nenašiel.","Session token expired.":"Relácia vypršala. Obnov stránku.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"Prístup Shopify pre tento obchod vypršal. Na obnovenie otvor Publicator Webshop v administrácii Shopify.","Sign-in failed. Please try again.":"Prihlásenie zlyhalo. Skús to znova.","This project does not belong to your account.":"Tento projekt nepatrí k tvojmu účtu.","This store is not set up yet. Reload the app and try again.":"Tento obchod ešte nie je pripravený. Obnov aplikáciu a skús to znova.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Toto je bezplatné testovacie predplatné vývojárskeho obchodu, preto neaktivuje plán na tvojom projekte Publicator. Ak potrebuješ testovací projekt, napíš na info@publicator.ai.","No Publicator Webshop account yet?":"Ešte nemáš účet Publicator Webshop?","Create your account":"Vytvoriť účet"}}};/*]]>*/</script>
+<script>/*<![CDATA[*/window.__PUBAI__={"apiKey":"99416c7650844bbef629fc65c5d3b575","appBase":"https://wfjirakgiglsowunllsq.supabase.co/functions/v1","i18n":{"hu_HU":{"Overview":"Áttekintés","Connection":"Kapcsolat","Products":"Termékek","Collections & tags":"Kollekciók és címkék","Settings":"Beállítások","Connected":"Csatlakoztatva","Not connected":"Nincs csatlakoztatva","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Válassz csatlakozási módot: jelentkezz be a Publicator Webshop e-mail-címeddel és jelszavaddal, vagy illessz be egy API kulcsot a Publicator Webshop felületéről.","Fill in the form for the chosen method.":"Töltsd ki a választott mód űrlapját.","Click the Connect button.":"Kattints a Csatlakoztatás gombra.","Email + password":"E-mail + jelszó","API key":"API kulcs","Email address":"E-mail-cím","Password":"Jelszó","Sign in":"Bejelentkezés","Signed in as:":"Bejelentkezve:","Select a project":"Válassz projektet","— Select a project —":"— Válassz projektet —","Connect":"Csatlakoztatás","← Back":"← Vissza","Please select a project.":"Kérlek válassz projektet.","Live snapshot of your Publicator Webshop connection.":"A Publicator Webshop kapcsolat élő pillanatképe.","Products synced":"Szinkronizált termékek","Default blog":"Alapértelmezett blog","Last feed sync":"Utolsó termékszinkron","Set":"Beállítva","Auto":"Auto","Store":"Áruház","Project":"Projekt","Connection details and a one-click test.":"Kapcsolat részletei és egy gombnyomásos teszt.","Project API key":"Projekt API kulcs","Connected on":"Csatlakoztatva","Test connection":"Kapcsolat tesztelése","Testing…":"Tesztelés…","Open Publicator Webshop":"Publicator Webshop megnyitása","Sync your Shopify catalog into Publicator Webshop.":"Szinkronizáld a Shopify katalógusod a Publicator Webshopba.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"A Publicator Webshop a katalógusodból írja a termékleírásokat. Szinkronizáld a termékeket, hogy a rendszer tudja, mi van az áruházadban.","Last sync":"Utolsó szinkron","Sync products now":"Termékek szinkronizálása","Starting sync…":"Szinkron indítása…","Sync started. Products will appear shortly.":"Szinkron elindult. A termékek hamarosan megjelennek.","Sync requested.":"Szinkron kérve.","Product sync started":"Termékszinkron elindult","Default blog for articles":"Cikkek alapértelmezett blogja","Auto (first blog)":"Automatikus (első blog)","Saving…":"Mentés…","Saved.":"Elmentve.","Preferences and disconnection.":"Beállítások és a kapcsolat bontása.","Language saved":"Nyelv elmentve","Disconnect from Publicator Webshop":"Kapcsolat bontása a Publicator Webshoppal","Content already published stays in your store. You can reconnect anytime.":"A már publikált tartalom az áruházadban marad. Bármikor újracsatlakozhatsz.","Disconnect":"Kapcsolat bontása","Disconnected":"Kapcsolat bontva","Open in Publicator Webshop":"Megnyitás a Publicator Webshopban","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Ezt az appot a Shopify adminból kell megnyitni. Nyisd meg az áruházad Alkalmazások menüjéből.","Could not load the app:":"Az app betöltése sikertelen:","Loading live data…":"Élő adatok betöltése…","Connected to Publicator Webshop":"Csatlakoztatva a Publicator Webshophoz","OK — {shop}":"Rendben — {shop}","Collections":"Kollekciók","Blogs":"Blogok","Product types":"Terméktípusok","Plan":"Csomag","Your subscription, billed securely through Shopify.":"Az előfizetésed, biztonságosan a Shopifyon keresztül számlázva.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"A Publicator Webshop csomagodat biztonságosan a Shopify számlázza. Válaszd ki vagy kezeld a Shopify számlázási oldalán.","Loading plan…":"Csomag betöltése…","Current plan":"Jelenlegi csomag","Status":"Állapot","Renews":"Megújul","Active":"Aktív","Paused (payment issue)":"Szüneteltetve (fizetési probléma)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Még nincs aktív csomag. Válassz csomagot, hogy elkezdhesd a SEO-tartalom publikálását az áruházadba.","Manage plan":"Csomag kezelése","Choose a plan":"Válassz csomagot","Cancel":"Mégse","Choose the blog where new articles are published.":"Válaszd ki, melyik blogba kerüljenek az új cikkek.","Choose the language of this app's interface.":"Válaszd ki az app felületének nyelvét.","Collections: {c} · Blogs: {b} · Product types: {p}":"Kollekciók: {c} · Blogok: {b} · Terméktípusok: {p}","Confirm disconnect":"Bontás megerősítése","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Bontod az áruház kapcsolatát a Publicator Webshoppal? A Shopify-csomagod ezzel nem szűnik meg — előbb a Csomag fülön kezeld vagy mondd le.","Interface language":"Felület nyelve","Load collections & tags":"Kollekciók és címkék betöltése","Loading…":"Betöltés…","Publishing":"Publikálás","Request failed ({status}).":"A kérés sikertelen ({status}).","Save":"Mentés","See which blogs, collections and product types Publicator Webshop finds in your store.":"Nézd meg, milyen blogokat, kollekciókat és terméktípusokat talál a Publicator Webshop az áruházadban.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Ez a Shopify-csomag Publicator Webshop projektekre érvényes, de a csatlakoztatott projekt egy másik Publicator termék. Írj nekünk: info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Ezt a projektet már a Publicator számlázza, ezért a Shopify-csomag nem érvényesül rajta. A számlázás átállításához írj nekünk: info@publicator.ai.","Where new articles are published.":"Hová kerülnek az új cikkek.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"A csomagod a Shopifyban aktív, de még nem sikerült érvényesíteni a Publicator projekteden. Tölts újra egy perc múlva, vagy írj az info@publicator.ai címre.","Your store's blogs, collections and product types.":"Az áruházad blogjai, kollekciói és terméktípusai.","API key is required.":"Az API kulcs megadása kötelező.","Billing is temporarily unavailable. Please try again later.":"A számlázás átmenetileg nem érhető el. Próbáld újra később.","Connect a Publicator project first.":"Előbb csatlakoztass egy Publicator projektet.","Email and password are required.":"Az e-mail-cím és a jelszó megadása kötelező.","Failed to fetch your projects.":"Nem sikerült lekérni a projektjeidet.","Invalid API key format.":"Érvénytelen API kulcs formátum.","Invalid API key.":"Érvénytelen API kulcs.","Invalid email or password.":"Hibás e-mail-cím vagy jelszó.","Invalid or expired session.":"Érvénytelen vagy lejárt munkamenet. Jelentkezz be újra.","Missing account session or project.":"Hiányzik a bejelentkezés vagy a projekt.","Missing account session.":"Hiányzik a bejelentkezés.","Project not found.":"A projekt nem található.","Session token expired.":"A munkamenet lejárt. Töltsd újra az oldalt.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"Az áruház Shopify-hozzáférése lejárt. A megújításhoz nyisd meg a Publicator Webshopot a Shopify adminban.","Sign-in failed. Please try again.":"A bejelentkezés sikertelen. Próbáld újra.","This project does not belong to your account.":"Ez a projekt nem a fiókodhoz tartozik.","This store is not set up yet. Reload the app and try again.":"Az áruház még nincs előkészítve. Töltsd újra az appot, és próbáld újra.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Ez egy fejlesztői bolt ingyenes teszt-előfizetése, ezért nem aktivál csomagot a Publicator projekteden. Ha tesztprojektre van szükséged, írj az info@publicator.ai címre.","No Publicator Webshop account yet?":"Még nincs Publicator Webshop fiókod?","Create your account":"Fiók létrehozása","This account has no Publicator Webshop project yet. Contact info@publicator.ai and we'll add one for you.":"Ezen a fiókon még nincs Publicator Webshop projekt. Írj az info@publicator.ai címre, és létrehozzuk neked.","Only Publicator Webshop projects can be connected to Shopify.":"Shopifyhoz csak Publicator Webshop projekt csatlakoztatható.","Account created and store connected":"Fiók létrehozva, a bolt csatlakoztatva","Already have an account?":"Már van fiókod?","Blog article":"Blogcikk","Collection description":"Kollekcióleírás","Could not load recently published content.":"A legutóbb publikált tartalmak nem tölthetők be.","Create account and connect":"Fiók létrehozása és csatlakoztatás","Create your Publicator Webshop account":"Publicator Webshop fiók létrehozása","Help & support":"Súgó és támogatás","Nothing published yet. New blog articles and product descriptions appear here as soon as Publicator Webshop publishes them to your store.":"Még nincs publikált tartalom. Az új blogcikkek és termékleírások itt jelennek meg, amint a Publicator Webshop kiteszi őket a boltodba.","Open in admin":"Megnyitás az adminban","Password (at least 8 characters)":"Jelszó (legalább 8 karakter)","Privacy Policy":"Adatkezelési tájékoztatót","Product description":"Termékleírás","Questions about the app, your content or your plan? Email us.":"Kérdésed van az appról, a tartalmakról vagy a csomagodról? Írj nekünk e-mailt.","Recently published":"Legutóbb publikált","Store domain":"A bolt domainje","Store name":"A bolt neve","Sync finished: {count} products.":"A szinkronizálás kész: {count} termék.","Terms of Service":"Általános Szerződési Feltételeket","The sync is still running. Reload the app in a few minutes to see the result.":"A szinkronizálás még fut. Néhány perc múlva töltsd újra az appot az eredményért.","Try again":"Újrapróbálás","View in store":"Megtekintés a boltban","We create your account and webshop project and connect this store in one step. Then you choose a plan on the Plan tab, billed through Shopify.":"Egy lépésben létrehozzuk a fiókodat és a webshop projektedet, és csatlakoztatjuk ezt a boltot. Utána a Csomag fülön választasz csomagot, amelyet a Shopify számláz.","Your name":"A neved","An account with this email already exists. Sign in instead.":"Ehhez az e-mail-címhez már tartozik fiók. Jelentkezz be inkább.","Please check the details and try again.":"Ellenőrizd az adatokat, és próbáld újra.","Please enter a valid email address.":"Adj meg egy érvényes e-mail-címet.","Please enter your name.":"Add meg a neved.","Please enter your store name.":"Add meg a bolt nevét.","Please enter your store's domain (for example yourstore.com).":"Add meg a bolt domainjét (például boltod.hu).","The password must be at least 8 characters.":"A jelszónak legalább 8 karakterből kell állnia.","We couldn't create your account. Please try again or contact info@publicator.ai.":"Nem sikerült létrehozni a fiókodat. Próbáld újra, vagy írj az info@publicator.ai címre.","Your account was created. Please sign in to connect your store.":"A fiókod elkészült. Jelentkezz be a bolt csatlakoztatásához.","The app is not installed on this shop.":"Az app nincs telepítve ebben a boltban.","By creating an account you accept the {terms} and the {privacy}.":"A fiók létrehozásával elfogadod az {terms} és az {privacy}."},"de_DE":{"Overview":"Übersicht","Connection":"Verbindung","Products":"Produkte","Collections & tags":"Kollektionen & Tags","Settings":"Einstellungen","Connected":"Verbunden","Not connected":"Nicht verbunden","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Wähle eine Verbindungsmethode: Melde dich mit deiner Publicator Webshop E-Mail und deinem Passwort an oder füge einen API-Schlüssel aus deinem Publicator Webshop Dashboard ein.","Fill in the form for the chosen method.":"Fülle das Formular für die gewählte Methode aus.","Click the Connect button.":"Klicke auf die Schaltfläche Verbinden.","Email + password":"E-Mail + Passwort","API key":"API-Schlüssel","Email address":"E-Mail-Adresse","Password":"Passwort","Sign in":"Anmelden","Signed in as:":"Angemeldet als:","Select a project":"Projekt auswählen","— Select a project —":"— Projekt auswählen —","Connect":"Verbinden","← Back":"← Zurück","Please select a project.":"Bitte wähle ein Projekt aus.","Live snapshot of your Publicator Webshop connection.":"Live-Momentaufnahme deiner Publicator Webshop Verbindung.","Products synced":"Synchronisierte Produkte","Default blog":"Standard-Blog","Last feed sync":"Letzter Feed-Sync","Set":"Gesetzt","Auto":"Auto","Store":"Shop","Project":"Projekt","Connection details and a one-click test.":"Verbindungsdetails und ein Ein-Klick-Test.","Project API key":"Projekt-API-Schlüssel","Connected on":"Verbunden am","Test connection":"Verbindung testen","Testing…":"Test läuft…","Open Publicator Webshop":"Publicator Webshop öffnen","Sync your Shopify catalog into Publicator Webshop.":"Synchronisiere deinen Shopify-Katalog mit Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop erstellt Produktbeschreibungen aus deinem Katalog. Synchronisiere deine Produkte, damit das System weiß, was es in deinem Shop gibt.","Last sync":"Letzter Sync","Sync products now":"Produkte jetzt synchronisieren","Starting sync…":"Sync wird gestartet…","Sync started. Products will appear shortly.":"Sync gestartet. Die Produkte erscheinen in Kürze.","Sync requested.":"Sync angefordert.","Product sync started":"Produkt-Sync gestartet","Default blog for articles":"Standard-Blog für Artikel","Auto (first blog)":"Automatisch (erster Blog)","Saving…":"Wird gespeichert…","Saved.":"Gespeichert.","Preferences and disconnection.":"Einstellungen und Trennung.","Language saved":"Sprache gespeichert","Disconnect from Publicator Webshop":"Verbindung zu Publicator Webshop trennen","Content already published stays in your store. You can reconnect anytime.":"Bereits veröffentlichte Inhalte bleiben in deinem Shop. Du kannst dich jederzeit wieder verbinden.","Disconnect":"Verbindung trennen","Disconnected":"Verbindung getrennt","Open in Publicator Webshop":"In Publicator Webshop öffnen","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Diese App muss aus dem Shopify-Admin geöffnet werden. Bitte öffne sie über „Apps“ in deinem Shop.","Could not load the app:":"App konnte nicht geladen werden:","Loading live data…":"Live-Daten werden geladen…","Connected to Publicator Webshop":"Mit Publicator Webshop verbunden","OK — {shop}":"OK — {shop}","Collections":"Kollektionen","Blogs":"Blogs","Product types":"Produkttypen","Plan":"Tarif","Your subscription, billed securely through Shopify.":"Dein Abo, sicher über Shopify abgerechnet.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Dein Publicator Webshop Tarif wird sicher über Shopify abgerechnet. Wähle oder verwalte ihn auf der Shopify-Abrechnungsseite.","Loading plan…":"Tarif wird geladen…","Current plan":"Aktueller Tarif","Status":"Status","Renews":"Verlängert sich","Active":"Aktiv","Paused (payment issue)":"Pausiert (Zahlungsproblem)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Noch kein aktiver Tarif. Wähle einen Tarif, um SEO-Inhalte in deinem Shop zu veröffentlichen.","Manage plan":"Tarif verwalten","Choose a plan":"Tarif wählen","Cancel":"Abbrechen","Choose the blog where new articles are published.":"Wähle den Blog, in dem neue Artikel veröffentlicht werden.","Choose the language of this app's interface.":"Wähle die Sprache der App-Oberfläche.","Collections: {c} · Blogs: {b} · Product types: {p}":"Kollektionen: {c} · Blogs: {b} · Produkttypen: {p}","Confirm disconnect":"Trennen bestätigen","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Diesen Shop von Publicator Webshop trennen? Dein Shopify-Tarif wird dadurch nicht gekündigt — verwalte oder kündige ihn zuerst im Tab „Tarif“.","Interface language":"Sprache der Oberfläche","Load collections & tags":"Kollektionen & Tags laden","Loading…":"Wird geladen…","Publishing":"Veröffentlichung","Request failed ({status}).":"Anfrage fehlgeschlagen ({status}).","Save":"Speichern","See which blogs, collections and product types Publicator Webshop finds in your store.":"Sieh dir an, welche Blogs, Kollektionen und Produkttypen Publicator Webshop in deinem Shop findet.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Dieser Shopify-Tarif gilt für Publicator Webshop Projekte, das verbundene Projekt ist jedoch ein anderes Publicator Produkt. Kontaktiere info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Dieses Projekt wird bereits über Publicator abgerechnet, daher wird der Shopify-Tarif nicht angewendet. Kontaktiere info@publicator.ai, um die Abrechnung umzustellen.","Where new articles are published.":"Wo neue Artikel veröffentlicht werden.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Dein Tarif ist in Shopify aktiv, konnte aber noch nicht auf dein Publicator Projekt angewendet werden. Lade die Seite in einer Minute neu oder schreib an info@publicator.ai.","Your store's blogs, collections and product types.":"Die Blogs, Kollektionen und Produkttypen deines Shops.","API key is required.":"Der API-Schlüssel ist erforderlich.","Billing is temporarily unavailable. Please try again later.":"Die Abrechnung ist vorübergehend nicht verfügbar. Bitte versuche es später erneut.","Connect a Publicator project first.":"Verbinde zuerst ein Publicator Projekt.","Email and password are required.":"E-Mail-Adresse und Passwort sind erforderlich.","Failed to fetch your projects.":"Deine Projekte konnten nicht geladen werden.","Invalid API key format.":"Ungültiges API-Schlüssel-Format.","Invalid API key.":"Ungültiger API-Schlüssel.","Invalid email or password.":"E-Mail-Adresse oder Passwort ist falsch.","Invalid or expired session.":"Ungültige oder abgelaufene Sitzung. Bitte melde dich erneut an.","Missing account session or project.":"Anmeldung oder Projekt fehlt.","Missing account session.":"Anmeldung fehlt.","Project not found.":"Projekt nicht gefunden.","Session token expired.":"Die Sitzung ist abgelaufen. Bitte lade die Seite neu.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"Der Shopify-Zugriff für diesen Shop ist abgelaufen. Öffne Publicator Webshop im Shopify-Admin, um ihn zu erneuern.","Sign-in failed. Please try again.":"Anmeldung fehlgeschlagen. Bitte versuche es erneut.","This project does not belong to your account.":"Dieses Projekt gehört nicht zu deinem Konto.","This store is not set up yet. Reload the app and try again.":"Dieser Shop ist noch nicht eingerichtet. Lade die App neu und versuche es erneut.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Dies ist ein kostenloses Test-Abo eines Entwicklungsshops und aktiviert daher keinen Tarif für dein Publicator Projekt. Schreib an info@publicator.ai, wenn du ein Testprojekt brauchst.","No Publicator Webshop account yet?":"Noch kein Publicator Webshop Konto?","Create your account":"Konto erstellen","This account has no Publicator Webshop project yet. Contact info@publicator.ai and we'll add one for you.":"Dieses Konto hat noch kein Publicator Webshop Projekt. Schreib an info@publicator.ai und wir legen eines für dich an.","Only Publicator Webshop projects can be connected to Shopify.":"Nur Publicator Webshop Projekte können mit Shopify verbunden werden.","Account created and store connected":"Konto erstellt und Shop verbunden","Already have an account?":"Sie haben bereits ein Konto?","Blog article":"Blogartikel","Collection description":"Kollektionsbeschreibung","Could not load recently published content.":"Die zuletzt veröffentlichten Inhalte konnten nicht geladen werden.","Create account and connect":"Konto erstellen und verbinden","Create your Publicator Webshop account":"Publicator Webshop-Konto erstellen","Help & support":"Hilfe & Support","Nothing published yet. New blog articles and product descriptions appear here as soon as Publicator Webshop publishes them to your store.":"Noch nichts veröffentlicht. Neue Blogartikel und Produktbeschreibungen erscheinen hier, sobald Publicator Webshop sie in Ihrem Shop veröffentlicht.","Open in admin":"Im Admin öffnen","Password (at least 8 characters)":"Passwort (mindestens 8 Zeichen)","Privacy Policy":"Datenschutzerklärung","Product description":"Produktbeschreibung","Questions about the app, your content or your plan? Email us.":"Fragen zur App, zu Ihren Inhalten oder Ihrem Tarif? Schreiben Sie uns eine E-Mail.","Recently published":"Zuletzt veröffentlicht","Store domain":"Shop-Domain","Store name":"Shop-Name","Sync finished: {count} products.":"Synchronisierung abgeschlossen: {count} Produkte.","Terms of Service":"Nutzungsbedingungen","The sync is still running. Reload the app in a few minutes to see the result.":"Die Synchronisierung läuft noch. Laden Sie die App in einigen Minuten neu, um das Ergebnis zu sehen.","Try again":"Erneut versuchen","View in store":"Im Shop ansehen","We create your account and webshop project and connect this store in one step. Then you choose a plan on the Plan tab, billed through Shopify.":"Wir erstellen Ihr Konto und Ihr Webshop-Projekt und verbinden diesen Shop in einem Schritt. Danach wählen Sie im Tab „Tarif“ einen Tarif, der über Shopify abgerechnet wird.","Your name":"Ihr Name","An account with this email already exists. Sign in instead.":"Zu dieser E-Mail-Adresse gibt es bereits ein Konto. Bitte melden Sie sich an.","Please check the details and try again.":"Bitte prüfen Sie die Angaben und versuchen Sie es erneut.","Please enter a valid email address.":"Bitte geben Sie eine gültige E-Mail-Adresse ein.","Please enter your name.":"Bitte geben Sie Ihren Namen ein.","Please enter your store name.":"Bitte geben Sie den Namen Ihres Shops ein.","Please enter your store's domain (for example yourstore.com).":"Bitte geben Sie die Domain Ihres Shops ein (zum Beispiel ihrshop.de).","The password must be at least 8 characters.":"Das Passwort muss mindestens 8 Zeichen lang sein.","We couldn't create your account. Please try again or contact info@publicator.ai.":"Ihr Konto konnte nicht erstellt werden. Bitte versuchen Sie es erneut oder schreiben Sie an info@publicator.ai.","Your account was created. Please sign in to connect your store.":"Ihr Konto wurde erstellt. Bitte melden Sie sich an, um Ihren Shop zu verbinden.","The app is not installed on this shop.":"Die App ist in diesem Shop nicht installiert.","By creating an account you accept the {terms} and the {privacy}.":"Mit der Kontoerstellung akzeptieren Sie die {terms} und die {privacy}."},"es_ES":{"Overview":"Resumen","Connection":"Conexión","Products":"Productos","Collections & tags":"Colecciones y etiquetas","Settings":"Ajustes","Connected":"Conectado","Not connected":"No conectado","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Elige un método de conexión: inicia sesión con tu correo y contraseña de Publicator Webshop, o pega una clave de API desde tu panel de Publicator Webshop.","Fill in the form for the chosen method.":"Rellena el formulario del método elegido.","Click the Connect button.":"Haz clic en el botón Conectar.","Email + password":"Correo + contraseña","API key":"Clave de API","Email address":"Dirección de correo","Password":"Contraseña","Sign in":"Iniciar sesión","Signed in as:":"Sesión iniciada como:","Select a project":"Selecciona un proyecto","— Select a project —":"— Selecciona un proyecto —","Connect":"Conectar","← Back":"← Atrás","Please select a project.":"Selecciona un proyecto.","Live snapshot of your Publicator Webshop connection.":"Instantánea en vivo de tu conexión con Publicator Webshop.","Products synced":"Productos sincronizados","Default blog":"Blog predeterminado","Last feed sync":"Última sinc. de feed","Set":"Definido","Auto":"Auto","Store":"Tienda","Project":"Proyecto","Connection details and a one-click test.":"Detalles de la conexión y una prueba con un clic.","Project API key":"Clave de API del proyecto","Connected on":"Conectado el","Test connection":"Probar conexión","Testing…":"Probando…","Open Publicator Webshop":"Abrir Publicator Webshop","Sync your Shopify catalog into Publicator Webshop.":"Sincroniza tu catálogo de Shopify con Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop redacta las descripciones de productos a partir de tu catálogo. Sincroniza tus productos para que el sistema sepa qué hay en tu tienda.","Last sync":"Última sincronización","Sync products now":"Sincronizar productos ahora","Starting sync…":"Iniciando sincronización…","Sync started. Products will appear shortly.":"Sincronización iniciada. Los productos aparecerán pronto.","Sync requested.":"Sincronización solicitada.","Product sync started":"Sincronización de productos iniciada","Default blog for articles":"Blog predeterminado para artículos","Auto (first blog)":"Automático (primer blog)","Saving…":"Guardando…","Saved.":"Guardado.","Preferences and disconnection.":"Preferencias y desconexión.","Language saved":"Idioma guardado","Disconnect from Publicator Webshop":"Desconectar de Publicator Webshop","Content already published stays in your store. You can reconnect anytime.":"El contenido ya publicado permanece en tu tienda. Puedes volver a conectarte cuando quieras.","Disconnect":"Desconectar","Disconnected":"Desconectado","Open in Publicator Webshop":"Abrir en Publicator Webshop","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Esta aplicación debe abrirse desde el panel de Shopify. Ábrela desde «Aplicaciones» en tu tienda.","Could not load the app:":"No se pudo cargar la aplicación:","Loading live data…":"Cargando datos en vivo…","Connected to Publicator Webshop":"Conectado a Publicator Webshop","OK — {shop}":"OK — {shop}","Collections":"Colecciones","Blogs":"Blogs","Product types":"Tipos de producto","Plan":"Plan","Your subscription, billed securely through Shopify.":"Tu suscripción, facturada de forma segura a través de Shopify.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Tu plan de Publicator Webshop se factura de forma segura a través de Shopify. Elígelo o gestiónalo en la página de facturación de Shopify.","Loading plan…":"Cargando plan…","Current plan":"Plan actual","Status":"Estado","Renews":"Se renueva","Active":"Activo","Paused (payment issue)":"En pausa (problema de pago)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Aún no tienes un plan activo. Elige un plan para empezar a publicar contenido SEO en tu tienda.","Manage plan":"Gestionar plan","Choose a plan":"Elegir un plan","Cancel":"Cancelar","Choose the blog where new articles are published.":"Elige el blog donde se publican los artículos nuevos.","Choose the language of this app's interface.":"Elige el idioma de la interfaz de la app.","Collections: {c} · Blogs: {b} · Product types: {p}":"Colecciones: {c} · Blogs: {b} · Tipos de producto: {p}","Confirm disconnect":"Confirmar desconexión","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"¿Desconectar esta tienda de Publicator Webshop? Tu plan de Shopify no se cancela: gestiónalo o cancélalo primero en la pestaña «Plan».","Interface language":"Idioma de la interfaz","Load collections & tags":"Cargar colecciones y etiquetas","Loading…":"Cargando…","Publishing":"Publicación","Request failed ({status}).":"La solicitud falló ({status}).","Save":"Guardar","See which blogs, collections and product types Publicator Webshop finds in your store.":"Mira qué blogs, colecciones y tipos de producto encuentra Publicator Webshop en tu tienda.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Este plan de Shopify es para proyectos de Publicator Webshop, pero el proyecto conectado es otro producto de Publicator. Escribe a info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Este proyecto ya se factura a través de Publicator, por lo que el plan de Shopify no se aplica. Escribe a info@publicator.ai para cambiar la facturación.","Where new articles are published.":"Dónde se publican los artículos nuevos.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Tu plan está activo en Shopify, pero aún no hemos podido aplicarlo a tu proyecto de Publicator. Vuelve a cargar en un minuto o escribe a info@publicator.ai.","Your store's blogs, collections and product types.":"Los blogs, colecciones y tipos de producto de tu tienda.","API key is required.":"La clave de API es obligatoria.","Billing is temporarily unavailable. Please try again later.":"La facturación no está disponible temporalmente. Inténtalo más tarde.","Connect a Publicator project first.":"Primero conecta un proyecto de Publicator.","Email and password are required.":"El correo electrónico y la contraseña son obligatorios.","Failed to fetch your projects.":"No se pudieron cargar tus proyectos.","Invalid API key format.":"Formato de clave de API no válido.","Invalid API key.":"Clave de API no válida.","Invalid email or password.":"Correo electrónico o contraseña incorrectos.","Invalid or expired session.":"Sesión no válida o caducada. Vuelve a iniciar sesión.","Missing account session or project.":"Falta la sesión o el proyecto.","Missing account session.":"Falta la sesión.","Project not found.":"Proyecto no encontrado.","Session token expired.":"La sesión ha caducado. Vuelve a cargar la página.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"El acceso de Shopify para esta tienda ha caducado. Abre Publicator Webshop en el panel de Shopify para renovarlo.","Sign-in failed. Please try again.":"No se pudo iniciar sesión. Inténtalo de nuevo.","This project does not belong to your account.":"Este proyecto no pertenece a tu cuenta.","This store is not set up yet. Reload the app and try again.":"Esta tienda aún no está configurada. Vuelve a cargar la app e inténtalo de nuevo.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Es una suscripción de prueba gratuita de una tienda de desarrollo, por lo que no activa ningún plan en tu proyecto de Publicator. Escribe a info@publicator.ai si necesitas un proyecto de prueba.","No Publicator Webshop account yet?":"¿Aún no tienes cuenta de Publicator Webshop?","Create your account":"Crear tu cuenta","This account has no Publicator Webshop project yet. Contact info@publicator.ai and we'll add one for you.":"Esta cuenta aún no tiene un proyecto de Publicator Webshop. Escribe a info@publicator.ai y lo crearemos por ti.","Only Publicator Webshop projects can be connected to Shopify.":"Solo se pueden conectar a Shopify proyectos de Publicator Webshop.","Account created and store connected":"Cuenta creada y tienda conectada","Already have an account?":"¿Ya tienes una cuenta?","Blog article":"Artículo del blog","Collection description":"Descripción de la colección","Could not load recently published content.":"No se pudo cargar el contenido publicado recientemente.","Create account and connect":"Crear cuenta y conectar","Create your Publicator Webshop account":"Crea tu cuenta de Publicator Webshop","Help & support":"Ayuda y soporte","Nothing published yet. New blog articles and product descriptions appear here as soon as Publicator Webshop publishes them to your store.":"Aún no hay nada publicado. Los nuevos artículos del blog y las descripciones de productos aparecerán aquí en cuanto Publicator Webshop los publique en tu tienda.","Open in admin":"Abrir en el admin","Password (at least 8 characters)":"Contraseña (mínimo 8 caracteres)","Privacy Policy":"Política de privacidad","Product description":"Descripción del producto","Questions about the app, your content or your plan? Email us.":"¿Preguntas sobre la app, tu contenido o tu plan? Escríbenos un correo.","Recently published":"Publicado recientemente","Store domain":"Dominio de la tienda","Store name":"Nombre de la tienda","Sync finished: {count} products.":"Sincronización completada: {count} productos.","Terms of Service":"Términos del servicio","The sync is still running. Reload the app in a few minutes to see the result.":"La sincronización sigue en curso. Vuelve a cargar la app en unos minutos para ver el resultado.","Try again":"Reintentar","View in store":"Ver en la tienda","We create your account and webshop project and connect this store in one step. Then you choose a plan on the Plan tab, billed through Shopify.":"Creamos tu cuenta y tu proyecto de tienda y conectamos esta tienda en un solo paso. Después eliges un plan en la pestaña Plan, facturado a través de Shopify.","Your name":"Tu nombre","An account with this email already exists. Sign in instead.":"Ya existe una cuenta con este correo. Inicia sesión.","Please check the details and try again.":"Revisa los datos e inténtalo de nuevo.","Please enter a valid email address.":"Introduce un correo electrónico válido.","Please enter your name.":"Introduce tu nombre.","Please enter your store name.":"Introduce el nombre de tu tienda.","Please enter your store's domain (for example yourstore.com).":"Introduce el dominio de tu tienda (por ejemplo tutienda.com).","The password must be at least 8 characters.":"La contraseña debe tener al menos 8 caracteres.","We couldn't create your account. Please try again or contact info@publicator.ai.":"No pudimos crear tu cuenta. Inténtalo de nuevo o escribe a info@publicator.ai.","Your account was created. Please sign in to connect your store.":"Tu cuenta se ha creado. Inicia sesión para conectar tu tienda.","The app is not installed on this shop.":"La app no está instalada en esta tienda.","By creating an account you accept the {terms} and the {privacy}.":"Al crear una cuenta aceptas los {terms} y la {privacy}."},"it_IT":{"Overview":"Panoramica","Connection":"Connessione","Products":"Prodotti","Collections & tags":"Collezioni e tag","Settings":"Impostazioni","Connected":"Connesso","Not connected":"Non connesso","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Scegli un metodo di connessione: accedi con la tua email e password di Publicator Webshop, oppure incolla una chiave API dal tuo pannello Publicator Webshop.","Fill in the form for the chosen method.":"Compila il modulo del metodo scelto.","Click the Connect button.":"Clicca sul pulsante Connetti.","Email + password":"Email + password","API key":"Chiave API","Email address":"Indirizzo email","Password":"Password","Sign in":"Accedi","Signed in as:":"Accesso come:","Select a project":"Seleziona un progetto","— Select a project —":"— Seleziona un progetto —","Connect":"Connetti","← Back":"← Indietro","Please select a project.":"Seleziona un progetto.","Live snapshot of your Publicator Webshop connection.":"Istantanea in tempo reale della tua connessione Publicator Webshop.","Products synced":"Prodotti sincronizzati","Default blog":"Blog predefinito","Last feed sync":"Ultima sync feed","Set":"Impostato","Auto":"Auto","Store":"Negozio","Project":"Progetto","Connection details and a one-click test.":"Dettagli della connessione e un test con un clic.","Project API key":"Chiave API del progetto","Connected on":"Connesso il","Test connection":"Testa connessione","Testing…":"Test in corso…","Open Publicator Webshop":"Apri Publicator Webshop","Sync your Shopify catalog into Publicator Webshop.":"Sincronizza il tuo catalogo Shopify con Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop scrive le descrizioni dei prodotti dal tuo catalogo. Sincronizza i tuoi prodotti così il sistema sa cosa c'è nel tuo negozio.","Last sync":"Ultima sincronizzazione","Sync products now":"Sincronizza i prodotti ora","Starting sync…":"Avvio sincronizzazione…","Sync started. Products will appear shortly.":"Sincronizzazione avviata. I prodotti appariranno a breve.","Sync requested.":"Sincronizzazione richiesta.","Product sync started":"Sincronizzazione prodotti avviata","Default blog for articles":"Blog predefinito per gli articoli","Auto (first blog)":"Automatico (primo blog)","Saving…":"Salvataggio…","Saved.":"Salvato.","Preferences and disconnection.":"Preferenze e disconnessione.","Language saved":"Lingua salvata","Disconnect from Publicator Webshop":"Disconnetti da Publicator Webshop","Content already published stays in your store. You can reconnect anytime.":"I contenuti già pubblicati restano nel tuo negozio. Puoi riconnetterti in qualsiasi momento.","Disconnect":"Disconnetti","Disconnected":"Disconnesso","Open in Publicator Webshop":"Apri in Publicator Webshop","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Questa app deve essere aperta dall'admin di Shopify. Aprila da «App» nel tuo negozio.","Could not load the app:":"Impossibile caricare l'app:","Loading live data…":"Caricamento dati in tempo reale…","Connected to Publicator Webshop":"Connesso a Publicator Webshop","OK — {shop}":"OK — {shop}","Collections":"Collezioni","Blogs":"Blog","Product types":"Tipi di prodotto","Plan":"Piano","Your subscription, billed securely through Shopify.":"Il tuo abbonamento, fatturato in modo sicuro tramite Shopify.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Il tuo piano Publicator Webshop è fatturato in modo sicuro tramite Shopify. Scegli o gestiscilo nella pagina di fatturazione di Shopify.","Loading plan…":"Caricamento piano…","Current plan":"Piano attuale","Status":"Stato","Renews":"Si rinnova","Active":"Attivo","Paused (payment issue)":"In pausa (problema di pagamento)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Nessun piano attivo. Scegli un piano per iniziare a pubblicare contenuti SEO nel tuo negozio.","Manage plan":"Gestisci piano","Choose a plan":"Scegli un piano","Cancel":"Annulla","Choose the blog where new articles are published.":"Scegli il blog in cui vengono pubblicati i nuovi articoli.","Choose the language of this app's interface.":"Scegli la lingua dell'interfaccia dell'app.","Collections: {c} · Blogs: {b} · Product types: {p}":"Collezioni: {c} · Blog: {b} · Tipi di prodotto: {p}","Confirm disconnect":"Conferma disconnessione","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Disconnettere questo negozio da Publicator Webshop? Il tuo piano Shopify non viene annullato: gestiscilo o annullalo prima nella scheda «Piano».","Interface language":"Lingua dell'interfaccia","Load collections & tags":"Carica collezioni e tag","Loading…":"Caricamento…","Publishing":"Pubblicazione","Request failed ({status}).":"Richiesta non riuscita ({status}).","Save":"Salva","See which blogs, collections and product types Publicator Webshop finds in your store.":"Scopri quali blog, collezioni e tipi di prodotto Publicator Webshop trova nel tuo negozio.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Questo piano Shopify vale per i progetti Publicator Webshop, ma il progetto collegato è un altro prodotto Publicator. Scrivi a info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Questo progetto è già fatturato tramite Publicator, quindi il piano Shopify non viene applicato. Scrivi a info@publicator.ai per cambiare la fatturazione.","Where new articles are published.":"Dove vengono pubblicati i nuovi articoli.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Il tuo piano è attivo su Shopify, ma non siamo ancora riusciti ad applicarlo al tuo progetto Publicator. Ricarica tra un minuto o scrivi a info@publicator.ai.","Your store's blogs, collections and product types.":"I blog, le collezioni e i tipi di prodotto del tuo negozio.","API key is required.":"La chiave API è obbligatoria.","Billing is temporarily unavailable. Please try again later.":"La fatturazione è temporaneamente non disponibile. Riprova più tardi.","Connect a Publicator project first.":"Collega prima un progetto Publicator.","Email and password are required.":"Email e password sono obbligatorie.","Failed to fetch your projects.":"Impossibile caricare i tuoi progetti.","Invalid API key format.":"Formato della chiave API non valido.","Invalid API key.":"Chiave API non valida.","Invalid email or password.":"Email o password non validi.","Invalid or expired session.":"Sessione non valida o scaduta. Accedi di nuovo.","Missing account session or project.":"Manca la sessione o il progetto.","Missing account session.":"Manca la sessione.","Project not found.":"Progetto non trovato.","Session token expired.":"La sessione è scaduta. Ricarica la pagina.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"L'accesso Shopify per questo negozio è scaduto. Apri Publicator Webshop nell'admin di Shopify per rinnovarlo.","Sign-in failed. Please try again.":"Accesso non riuscito. Riprova.","This project does not belong to your account.":"Questo progetto non appartiene al tuo account.","This store is not set up yet. Reload the app and try again.":"Questo negozio non è ancora configurato. Ricarica l'app e riprova.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Questo è un abbonamento di prova gratuito di un negozio di sviluppo, quindi non attiva alcun piano sul tuo progetto Publicator. Scrivi a info@publicator.ai se ti serve un progetto di prova.","No Publicator Webshop account yet?":"Non hai ancora un account Publicator Webshop?","Create your account":"Crea il tuo account","This account has no Publicator Webshop project yet. Contact info@publicator.ai and we'll add one for you.":"Questo account non ha ancora un progetto Publicator Webshop. Scrivi a info@publicator.ai e lo creeremo per te.","Only Publicator Webshop projects can be connected to Shopify.":"Solo i progetti Publicator Webshop possono essere collegati a Shopify.","Account created and store connected":"Account creato e negozio collegato","Already have an account?":"Hai già un account?","Blog article":"Articolo del blog","Collection description":"Descrizione della collezione","Could not load recently published content.":"Impossibile caricare i contenuti pubblicati di recente.","Create account and connect":"Crea account e collega","Create your Publicator Webshop account":"Crea il tuo account Publicator Webshop","Help & support":"Aiuto e supporto","Nothing published yet. New blog articles and product descriptions appear here as soon as Publicator Webshop publishes them to your store.":"Ancora nulla di pubblicato. I nuovi articoli del blog e le descrizioni dei prodotti appariranno qui non appena Publicator Webshop li pubblicherà nel tuo negozio.","Open in admin":"Apri nell'admin","Password (at least 8 characters)":"Password (almeno 8 caratteri)","Privacy Policy":"Informativa sulla privacy","Product description":"Descrizione del prodotto","Questions about the app, your content or your plan? Email us.":"Domande sull'app, sui contenuti o sul tuo piano? Scrivici un'e-mail.","Recently published":"Pubblicati di recente","Store domain":"Dominio del negozio","Store name":"Nome del negozio","Sync finished: {count} products.":"Sincronizzazione completata: {count} prodotti.","Terms of Service":"Termini di servizio","The sync is still running. Reload the app in a few minutes to see the result.":"La sincronizzazione è ancora in corso. Ricarica l'app tra qualche minuto per vedere il risultato.","Try again":"Riprova","View in store":"Vedi nel negozio","We create your account and webshop project and connect this store in one step. Then you choose a plan on the Plan tab, billed through Shopify.":"Creiamo il tuo account e il progetto webshop e colleghiamo questo negozio in un unico passaggio. Poi scegli un piano nella scheda Piano, fatturato tramite Shopify.","Your name":"Il tuo nome","An account with this email already exists. Sign in instead.":"Esiste già un account con questa e-mail. Accedi invece.","Please check the details and try again.":"Controlla i dati e riprova.","Please enter a valid email address.":"Inserisci un indirizzo e-mail valido.","Please enter your name.":"Inserisci il tuo nome.","Please enter your store name.":"Inserisci il nome del negozio.","Please enter your store's domain (for example yourstore.com).":"Inserisci il dominio del negozio (ad esempio iltuonegozio.it).","The password must be at least 8 characters.":"La password deve contenere almeno 8 caratteri.","We couldn't create your account. Please try again or contact info@publicator.ai.":"Non è stato possibile creare il tuo account. Riprova o scrivi a info@publicator.ai.","Your account was created. Please sign in to connect your store.":"Il tuo account è stato creato. Accedi per collegare il negozio.","The app is not installed on this shop.":"L'app non è installata in questo negozio.","By creating an account you accept the {terms} and the {privacy}.":"Creando un account accetti i {terms} e l'{privacy}."},"sk_SK":{"Overview":"Prehľad","Connection":"Pripojenie","Products":"Produkty","Collections & tags":"Kolekcie a značky","Settings":"Nastavenia","Connected":"Pripojené","Not connected":"Nepripojené","Choose a connection method: sign in with your Publicator Webshop email and password, or paste an API key from your Publicator Webshop dashboard.":"Vyber spôsob pripojenia: prihlás sa e-mailom a heslom Publicator Webshop, alebo vlož API kľúč z panela Publicator Webshop.","Fill in the form for the chosen method.":"Vyplň formulár vybraného spôsobu.","Click the Connect button.":"Klikni na tlačidlo Pripojiť.","Email + password":"E-mail + heslo","API key":"API kľúč","Email address":"E-mailová adresa","Password":"Heslo","Sign in":"Prihlásiť sa","Signed in as:":"Prihlásený ako:","Select a project":"Vyber projekt","— Select a project —":"— Vyber projekt —","Connect":"Pripojiť","← Back":"← Späť","Please select a project.":"Vyber projekt, prosím.","Live snapshot of your Publicator Webshop connection.":"Živý prehľad tvojho pripojenia Publicator Webshop.","Products synced":"Synchronizované produkty","Default blog":"Predvolený blog","Last feed sync":"Posledná sync. feedu","Set":"Nastavené","Auto":"Auto","Store":"Obchod","Project":"Projekt","Connection details and a one-click test.":"Detaily pripojenia a test jedným klikom.","Project API key":"API kľúč projektu","Connected on":"Pripojené dňa","Test connection":"Otestovať pripojenie","Testing…":"Testuje sa…","Open Publicator Webshop":"Otvoriť Publicator Webshop","Sync your Shopify catalog into Publicator Webshop.":"Synchronizuj svoj Shopify katalóg do Publicator Webshop.","Publicator Webshop writes product descriptions from your catalog. Sync your products so the engine knows what exists in your store.":"Publicator Webshop píše popisy produktov z tvojho katalógu. Synchronizuj produkty, aby systém vedel, čo je v tvojom obchode.","Last sync":"Posledná synchronizácia","Sync products now":"Synchronizovať produkty","Starting sync…":"Spúšťa sa synchronizácia…","Sync started. Products will appear shortly.":"Synchronizácia sa spustila. Produkty sa čoskoro zobrazia.","Sync requested.":"Synchronizácia vyžiadaná.","Product sync started":"Synchronizácia produktov spustená","Default blog for articles":"Predvolený blog pre články","Auto (first blog)":"Automaticky (prvý blog)","Saving…":"Ukladá sa…","Saved.":"Uložené.","Preferences and disconnection.":"Predvoľby a odpojenie.","Language saved":"Jazyk uložený","Disconnect from Publicator Webshop":"Odpojiť od Publicator Webshop","Content already published stays in your store. You can reconnect anytime.":"Už publikovaný obsah zostáva v tvojom obchode. Kedykoľvek sa môžeš znova pripojiť.","Disconnect":"Odpojiť","Disconnected":"Odpojené","Open in Publicator Webshop":"Otvoriť v Publicator Webshop","This app must be opened from inside your Shopify admin. Please open it from Apps in your store.":"Túto aplikáciu treba otvoriť v Shopify admine. Otvor ju cez „Aplikácie“ v svojom obchode.","Could not load the app:":"Aplikáciu sa nepodarilo načítať:","Loading live data…":"Načítavajú sa živé údaje…","Connected to Publicator Webshop":"Pripojené k Publicator Webshop","OK — {shop}":"OK — {shop}","Collections":"Kolekcie","Blogs":"Blogy","Product types":"Typy produktov","Plan":"Plán","Your subscription, billed securely through Shopify.":"Tvoje predplatné, bezpečne fakturované cez Shopify.","Your Publicator Webshop plan is billed securely through Shopify. Choose or manage it on Shopify's billing page.":"Tvoj plán Publicator Webshop je bezpečne fakturovaný cez Shopify. Vyber alebo spravuj ho na fakturačnej stránke Shopify.","Loading plan…":"Načítava sa plán…","Current plan":"Aktuálny plán","Status":"Stav","Renews":"Obnoví sa","Active":"Aktívny","Paused (payment issue)":"Pozastavené (problém s platbou)","No active plan yet. Choose a plan to start publishing SEO content to your store.":"Zatiaľ žiadny aktívny plán. Vyber plán a začni publikovať SEO obsah do svojho obchodu.","Manage plan":"Spravovať plán","Choose a plan":"Vybrať plán","Cancel":"Zrušiť","Choose the blog where new articles are published.":"Vyber blog, do ktorého sa budú publikovať nové články.","Choose the language of this app's interface.":"Vyber jazyk rozhrania aplikácie.","Collections: {c} · Blogs: {b} · Product types: {p}":"Kolekcie: {c} · Blogy: {b} · Typy produktov: {p}","Confirm disconnect":"Potvrdiť odpojenie","Disconnect this store from Publicator Webshop? Your Shopify plan is not cancelled — manage or cancel it on the Plan tab first.":"Odpojiť tento obchod od Publicator Webshop? Tvoj plán v Shopify sa tým nezruší — najprv ho spravuj alebo zruš na karte „Plán“.","Interface language":"Jazyk rozhrania","Load collections & tags":"Načítať kolekcie a štítky","Loading…":"Načítava sa…","Publishing":"Publikovanie","Request failed ({status}).":"Požiadavka zlyhala ({status}).","Save":"Uložiť","See which blogs, collections and product types Publicator Webshop finds in your store.":"Pozri sa, aké blogy, kolekcie a typy produktov nájde Publicator Webshop v tvojom obchode.","This Shopify plan applies to Publicator Webshop projects, but the connected project is a different Publicator product. Contact info@publicator.ai.":"Tento plán v Shopify platí pre projekty Publicator Webshop, ale pripojený projekt je iný produkt Publicator. Napíš na info@publicator.ai.","This project is already billed through Publicator, so the Shopify plan is not applied to it. Contact info@publicator.ai to switch billing.":"Tento projekt sa už fakturuje cez Publicator, preto sa plán v Shopify neuplatní. Pre zmenu fakturácie napíš na info@publicator.ai.","Where new articles are published.":"Kam sa publikujú nové články.","Your plan is active in Shopify, but we couldn't apply it to your Publicator project yet. Please reload in a minute or contact info@publicator.ai.":"Tvoj plán je v Shopify aktívny, ale zatiaľ sa ho nepodarilo uplatniť na tvoj projekt Publicator. Obnov stránku o minútu alebo napíš na info@publicator.ai.","Your store's blogs, collections and product types.":"Blogy, kolekcie a typy produktov tvojho obchodu.","API key is required.":"API kľúč je povinný.","Billing is temporarily unavailable. Please try again later.":"Fakturácia je dočasne nedostupná. Skús to neskôr.","Connect a Publicator project first.":"Najprv pripoj projekt Publicator.","Email and password are required.":"E-mail a heslo sú povinné.","Failed to fetch your projects.":"Nepodarilo sa načítať tvoje projekty.","Invalid API key format.":"Neplatný formát API kľúča.","Invalid API key.":"Neplatný API kľúč.","Invalid email or password.":"Nesprávny e-mail alebo heslo.","Invalid or expired session.":"Neplatná alebo vypršaná relácia. Prihlás sa znova.","Missing account session or project.":"Chýba prihlásenie alebo projekt.","Missing account session.":"Chýba prihlásenie.","Project not found.":"Projekt sa nenašiel.","Session token expired.":"Relácia vypršala. Obnov stránku.","Shopify access for this store has expired. Open Publicator Webshop in the Shopify admin to renew it.":"Prístup Shopify pre tento obchod vypršal. Na obnovenie otvor Publicator Webshop v administrácii Shopify.","Sign-in failed. Please try again.":"Prihlásenie zlyhalo. Skús to znova.","This project does not belong to your account.":"Tento projekt nepatrí k tvojmu účtu.","This store is not set up yet. Reload the app and try again.":"Tento obchod ešte nie je pripravený. Obnov aplikáciu a skús to znova.","This is a free test subscription from a development store, so it does not activate a plan on your Publicator project. Contact info@publicator.ai if you need a test project.":"Toto je bezplatné testovacie predplatné vývojárskeho obchodu, preto neaktivuje plán na tvojom projekte Publicator. Ak potrebuješ testovací projekt, napíš na info@publicator.ai.","No Publicator Webshop account yet?":"Ešte nemáš účet Publicator Webshop?","Create your account":"Vytvoriť účet","This account has no Publicator Webshop project yet. Contact info@publicator.ai and we'll add one for you.":"Tento účet zatiaľ nemá projekt Publicator Webshop. Napíš na info@publicator.ai a vytvoríme ti ho.","Only Publicator Webshop projects can be connected to Shopify.":"K Shopify je možné pripojiť iba projekty Publicator Webshop.","Account created and store connected":"Účet vytvorený a obchod pripojený","Already have an account?":"Už máte účet?","Blog article":"Článok na blogu","Collection description":"Popis kolekcie","Could not load recently published content.":"Nepodarilo sa načítať naposledy publikovaný obsah.","Create account and connect":"Vytvoriť účet a pripojiť","Create your Publicator Webshop account":"Vytvorte si účet Publicator Webshop","Help & support":"Pomoc a podpora","Nothing published yet. New blog articles and product descriptions appear here as soon as Publicator Webshop publishes them to your store.":"Zatiaľ nič nebolo publikované. Nové články na blogu a popisy produktov sa tu zobrazia hneď, ako ich Publicator Webshop zverejní vo vašom obchode.","Open in admin":"Otvoriť v administrácii","Password (at least 8 characters)":"Heslo (aspoň 8 znakov)","Privacy Policy":"Zásady ochrany osobných údajov","Product description":"Popis produktu","Questions about the app, your content or your plan? Email us.":"Otázky k aplikácii, obsahu alebo vášmu plánu? Napíšte nám e-mail.","Recently published":"Naposledy publikované","Store domain":"Doména obchodu","Store name":"Názov obchodu","Sync finished: {count} products.":"Synchronizácia dokončená: {count} produktov.","Terms of Service":"Obchodné podmienky","The sync is still running. Reload the app in a few minutes to see the result.":"Synchronizácia ešte prebieha. O pár minút znova načítajte aplikáciu a uvidíte výsledok.","Try again":"Skúsiť znova","View in store":"Zobraziť v obchode","We create your account and webshop project and connect this store in one step. Then you choose a plan on the Plan tab, billed through Shopify.":"V jednom kroku vytvoríme váš účet a projekt webshopu a pripojíme tento obchod. Potom si na karte Plán vyberiete plán, ktorý fakturuje Shopify.","Your name":"Vaše meno","An account with this email already exists. Sign in instead.":"S týmto e-mailom už existuje účet. Prihláste sa.","Please check the details and try again.":"Skontrolujte údaje a skúste to znova.","Please enter a valid email address.":"Zadajte platnú e-mailovú adresu.","Please enter your name.":"Zadajte svoje meno.","Please enter your store name.":"Zadajte názov obchodu.","Please enter your store's domain (for example yourstore.com).":"Zadajte doménu obchodu (napríklad vasobchod.sk).","The password must be at least 8 characters.":"Heslo musí mať aspoň 8 znakov.","We couldn't create your account. Please try again or contact info@publicator.ai.":"Váš účet sa nepodarilo vytvoriť. Skúste to znova alebo napíšte na info@publicator.ai.","Your account was created. Please sign in to connect your store.":"Váš účet bol vytvorený. Prihláste sa a pripojte obchod.","The app is not installed on this shop.":"Aplikácia nie je v tomto obchode nainštalovaná.","By creating an account you accept the {terms} and the {privacy}.":"Vytvorením účtu prijímate {terms} a {privacy}."}}};/*]]>*/</script>
 <script>/*<![CDATA[*/(function clientApp() {
   const CFG = window.__PUBAI__;
   const LOGO = "/logo.png";
   const WEBAPP_URL = "https://publicator.ai/app/dashboard";
-  // Shopify sign-up: account + webshop project only — the plan is chosen and
-  // billed in Shopify (Plan tab), so this flow has no Stripe step.
-  const SIGNUP_URL = "https://publicator.ai/webshop/regisztracio?source=shopify";
+  const PRIVACY_URL = "https://publicator.ai/privacy-policy";
+  const TERMS_URL = "https://publicator.ai/aszf";
+  const SUPPORT_EMAIL = "info@publicator.ai";
   const DICT = CFG.i18n || {};
   const $ = (sel, root = document)=>root.querySelector(sel);
   // Translate a UI string to the store's chosen language. Unknown strings
@@ -335,7 +358,10 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     "globe": '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
     "save": '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>',
     "chevron-down": '<path d="m6 9 6 6 6-6"/>',
-    "credit-card": '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>'
+    "info": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+    "credit-card": '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
+    "user-plus": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/>',
+    "mail": '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>'
   };
   function icon(name, size = 18, cls = "") {
     const span = el("span");
@@ -349,7 +375,11 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     settings: {},
     blogs: [],
     activeTab: "overview",
-    method: "email"
+    method: "email",
+    userNavigated: false,
+    billing: null,
+    recent: null,
+    syncNote: ""
   };
   async function token() {
     if (window.shopify && typeof shopify.idToken === "function") {
@@ -493,7 +523,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     return el("div", {
       class: `pub-notice pub-notice-${kind}`
     }, [
-      icon(kind === "error" ? "alert-triangle" : "check-circle-2", 16),
+      icon(kind === "error" ? "alert-triangle" : kind === "info" ? "info" : "check-circle-2", 16),
       el("span", {}, [
         msg
       ])
@@ -607,6 +637,19 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const card = el("div", {
       class: "pub-card pub-card-no-hover"
     });
+    const errBox = el("div", {});
+    const showErr = (m)=>{
+      errBox.innerHTML = "";
+      errBox.append(notice(m));
+    };
+    // New merchant: create the account inside the admin (no new tab, no
+    // separate website) — then connect + choose a plan right here.
+    if (state.method === "signup") {
+      signupForm(card, errBox, showErr);
+      shell.append(card);
+      setRoot(shell);
+      return;
+    }
     // Install steps.
     const steps = el("div", {
       class: "pub-install-steps"
@@ -657,11 +700,6 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     };
     toggle.append(emailPill, keyPill);
     card.append(toggle);
-    const errBox = el("div", {});
-    const showErr = (m)=>{
-      errBox.innerHTML = "";
-      errBox.append(notice(m));
-    };
     if (state.method === "email") {
       if (!state.session) {
         const email = el("input", {
@@ -683,8 +721,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
             });
             state.session = res;
             const p = await api("shopify-projects", {
-              access_token: res.access_token,
-              user_id: res.user_id
+              access_token: res.access_token
             });
             state.projects = p.projects || [];
             renderConnect();
@@ -742,6 +779,12 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           state.session = null;
           renderConnect();
         });
+        if (state.projects.length === 0) {
+          // The list holds only Publicator Webshop projects (the app's plans
+          // apply to those) — say so instead of showing an empty picker.
+          connect.disabled = true;
+          card.append(notice("This account has no Publicator Webshop project yet. Contact info@publicator.ai and we'll add one for you.", "info"));
+        }
         card.append(field("Select a project", select), connect, back, errBox);
       }
     } else {
@@ -766,18 +809,18 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       });
       card.append(field("API key", key), connect, errBox);
     }
-    // No account yet → the Shopify sign-up (opens in a new tab; the merchant
-    // comes back here to sign in, connect and choose a plan).
+    // No account yet → the in-app sign-up.
     if (!state.session) {
-      const shop = state.status && state.status.shop || "";
-      const signup = el("a", {
+      const signup = el("button", {
         class: "pub-signup-link",
-        href: SIGNUP_URL + (shop ? "&shop=" + encodeURIComponent(shop) : ""),
-        target: "_blank",
-        rel: "noopener"
+        type: "button"
       }, [
         "Create your account"
       ]);
+      signup.onclick = ()=>{
+        state.method = "signup";
+        renderConnect();
+      };
       card.append(el("p", {
         class: "pub-signup"
       }, [
@@ -788,6 +831,130 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     }
     shell.append(card);
     setRoot(shell);
+  }
+  // Host of a URL ("https://www.shop.com/" → "shop.com"); "" if not a URL.
+  function hostOf(url) {
+    try {
+      return new URL(url).hostname.replace(/^www\./, "");
+    } catch (_e) {
+      return "";
+    }
+  }
+  // In-app sign-up: account + Publicator Webshop project, then this store is
+  // connected to it in the same step. The plan is chosen afterwards on the Plan
+  // tab and billed through Shopify (no other payment step exists).
+  function signupForm(card, errBox, showErr) {
+    card.append(el("div", {
+      class: "pub-signup-head"
+    }, [
+      icon("user-plus", 18),
+      el("h2", {
+        class: "pub-signup-title"
+      }, [
+        "Create your Publicator Webshop account"
+      ])
+    ]), el("p", {
+      class: "pub-hint"
+    }, [
+      "We create your account and webshop project and connect this store in one step. Then you choose a plan on the Plan tab, billed through Shopify."
+    ]));
+    const name = el("input", {
+      type: "text",
+      autocomplete: "name"
+    });
+    const email = el("input", {
+      type: "email",
+      placeholder: "you@example.com",
+      autocomplete: "email"
+    });
+    const pass = el("input", {
+      type: "password",
+      placeholder: "••••••••",
+      autocomplete: "new-password"
+    });
+    const store = el("input", {
+      type: "text",
+      autocomplete: "organization"
+    });
+    const domain = el("input", {
+      type: "text",
+      placeholder: "yourstore.com",
+      autocomplete: "off",
+      spellcheck: false
+    });
+    // Prefill the store name + domain from the store itself (best-effort).
+    const prefill = (info)=>{
+      if (!store.value) store.value = info.shop_name || "";
+      if (!domain.value) domain.value = hostOf(info.primary_url || "");
+    };
+    if (state.shopInfo) {
+      prefill(state.shopInfo);
+    } else {
+      api("shopify-test", {}).then((r)=>{
+        state.shopInfo = r;
+        prefill(r);
+      }).catch(()=>{});
+    }
+    const create = btn("Create account and connect", "primary", null, async ()=>{
+      create.disabled = true;
+      errBox.innerHTML = "";
+      try {
+        await api("shopify-signup", {
+          full_name: name.value,
+          email: email.value,
+          password: pass.value,
+          shop_name: store.value,
+          domain: domain.value
+        });
+        toast("Account created and store connected");
+        state.method = "email";
+        await load();
+      } catch (e) {
+        showErr(e.message);
+        create.disabled = false;
+      }
+    });
+    // One translatable sentence; the {terms}/{privacy} slots become links.
+    const legal = el("p", {
+      class: "pub-legal"
+    });
+    const links = {
+      terms: el("a", {
+        href: TERMS_URL,
+        target: "_blank",
+        rel: "noopener"
+      }, [
+        "Terms of Service"
+      ]),
+      privacy: el("a", {
+        href: PRIVACY_URL,
+        target: "_blank",
+        rel: "noopener"
+      }, [
+        "Privacy Policy"
+      ])
+    };
+    for (const part of t("By creating an account you accept the {terms} and the {privacy}.").split(/(\{terms\}|\{privacy\})/)){
+      const slot = part.match(/^\{(terms|privacy)\}$/);
+      legal.append(slot ? links[slot[1]] : document.createTextNode(part));
+    }
+    const signIn = el("button", {
+      class: "pub-signup-link",
+      type: "button"
+    }, [
+      "Sign in"
+    ]);
+    signIn.onclick = ()=>{
+      state.method = "email";
+      renderConnect();
+    };
+    card.append(field("Your name", name), field("Email address", email), field("Password (at least 8 characters)", pass), field("Store name", store), field("Store domain", domain), legal, create, errBox, el("p", {
+      class: "pub-signup"
+    }, [
+      "Already have an account?",
+      " ",
+      signIn
+    ]));
   }
   // --- Connected app ---------------------------------------------------------
   const TABS = [
@@ -856,6 +1023,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       ]);
       b.onclick = ()=>{
         state.activeTab = t.id;
+        state.userNavigated = true;
         state.confirmDisconnect = false;
         renderApp();
       };
@@ -961,6 +1129,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     settingsBtn.onclick = ()=>{
       close();
       state.activeTab = "settings";
+      state.userNavigated = true;
       renderApp();
     };
     const discBtn = el("button", {
@@ -975,6 +1144,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     discBtn.onclick = ()=>{
       close();
       state.activeTab = "settings";
+      state.userNavigated = true;
       state.confirmDisconnect = true;
       renderApp();
     };
@@ -1059,6 +1229,20 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     }, [
       pageHead("Overview", "Live snapshot of your Publicator Webshop connection.")
     ]);
+    // No Shopify plan yet → say so first, with a direct way to choose one.
+    if (state.billing && !state.billing.subscription) {
+      const choose = btn("Choose a plan", "primary", "credit-card", ()=>{
+        state.activeTab = "billing";
+        state.userNavigated = true;
+        renderApp();
+      });
+      p.append(el("div", {
+        class: "pub-plan-banner"
+      }, [
+        notice("No active plan yet. Choose a plan to start publishing SEO content to your store.", "info"),
+        choose
+      ]));
+    }
     p.append(el("div", {
       class: "pub-stat-grid"
     }, [
@@ -1073,8 +1257,128 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       metaItem("Store", s.shop || "—"),
       metaItem("Project", s.project_domain || "—")
     ]));
+    p.append(recentCard());
     return p;
   }
+  // "Recently published": the latest articles / product and collection
+  // descriptions Publicator Webshop put into this store, with links to them.
+  const RECENT_TYPE = {
+    article: {
+      label: "Blog article",
+      icon: "file-text"
+    },
+    product: {
+      label: "Product description",
+      icon: "package"
+    },
+    collection: {
+      label: "Collection description",
+      icon: "tags"
+    }
+  };
+  function recentCard() {
+    const card = el("div", {
+      class: "pub-card pub-card-no-hover pub-recent"
+    }, [
+      el("h2", {
+        class: "pub-card-title"
+      }, [
+        "Recently published"
+      ])
+    ]);
+    const body = el("div", {});
+    card.append(body);
+    const paint = (r)=>{
+      body.innerHTML = "";
+      const items = r && r.items || [];
+      if (!items.length) {
+        body.append(el("p", {
+          class: "pub-hint pub-recent-empty"
+        }, [
+          "Nothing published yet. New blog articles and product descriptions appear here as soon as Publicator Webshop publishes them to your store."
+        ]));
+        return;
+      }
+      const list = el("ul", {
+        class: "pub-recent-list"
+      });
+      for (const it of items){
+        const kind = RECENT_TYPE[it.type] || RECENT_TYPE.article;
+        const links = el("span", {
+          class: "pub-recent-links"
+        });
+        if (it.admin_link) {
+          links.append(el("a", {
+            href: it.admin_link,
+            target: "_top"
+          }, [
+            "Open in admin"
+          ]));
+        }
+        if (it.storefront_link) {
+          links.append(el("a", {
+            href: it.storefront_link,
+            target: "_blank",
+            rel: "noopener"
+          }, [
+            "View in store"
+          ]));
+        }
+        list.append(el("li", {
+          class: "pub-recent-item"
+        }, [
+          el("span", {
+            class: "pub-recent-ic"
+          }, [
+            icon(kind.icon, 16)
+          ]),
+          el("span", {
+            class: "pub-recent-main"
+          }, [
+            el("strong", {}, [
+              document.createTextNode(it.title || t(kind.label))
+            ]),
+            el("span", {
+              class: "pub-recent-meta"
+            }, [
+              t(kind.label) + " · " + fmtDate(it.updated_at)
+            ])
+          ]),
+          links
+        ]));
+      }
+      body.append(list);
+    };
+    if (state.recent) {
+      paint(state.recent);
+    } else {
+      body.append(el("span", {
+        class: "pub-inline-note"
+      }, [
+        "Loading…"
+      ]));
+      // One request per load, shared by re-renders of the Overview.
+      if (!recentReq) {
+        recentReq = api("shopify-recent", {});
+        recentReq.catch(()=>{
+          recentReq = null; // the next Overview render retries
+        });
+      }
+      recentReq.then((r)=>{
+        state.recent = r;
+        paint(r);
+      }).catch(()=>{
+        body.innerHTML = "";
+        body.append(el("span", {
+          class: "pub-inline-note"
+        }, [
+          "Could not load recently published content."
+        ]));
+      });
+    }
+    return card;
+  }
+  let recentReq = null;
   function connectionPanel() {
     const s = state.status || {};
     const card = el("div", {
@@ -1151,7 +1455,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     ]));
     const out = el("span", {
       class: "pub-inline-note"
-    });
+    }, [
+      state.syncNote || ""
+    ]);
     const syncBtn = btn("Sync products now", "primary", "refresh-cw", async ()=>{
       syncBtn.disabled = true;
       out.textContent = t("Starting sync…");
@@ -1159,6 +1465,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         const r = await api("shopify-products-sync", {});
         out.textContent = r.bulk_operation_id ? t("Sync started. Products will appear shortly.") : t("Sync requested.");
         toast("Product sync started");
+        if (r.bulk_operation_id) watchSync(s.last_feed_sync_at || null);
       } catch (e) {
         out.textContent = t(e.message);
       }
@@ -1176,6 +1483,35 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       pageHead("Products", "Sync your Shopify catalog into Publicator Webshop."),
       card
     ]);
+  }
+  // Follow a started product sync (Shopify finishes the bulk export in the
+  // background): poll the status for up to ~2 minutes and show the result.
+  let syncWatch = 0;
+  function watchSync(prevSyncAt) {
+    const run = ++syncWatch;
+    let tries = 0;
+    const tick = async ()=>{
+      if (run !== syncWatch) return; // a newer sync superseded this one
+      tries++;
+      try {
+        const s = await api("shopify-status", {});
+        if (s.connected && s.last_feed_sync_at && s.last_feed_sync_at !== prevSyncAt) {
+          state.status = s;
+          state.syncNote = tf("Sync finished: {count} products.", {
+            count: s.products_synced ?? 0
+          });
+          if (state.activeTab === "products" || state.activeTab === "overview") renderApp();
+          return;
+        }
+      } catch (_e) {}
+      if (tries < 24) {
+        setTimeout(tick, 5000);
+      } else {
+        state.syncNote = t("The sync is still running. Reload the app in a few minutes to see the result.");
+        if (state.activeTab === "products") renderApp();
+      }
+    };
+    setTimeout(tick, 5000);
   }
   function taxonomiesPanel() {
     const card = el("div", {
@@ -1463,6 +1799,38 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       ])
     ]));
     section.append(langCard);
+    // Help.
+    section.append(el("div", {
+      class: "pub-card pub-card-no-hover"
+    }, [
+      el("div", {
+        class: "pub-language-row"
+      }, [
+        el("div", {
+          class: "pub-language-text"
+        }, [
+          el("div", {
+            class: "pub-language-label"
+          }, [
+            "Help & support"
+          ]),
+          el("p", {
+            class: "pub-language-desc"
+          }, [
+            "Questions about the app, your content or your plan? Email us."
+          ])
+        ]),
+        el("a", {
+          class: "pub-btn pub-btn-secondary",
+          href: "mailto:" + SUPPORT_EMAIL,
+          target: "_blank",
+          rel: "noopener"
+        }, [
+          icon("mail", 14),
+          document.createTextNode(SUPPORT_EMAIL)
+        ])
+      ])
+    ]));
     // Danger. Two steps: the first click explains that the Shopify plan is not
     // cancelled by disconnecting; only the second click disconnects.
     const danger = el("div", {
@@ -1539,6 +1907,11 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     // Every load (open, after connect/disconnect) syncs the plan afresh — a
     // cached result from before a reconnect would hide the new project's state.
     billingCache = null;
+    recentReq = null;
+    state.billing = null;
+    state.recent = null;
+    state.syncNote = "";
+    state.userNavigated = false;
     setRoot(loadingBlock("Loading live data…"));
     try {
       const s = await api("shopify-status", {});
@@ -1550,9 +1923,19 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         // user). This avoids blocking the first paint on an extra round trip.
         renderApp();
         // Re-sync the Shopify billing entitlement on every open (covers the
-        // merchant returning from Shopify's hosted pricing page). Fire-and-forget
-        // — it never blocks or disrupts the UI.
-        billingRequest().catch(()=>{});
+        // merchant returning from Shopify's hosted pricing page). Without an
+        // active plan the merchant lands on the Plan tab (unless they already
+        // moved elsewhere), and the Overview shows a "Choose a plan" banner.
+        billingRequest().then((b)=>{
+          state.billing = b;
+          if (!state.status || !state.status.connected) return;
+          if (!b.subscription && !state.userNavigated) {
+            state.activeTab = "billing";
+            renderApp();
+          } else if (state.activeTab === "overview") {
+            renderApp();
+          }
+        }).catch(()=>{});
         api("shopify-brand", {}).then((b)=>{
           const chosen = state.settings.language;
           state.settings = b.settings || {};
@@ -1578,7 +1961,17 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         renderConnect();
       }
     } catch (e) {
-      setRoot(notice(t("Could not load the app:") + " " + e.message));
+      const retry = btn("Try again", "primary", "refresh-cw", ()=>load());
+      setRoot(el("div", {
+        class: "pub-shell"
+      }, [
+        notice(t("Could not load the app:") + " " + t(e.message)),
+        el("div", {
+          class: "pub-actions"
+        }, [
+          retry
+        ])
+      ]));
     }
   }
   // Wait for App Bridge to be ready, then boot. Give up after ~6s with a clear
