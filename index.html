@@ -1685,12 +1685,15 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     return p.state;
   }
   // Follow a generation run: refresh the list until every requested product has
-  // a newer description (or ~4 minutes pass). Re-renders only on changes.
+  // a newer description (every 8 s for ~4 minutes, then every 30 s up to 20
+  // minutes — a long batch is written one product after the other). Re-renders
+  // only on changes.
   let descWatch = 0;
   // Follows every product still marked as sent (also those of an earlier run
   // this one superseded), each against its own send time.
   function watchDescriptions() {
     const run = ++descWatch;
+    const startedAt = Date.now();
     let tries = 0;
     let last = "";
     const tick = async ()=>{
@@ -1718,9 +1721,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         if (sig !== last && state.activeTab === "descriptions") renderApp();
         last = sig;
       } catch (_e) {}
-      if (tries < 30) setTimeout(tick, 8000);
+      if (Date.now() - startedAt < 20 * 60_000) setTimeout(tick, tries < 30 ? 8000 : 30_000);
       else {
-        state.desc.pending = {};
+        // The marks expire on their own (shownState); a refresh shows new drafts.
         state.desc.note = t("Some descriptions are still being written. Refresh the list in a few minutes.");
         if (state.activeTab === "descriptions") renderApp();
       }
