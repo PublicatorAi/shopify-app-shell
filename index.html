@@ -1675,10 +1675,11 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   }
   // Shown state: products just sent to the writer read "Writing…" until the list
   // shows their new text (the server also reports runs it knows about).
+  // A mark counts for 20 minutes; only the follow-up below removes marks (and
+  // reports them), so a re-render never changes what it reports.
   function shownState(p) {
     const sent = state.desc.pending[p.id];
-    if (sent && Date.now() - sent > 20 * 60_000) delete state.desc.pending[p.id];
-    else if (sent && p.state !== "writing") {
+    if (sent && Date.now() - sent <= 20 * 60_000 && p.state !== "writing") {
       const newer = p.description_updated_at && Date.parse(p.description_updated_at) >= sent;
       if (!newer) return "writing";
     }
@@ -1689,6 +1690,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   // minutes — a long batch is written one product after the other). Re-renders
   // only on changes.
   let descWatch = 0;
+  // Drafts that arrived while following (this run and runs it superseded).
+  let descArrived = 0;
+  const MARK_MS = 20 * 60_000;
   // Follows every product still marked as sent (also those of an earlier run
   // this one superseded), each against its own send time.
   function watchDescriptions() {
@@ -1696,37 +1700,47 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const startedAt = Date.now();
     let tries = 0;
     let last = "";
+    let ended = false; // a mark ran out while following
+    const sent = state.desc.pending;
+    for (const id of Object.keys(sent))if (Date.now() - sent[id] > MARK_MS) delete sent[id];
+    const finish = ()=>{
+      const parts = [];
+      if (descArrived) parts.push(tf("Descriptions ready to review: {count}.", {
+        count: descArrived
+      }));
+      if (ended || !descArrived) parts.push(t("Some descriptions are still being written. Refresh the list in a few minutes."));
+      descArrived = 0;
+      state.desc.note = parts.join(" ");
+      if (state.activeTab === "descriptions") renderApp();
+    };
     const tick = async ()=>{
       if (run !== descWatch) return;
       tries++;
       try {
         const r = await loadDescriptions();
-        const sent = state.desc.pending;
+        if (run !== descWatch) return; // a newer run took over meanwhile
+        for (const id of Object.keys(sent)){
+          if (Date.now() - sent[id] > MARK_MS) {
+            delete sent[id];
+            ended = true;
+          }
+        }
         const ids = Object.keys(sent);
         const mine = (r.products || []).filter((p)=>ids.includes(p.id));
         const fresh = mine.filter((p)=>p.description_updated_at && Date.parse(p.description_updated_at) >= sent[p.id]);
         fresh.forEach((p)=>delete sent[p.id]);
+        descArrived += fresh.length;
         const sig = JSON.stringify(mine.map((p)=>[
             p.id,
             p.state,
             p.description_updated_at
           ]));
-        if (!Object.keys(sent).length) {
-          state.desc.note = tf("Descriptions ready to review: {count}.", {
-            count: ids.length
-          });
-          if (state.activeTab === "descriptions") renderApp();
-          return;
-        }
+        if (!Object.keys(sent).length) return finish();
         if (sig !== last && state.activeTab === "descriptions") renderApp();
         last = sig;
       } catch (_e) {}
-      if (Date.now() - startedAt < 20 * 60_000) setTimeout(tick, tries < 30 ? 8000 : 30_000);
-      else {
-        // The marks expire on their own (shownState); a refresh shows new drafts.
-        state.desc.note = t("Some descriptions are still being written. Refresh the list in a few minutes.");
-        if (state.activeTab === "descriptions") renderApp();
-      }
+      if (Date.now() - startedAt < MARK_MS) setTimeout(tick, tries < 30 ? 8000 : 30_000);
+      else finish();
     };
     setTimeout(tick, 8000);
   }
@@ -2639,6 +2653,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     state.syncNote = "";
     state.userNavigated = false;
     descWatch++; // stop following a generation started before this (re)load
+    descArrived = 0;
     descGen++;
     descReq = null;
     state.desc = {
