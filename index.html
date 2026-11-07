@@ -1690,9 +1690,55 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   // minutes — a long batch is written one product after the other). Re-renders
   // only on changes.
   let descWatch = 0;
-  // Drafts that arrived while following (this run and runs it superseded).
-  let descArrived = 0;
   const MARK_MS = 20 * 60_000;
+  // What the next note reports, across runs (a new run takes over the follow-up
+  // of the earlier ones): drafts that arrived, marks that ran out without one.
+  let descArrived = 0;
+  let descLapsed = 0;
+  // Marks a note already reported as still being written (not reported again).
+  let descNoted = {};
+  // The one place marks end: against a fresh list, drafts first (also one that
+  // arrived just before its mark ran out), then marks older than 20 minutes.
+  // Returns whether any mark ended.
+  function settleMarks(products) {
+    const sent = state.desc.pending;
+    let changed = false;
+    for (const p of products){
+      const at = sent[p.id];
+      if (at && p.description_updated_at && Date.parse(p.description_updated_at) >= at) {
+        delete sent[p.id];
+        delete descNoted[p.id];
+        descArrived++;
+        changed = true;
+      }
+    }
+    for (const id of Object.keys(sent)){
+      if (Date.now() - sent[id] > MARK_MS) {
+        delete sent[id];
+        if (descNoted[id]) delete descNoted[id];
+        else descLapsed++;
+        changed = true;
+      }
+    }
+    return changed;
+  }
+  // The note at the end of a follow-up: drafts that arrived, and — when a mark
+  // ran out, is still open, or could not be checked — "still being written".
+  function reportMarks() {
+    const open = Object.keys(state.desc.pending).filter((id)=>!descNoted[id]);
+    const parts = [];
+    if (descArrived) parts.push(tf("Descriptions ready to review: {count}.", {
+      count: descArrived
+    }));
+    if (descLapsed || open.length || !descArrived) {
+      parts.push(t("Some descriptions are still being written. Refresh the list in a few minutes."));
+    }
+    open.forEach((id)=>descNoted[id] = true);
+    descArrived = 0;
+    descLapsed = 0;
+    state.desc.note = parts.join(" ");
+    if (state.activeTab === "descriptions") renderApp();
+  }
   // Follows every product still marked as sent (also those of an earlier run
   // this one superseded), each against its own send time.
   function watchDescriptions() {
@@ -1700,56 +1746,26 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const startedAt = Date.now();
     let tries = 0;
     let last = "";
-    let ended = false; // a mark ran out unreported (it is mentioned in the note)
-    const sent = state.desc.pending;
-    // Marks that ran out before this follow-up (e.g. of the run it superseded).
-    const expire = ()=>{
-      for (const id of Object.keys(sent)){
-        if (Date.now() - sent[id] > MARK_MS) {
-          delete sent[id];
-          ended = true;
-        }
-      }
-    };
-    expire();
-    const finish = ()=>{
-      // Marks still open (or not checked: the last poll failed) are reported
-      // too; the ones that ran out are reported now and not again later.
-      const open = Object.keys(sent).length > 0;
-      expire();
-      const parts = [];
-      if (descArrived) parts.push(tf("Descriptions ready to review: {count}.", {
-        count: descArrived
-      }));
-      if (ended || open || !descArrived) parts.push(t("Some descriptions are still being written. Refresh the list in a few minutes."));
-      descArrived = 0;
-      state.desc.note = parts.join(" ");
-      if (state.activeTab === "descriptions") renderApp();
-    };
     const tick = async ()=>{
       if (run !== descWatch) return;
       tries++;
       try {
         const r = await loadDescriptions();
         if (run !== descWatch) return; // a newer run took over meanwhile
-        // Drafts first (also one that arrived just before its mark ran out).
-        const ids = Object.keys(sent);
-        const mine = (r.products || []).filter((p)=>ids.includes(p.id));
-        const fresh = mine.filter((p)=>p.description_updated_at && Date.parse(p.description_updated_at) >= sent[p.id]);
-        fresh.forEach((p)=>delete sent[p.id]);
-        descArrived += fresh.length;
-        expire();
-        const sig = JSON.stringify(mine.map((p)=>[
+        const products = r.products || [];
+        const ended = settleMarks(products);
+        const ids = Object.keys(state.desc.pending);
+        if (!ids.some((id)=>!descNoted[id])) return reportMarks();
+        const sig = JSON.stringify(products.filter((p)=>ids.includes(p.id)).map((p)=>[
             p.id,
             p.state,
             p.description_updated_at
           ]));
-        if (!Object.keys(sent).length) return finish();
-        if (sig !== last && state.activeTab === "descriptions") renderApp();
+        if ((ended || sig !== last) && state.activeTab === "descriptions") renderApp();
         last = sig;
       } catch (_e) {}
       if (Date.now() - startedAt < MARK_MS) setTimeout(tick, tries < 30 ? 8000 : 30_000);
-      else finish();
+      else reportMarks();
     };
     setTimeout(tick, 8000);
   }
@@ -1898,7 +1914,10 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           ...r.started_ids || [],
           ...r.unconfirmed_ids || []
         ];
-        sentIds.forEach((id)=>d.pending[id] = sentAt - 5000);
+        sentIds.forEach((id)=>{
+          d.pending[id] = sentAt - 5000;
+          delete descNoted[id]; // a new send: report it afresh
+        });
         const parts = [];
         if (r.started || !r.unconfirmed) {
           parts.push(tf("Descriptions being written: {count}. They appear here as drafts within a few minutes.", {
@@ -2663,6 +2682,8 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     state.userNavigated = false;
     descWatch++; // stop following a generation started before this (re)load
     descArrived = 0;
+    descLapsed = 0;
+    descNoted = {};
     descGen++;
     descReq = null;
     state.desc = {
