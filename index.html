@@ -1700,15 +1700,28 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const startedAt = Date.now();
     let tries = 0;
     let last = "";
-    let ended = false; // a mark ran out while following
+    let ended = false; // a mark ran out unreported (it is mentioned in the note)
     const sent = state.desc.pending;
-    for (const id of Object.keys(sent))if (Date.now() - sent[id] > MARK_MS) delete sent[id];
+    // Marks that ran out before this follow-up (e.g. of the run it superseded).
+    const expire = ()=>{
+      for (const id of Object.keys(sent)){
+        if (Date.now() - sent[id] > MARK_MS) {
+          delete sent[id];
+          ended = true;
+        }
+      }
+    };
+    expire();
     const finish = ()=>{
+      // Marks still open (or not checked: the last poll failed) are reported
+      // too; the ones that ran out are reported now and not again later.
+      const open = Object.keys(sent).length > 0;
+      expire();
       const parts = [];
       if (descArrived) parts.push(tf("Descriptions ready to review: {count}.", {
         count: descArrived
       }));
-      if (ended || !descArrived) parts.push(t("Some descriptions are still being written. Refresh the list in a few minutes."));
+      if (ended || open || !descArrived) parts.push(t("Some descriptions are still being written. Refresh the list in a few minutes."));
       descArrived = 0;
       state.desc.note = parts.join(" ");
       if (state.activeTab === "descriptions") renderApp();
@@ -1719,17 +1732,13 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       try {
         const r = await loadDescriptions();
         if (run !== descWatch) return; // a newer run took over meanwhile
-        for (const id of Object.keys(sent)){
-          if (Date.now() - sent[id] > MARK_MS) {
-            delete sent[id];
-            ended = true;
-          }
-        }
+        // Drafts first (also one that arrived just before its mark ran out).
         const ids = Object.keys(sent);
         const mine = (r.products || []).filter((p)=>ids.includes(p.id));
         const fresh = mine.filter((p)=>p.description_updated_at && Date.parse(p.description_updated_at) >= sent[p.id]);
         fresh.forEach((p)=>delete sent[p.id]);
         descArrived += fresh.length;
+        expire();
         const sig = JSON.stringify(mine.map((p)=>[
             p.id,
             p.state,
