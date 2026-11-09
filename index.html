@@ -1910,6 +1910,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       d.note = "";
       const seq = loadSeq;
       descWatch++; // this click takes over following the earlier runs' marks
+      // The list as it was at the click (a list refreshed while the call runs
+      // may already show this send's drafts).
+      const shown = d.data && d.data.products || [];
       renderApp();
       try {
         const r = await api("shopify-descriptions", {
@@ -1922,13 +1925,12 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           ...r.started_ids || [],
           ...r.unconfirmed_ids || []
         ];
-        // A product sent again: its earlier mark ends first, against the list on
-        // screen (a draft shown there is counted, a mark that ran out is
-        // reported) — the other marks wait for the next poll's fresh list.
-        const shown = d.data && d.data.products || [];
+        // A product sent again: its earlier mark ends first, against the list
+        // seen at the click (a draft shown there is counted, a mark that ran out
+        // is reported) — the other marks wait for the next poll's fresh list.
         settleMarks(shown, sentIds);
         sentIds.forEach((id)=>{
-          // After the draft on screen, so that draft is not counted again.
+          // After the draft seen at the click, so that draft is not counted again.
           const p = shown.find((x)=>x.id === id);
           const after = p && p.description_updated_at ? Date.parse(p.description_updated_at) + 1 : 0;
           d.pending[id] = Math.max(sentAt - 5000, after);
