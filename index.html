@@ -1690,6 +1690,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   // minutes — a long batch is written one product after the other). Re-renders
   // only on changes.
   let descWatch = 0;
+  let loadSeq = 0; // bumped by load(): a reload or disconnect
   const MARK_MS = 20 * 60_000;
   // What the next note reports, across runs (a new run takes over the follow-up
   // of the earlier ones): drafts that arrived, marks that ran out without one.
@@ -1699,11 +1700,13 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
   let descNoted = {};
   // The one place marks end: against a fresh list, drafts first (also one that
   // arrived just before its mark ran out), then marks older than 20 minutes.
+  // `only`: just these products (sent again: their old marks end first).
   // Returns whether any mark ended.
-  function settleMarks(products) {
+  function settleMarks(products, only) {
     const sent = state.desc.pending;
     let changed = false;
     for (const p of products){
+      if (only && !only.includes(p.id)) continue;
       const at = sent[p.id];
       if (at && p.description_updated_at && Date.parse(p.description_updated_at) >= at) {
         delete sent[p.id];
@@ -1712,8 +1715,8 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         changed = true;
       }
     }
-    for (const id of Object.keys(sent)){
-      if (Date.now() - sent[id] > MARK_MS) {
+    for (const id of only || Object.keys(sent)){
+      if (sent[id] && Date.now() - sent[id] > MARK_MS) {
         delete sent[id];
         if (descNoted[id]) delete descNoted[id];
         else descLapsed++;
@@ -1755,7 +1758,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         const products = r.products || [];
         const ended = settleMarks(products);
         const ids = Object.keys(state.desc.pending);
-        if (!ids.some((id)=>!descNoted[id])) return reportMarks();
+        if (!ids.length) return reportMarks();
         const sig = JSON.stringify(products.filter((p)=>ids.includes(p.id)).map((p)=>[
             p.id,
             p.state,
@@ -1903,17 +1906,24 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       if (d.busy || !toWrite.length) return;
       d.busy = true;
       d.note = "";
+      const seq = loadSeq;
+      descWatch++; // this click takes over following the earlier runs' marks
       renderApp();
       try {
         const r = await api("shopify-descriptions", {
           action: "generate",
           product_ids: toWrite
         });
+        if (seq !== loadSeq) return; // reloaded or disconnected meanwhile
         const sentAt = Date.parse(r.started_at) || Date.now();
         const sentIds = [
           ...r.started_ids || [],
           ...r.unconfirmed_ids || []
         ];
+        // A product sent again: its earlier mark ends first, against the list on
+        // screen (a draft shown there is counted, a mark that ran out is
+        // reported) — the other marks wait for the next poll's fresh list.
+        settleMarks(d.data && d.data.products || [], sentIds);
         sentIds.forEach((id)=>{
           d.pending[id] = sentAt - 5000;
           delete descNoted[id]; // a new send: report it afresh
@@ -1940,11 +1950,13 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
           count: r.remaining_quota
         }));
         d.note = parts.join(" ");
-        if (sentIds.length) watchDescriptions();
         d.selected = [];
       } catch (e) {
+        if (seq !== loadSeq) return;
         d.note = t(e.message);
       }
+      // Follow every open mark (also the earlier runs' ones, if this failed).
+      if (Object.keys(d.pending).length) watchDescriptions();
       d.busy = false;
       renderApp();
     });
@@ -1984,12 +1996,14 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     const confirmBtn = btn("Publish", "primary", "upload", async ()=>{
       if (d.busy) return;
       d.busy = true;
+      const seq = loadSeq;
       renderApp();
       try {
         const r = await api("shopify-descriptions", {
           action: "publish",
           product_ids: withText
         });
+        if (seq !== loadSeq) return; // reloaded or disconnected meanwhile
         const failed = (r.failed || []).map((f)=>(f.title || "—") + ": " + t(f.error)).join(" · ");
         d.note = tf("Published to your store: {count}.", {
           count: r.published
@@ -1999,6 +2013,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         state.recent = null; // the Overview's "Recently published" changes
         recentReq = null;
       } catch (e) {
+        if (seq !== loadSeq) return;
         d.note = t(e.message);
       }
       d.busy = false;
@@ -2172,6 +2187,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       const yes = btn(which === "previous" ? "Restore previous version" : "Restore original", "primary", "rotate-ccw", async ()=>{
         if (d.busy) return;
         d.busy = true;
+        const seq = loadSeq;
         renderApp();
         try {
           await api("shopify-descriptions", {
@@ -2179,11 +2195,13 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
             product_id: p.id,
             which
           });
+          if (seq !== loadSeq) return; // reloaded or disconnected meanwhile
           toast(which === "previous" ? "Previous version restored" : "Original description restored");
           d.note = t("The saved version is back in your store. What was there before is kept as the previous version.");
           state.recent = null;
           recentReq = null;
         } catch (e) {
+          if (seq !== loadSeq) return;
           d.note = t(e.message);
         }
         d.busy = false;
@@ -2680,6 +2698,7 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
     state.recent = null;
     state.syncNote = "";
     state.userNavigated = false;
+    loadSeq++; // answers to calls made before this (re)load are dropped
     descWatch++; // stop following a generation started before this (re)load
     descArrived = 0;
     descLapsed = 0;
