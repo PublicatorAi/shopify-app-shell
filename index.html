@@ -1586,7 +1586,9 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
       const req = api("shopify-descriptions", {
         action: "list"
       }).then((r)=>{
-        if (gen !== descGen) return state.desc.data; // stale (a publish happened meanwhile)
+        // Out of date for the screen (a publish happened meanwhile): not shown,
+        // but still a real answer for the follow-up.
+        if (gen !== descGen) return r;
         state.desc.data = r;
         state.desc.error = "";
         const ids = new Set((r.products || []).map((p)=>p.id));
@@ -1923,9 +1925,13 @@ body { margin:0; background:#fff; color:var(--pub-ink); font-size:14px;
         // A product sent again: its earlier mark ends first, against the list on
         // screen (a draft shown there is counted, a mark that ran out is
         // reported) — the other marks wait for the next poll's fresh list.
-        settleMarks(d.data && d.data.products || [], sentIds);
+        const shown = d.data && d.data.products || [];
+        settleMarks(shown, sentIds);
         sentIds.forEach((id)=>{
-          d.pending[id] = sentAt - 5000;
+          // After the draft on screen, so that draft is not counted again.
+          const p = shown.find((x)=>x.id === id);
+          const after = p && p.description_updated_at ? Date.parse(p.description_updated_at) + 1 : 0;
+          d.pending[id] = Math.max(sentAt - 5000, after);
           delete descNoted[id]; // a new send: report it afresh
         });
         const parts = [];
